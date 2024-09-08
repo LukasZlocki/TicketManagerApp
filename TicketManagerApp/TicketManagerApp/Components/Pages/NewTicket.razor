@@ -1,6 +1,7 @@
 ﻿@page "/newticket"
 
 @using TicketManager.Models.Models
+@using TicketManagerApp.Services.Department_Services
 @using TicketManagerApp.Services.FactoryLocation_Services
 @using TicketManagerApp.Services.LabLocationServices
 @using TicketManagerApp.Services.ProductFamily_Services
@@ -8,6 +9,7 @@
 @inject ILabLocationService LabLocationService
 @inject IFactoryLocationService FactoryLocationService
 @inject IProductFamilyService ProductFamilyService
+@inject IDepartmentService DepartmentSerivce
 
 @inject HttpClient http
 @inject NavigationManager Navigation
@@ -277,8 +279,7 @@ else
 
     private async Task LoadDedicatedDepartmentsByFactoryId(int factoryId)
     {
-
-        //DepartmentsDedicatedList = await http.GetFromJsonAsync<List<Department>>("https://localhost:7259/api/departmentbyfactory/" + factoryId) ?? new List<Department>();
+        DepartmentsDedicatedList = await DepartmentSerivce.GetAllDepartmentsByFactoryLocationId(factoryId);
     }
 
     private async Task LoadProductTypeDedicatedListByProductFamilyId(int productFamilyId)

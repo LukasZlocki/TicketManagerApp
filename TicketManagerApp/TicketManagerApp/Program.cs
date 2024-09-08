@@ -6,6 +6,7 @@ using TicketManagerApp.Client.Pages;
 using TicketManagerApp.Components;
 using TicketManagerApp.Components.Account;
 using TicketManagerApp.Data;
+using TicketManagerApp.Services.Ticket_Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,12 +35,18 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 // Register seeder
 builder.Services.AddScoped<DbSeeder>();
 
+// Register services
+builder.Services.AddScoped<ITicketService, TicketService>();
+
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+// Register HttpClient
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

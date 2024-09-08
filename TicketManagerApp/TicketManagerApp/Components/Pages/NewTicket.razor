@@ -2,14 +2,7 @@
 @rendermode InteractiveServer
 
 @using TicketManager.Models.Models
-@using TicketManagerApp.Services.Department_Services
-@using TicketManagerApp.Services.FactoryLocation_Services
-@using TicketManagerApp.Services.LabLocationServices
-@using TicketManagerApp.Services.ProductDisplacement_Services
-@using TicketManagerApp.Services.ProductFamily_Services
-@using TicketManagerApp.Services.ProductTypeServices
-@using TicketManagerApp.Services.TestParameter_Services
-@using TicketManagerApp.Services.Test_Services
+@using TicketManagerApp.Services
 
 @inject ILabLocationService LabLocationService
 @inject IFactoryLocationService FactoryLocationService
@@ -19,6 +12,7 @@
 @inject IProductDisplacementService ProductDisplacementService
 @inject ITestService TestService
 @inject ITestParameterServices TestParameterService
+@inject ITicketService TicketService 
 
 @inject HttpClient http
 @inject NavigationManager Navigation
@@ -426,13 +420,26 @@ else
 
     private async Task CreateTicketRequest()
     {
-        var response = await http.PostAsJsonAsync<Ticket>($"https://localhost:7259/api/ticketcreate", UserTicketVM);
-        if (response.IsSuccessStatusCode)
+        try
         {
-            Navigation.NavigateTo("/", true);
+            var ticket = await TicketService.CreateTicket(UserTicketVM);
+            if (ticket != null)
+            {
+                Navigation.NavigateTo("/", true);
+            }
+            else
+            {
+                // Handle the case where ticket creation failed but no exception was thrown
+                Console.WriteLine("Ticket creation failed.");
+            }
         }
-
+        catch (Exception ex)
+        {
+            // Log the exception and handle it appropriately
+            Console.WriteLine($"An error occurred while creating the ticket: {ex.Message}");
+        }
     }
+
 
     private void AddNewTestToTicketTestsList()
     {

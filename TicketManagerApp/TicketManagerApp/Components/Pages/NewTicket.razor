@@ -4,14 +4,18 @@
 @using TicketManagerApp.Services.Department_Services
 @using TicketManagerApp.Services.FactoryLocation_Services
 @using TicketManagerApp.Services.LabLocationServices
+@using TicketManagerApp.Services.ProductDisplacement_Services
 @using TicketManagerApp.Services.ProductFamily_Services
 @using TicketManagerApp.Services.ProductTypeServices
+@using TicketManagerApp.Services.Test_Services
 
 @inject ILabLocationService LabLocationService
 @inject IFactoryLocationService FactoryLocationService
 @inject IProductFamilyService ProductFamilyService
 @inject IDepartmentService DepartmentSerivce
 @inject IProductTypeService ProductTypeService
+@inject IProductDisplacementService ProductDisplacementService
+@inject ITestService TestService
 
 @inject HttpClient http
 @inject NavigationManager Navigation
@@ -286,23 +290,22 @@ else
 
     private async Task LoadProductTypeDedicatedListByProductFamilyId(int productFamilyId)
     {
-        // ToDo : Here !
         ProductTypesDedicatedList = await ProductTypeService.GetAllProductTypesByFamilyId(productFamilyId);
     }
 
     private async Task LoadDedicatedProductDisplacements(int productTypeId)
     {
-        ProductDisplacementsDedicatedList = await http.GetFromJsonAsync<List<ProductDisplacement>>($"https://localhost:7259/api/productdisplacementbyproductfamily/{productTypeId}") ?? new List<ProductDisplacement>();
+        ProductDisplacementsDedicatedList = await ProductDisplacementService.GetProductDisplacementsByProductFamilyId(productTypeId);
     }
 
     private async Task LoadDedicatedTests(int testId)
     {
-
-        TestsDedicatedList = await http.GetFromJsonAsync<List<Test>>($"https://localhost:7259/api/testbylablocation/{testId}") ?? new List<Test>();
+        TestsDedicatedList = await TestService.GetTestsByLabLocation(testId);
     }
 
     private async Task LoadDedicatedTestParametersByTestId(int testId)
     {
+        // ToDo Here
         TestParametersDedicatedList = await http.GetFromJsonAsync<List<TestParameter>>($"https://localhost:7259/api/parametersbytestid/{testId}") ?? new List<TestParameter>();
         UserTicketTestVM.TicketTestParameters = ConvertTestParametersDedicatedListToTicketTestList(TestParametersDedicatedList);
     }

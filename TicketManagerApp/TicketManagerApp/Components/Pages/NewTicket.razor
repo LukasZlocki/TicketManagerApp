@@ -7,6 +7,7 @@
 @using TicketManagerApp.Services.ProductDisplacement_Services
 @using TicketManagerApp.Services.ProductFamily_Services
 @using TicketManagerApp.Services.ProductTypeServices
+@using TicketManagerApp.Services.TestParameter_Services
 @using TicketManagerApp.Services.Test_Services
 
 @inject ILabLocationService LabLocationService
@@ -16,6 +17,7 @@
 @inject IProductTypeService ProductTypeService
 @inject IProductDisplacementService ProductDisplacementService
 @inject ITestService TestService
+@inject ITestParameterServices TestParameterService
 
 @inject HttpClient http
 @inject NavigationManager Navigation
@@ -305,8 +307,7 @@ else
 
     private async Task LoadDedicatedTestParametersByTestId(int testId)
     {
-        // ToDo Here
-        TestParametersDedicatedList = await http.GetFromJsonAsync<List<TestParameter>>($"https://localhost:7259/api/parametersbytestid/{testId}") ?? new List<TestParameter>();
+        TestParametersDedicatedList = await TestParameterService.GetTestParametersByTestId(testId);
         UserTicketTestVM.TicketTestParameters = ConvertTestParametersDedicatedListToTicketTestList(TestParametersDedicatedList);
     }
 

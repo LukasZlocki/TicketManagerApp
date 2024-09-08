@@ -1,0 +1,426 @@
+﻿@page "/newticket"
+
+@using TicketManager.Models.Models
+
+@inject HttpClient http
+@inject NavigationManager Navigation
+
+<!--
+ Basic user data form
+-->
+<h3>Add Ticket</h3>
+<br>
+<form>
+    <div class="form-group">
+        <label for="inputLabolatoryLocation">Lab location</label>
+        <select id="inputLabolatoryLocation" class="form-control" asp-items @onchange="OnLabLocationChanged">
+            <option selected>Choose labolatory location...</option>
+            <option>...</option>
+            @foreach (var item in LabolatoryLocationsList)
+            {
+                <option value="@item.LabLocationId">@item.Country</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="formRequestorEmail">Requestor email</label>
+        <input type="text" class="form-control" id="formRequestorEmail" placeholder="Requestor email input" @bind="UserTicketVM.RequestorEmail">
+    </div>
+
+    <div class="form-group">
+        <label for="inputFactoryLocation">Factory location</label>
+        <select id="inputFactorylocation" class="form-control" asp-items @onchange="OnFactoryLocationChanged">
+            <option selected>Choose your factory location...</option>
+            <option>...</option>
+            @foreach (var item in FactoryLocationsList)
+            {
+                <option value="@item.FactoryLocationId">@item.Country</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="inputDepartmentLocation">Your department location</label>
+        <select id="inputDepartmentlocation" class="form-control" asp-items @bind="UserTicketVM.DepartmentId">
+            <option selected>Choose your department...</option>
+            <option>...</option>
+            @foreach (var item in DepartmentsDedicatedList)
+            {
+                <option value="@item.DepartmentId">@item.DepartmentDescription</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="inputProductFamily">Product family</label>
+        <select id="inputProductFamily" class="form-control" asp-items @onchange="OnProductFamilyChanged">
+            >
+            <option selected>Choose product family...</option>
+            <option>...</option>
+            @foreach (var item in ProductFamiliesList)
+            {
+                <option value="@item.ProductFamilyId">@item.FamilyDescription</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="inputProductType">Product type</label>
+        <select id="inputProductType" class="form-control" asp-items @onchange="OnProductTypeChanged">
+            <option selected>Choose product type...</option>
+            <option>...</option>
+            @foreach (var item in ProductTypesDedicatedList)
+            {
+                <option value="@item.ProductTypeId">@item.ProductTypeDesc</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="inputProductDisplacement">Product displacement</label>
+        <select id="inputProductDisplacement" class="form-control" asp-items @bind="UserTicketVM.Product.ProductDisplacementId">
+            <option selected>Choose product type...</option>
+            <option>...</option>
+            @foreach (var item in ProductDisplacementsDedicatedList)
+            {
+                <option value="@item.ProductDisplacementId">@item.Displacement</option>
+            }
+        </select>
+    </div>
+</form>
+
+<!--
+ Test request form
+-->
+<br>
+<br>
+<h3>Tests request:</h3>
+<br>
+@if (isAddNewTestButtonVisible == true)
+{
+    <button class="btn-secondary btn-sm" @onclick="() => AddNewTestToTicketTestsList()"> + </button>
+    <br>
+}
+else
+{
+    // no showing button with adding test
+}
+
+@if (isAddTestTableVisible == false)
+{
+    // show nothing
+}
+else
+{
+    <div class="border-bottom border-white shadow rounded-lg col-md-6" style="backgoround-color: #ededed">
+        <table class="table table-striped boarder table-hover">
+            <tr>
+                <th>Test Description</th>
+                <th>Units</th>
+            </tr>
+            <tbody>
+            <td>
+                <div class="form-group">
+                    <select id="inputTest" class="form-control" asp-items @onchange="OnTestPickedChanged">
+                        <option selected>Choose test...</option>
+                        <option>...</option>
+                            @foreach (var test in TestsDedicatedList)
+                            {
+                            <option value="@test.TestId">@test.TestDescription</option>
+                            }
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="formTestUnits" placeholder="@UserTicketTestVM.Test.TestUnits" readonly>
+                </div>
+            </td>
+            </tbody>
+        </table>
+    </div>
+    <br>
+
+    <!--
+     Parameters request form
+    -->
+    <div class="border-bottom border-white shadow rounded-lg col-md-6" style="background-color: #ededed">
+        <table class="table table-striped boarder table-hover">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Units</th>
+            </tr>
+            <tbody>
+                @if (UserTicketTestVM.TicketTestParameters == null)
+                {
+                    <p><em>No parameters added.</em></p>
+                }
+                else
+                {
+                    @foreach (var test in UserTicketTestVM.TicketTestParameters)
+                    {
+                        <tr>
+                            <td>@test.TestParameter.ParameterDescription</td>
+                            <td>
+                                <input type="text" class="form-control" id="formTestParameterValue" placeholder="Add parameter value" @bind="test.ParameterValue">
+                            </td>
+                            <td>@test.TestParameter.ParameterUnit</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="form-group">
+        <button class="btn btn-primary" @onclick="AddTestAndItsParametersToThisTicket">Add test and parameters</button>
+    </div>
+}
+
+<!--
+ List with picked tests
+-->
+<br>
+<br>
+<h3>Summary tests request:</h3>
+<br>
+<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Test Description</th>
+            <th>Units</th>
+            <th>Test parameter</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+            @if (UserTicketVM.TicketTests == null)
+            {
+                <p><em>No tests added.</em></p>
+            }
+            else
+            {
+                @foreach (var test in UserTicketVM.TicketTests)
+                {
+                    <tr>
+                        <td>@test.Test.TestDescription</td>
+                        <td>@test.Test.TestUnits</td>
+                        <td>
+                            @foreach (var parameter in test.TicketTestParameters)
+                            {
+                                <label for="summaryinfo">
+                                    @parameter.TestParameter.ParameterDescription
+                                    @parameter.ParameterValue
+                                    @parameter.TestParameter.ParameterUnit
+                                </label>
+                                <br>
+                            }
+                        </td>
+                        <td>
+                            <button class="btn-secondary btn-sm" @onclick="() => EditTestFromList(test)">Edit</button>
+                            <button class="btn-danger btn-sm" @onclick="() => RemoveTestFromList(test.TestId)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <button class="btn btn-primary" @onclick="CreateTicketRequest">Create ticket</button>
+    </div>
+</div>
+
+
+
+@code {
+    private Ticket UserTicketVM = new Ticket
+        {
+            TicketTests = new List<TicketTest>(),
+            RequestorDepartment = new(),
+            LabLocation = new(),
+            Product = new(),
+            TicketStatus = new()
+        };
+
+    private TicketTest UserTicketTestVM = new TicketTest
+        {
+            TicketTestParameters = new List<TicketTestParameter>(),
+            Test = new()
+        };
+
+    List<LabLocation> LabolatoryLocationsList = new List<LabLocation>();
+    List<FactoryLocation> FactoryLocationsList = new List<FactoryLocation>();
+    List<Department> DepartmentsDedicatedList = new List<Department>();
+    List<ProductFamily> ProductFamiliesList = new List<ProductFamily>();
+    List<ProductType> ProductTypesDedicatedList = new List<ProductType>();
+    List<ProductDisplacement> ProductDisplacementsDedicatedList = new List<ProductDisplacement>();
+    List<Test> TestsDedicatedList = new List<Test>();
+    List<TestParameter> TestParametersDedicatedList = new List<TestParameter>();
+
+    private bool isAddTestTableVisible = false;
+    private bool isAddNewTestButtonVisible = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        LabolatoryLocationsList = await http.GetFromJsonAsync<List<LabLocation>>("https://localhost:7259/api/lablocation") ?? new List<LabLocation>();
+        FactoryLocationsList = await http.GetFromJsonAsync<List<FactoryLocation>>("https://localhost:7259/api/factorylocation") ?? new List<FactoryLocation>();
+        ProductFamiliesList = await http.GetFromJsonAsync<List<ProductFamily>>("https://localhost:7259/api/productfamilies") ?? new List<ProductFamily>();
+    }
+
+    private async Task LoadDedicatedDepartmentsByFactoryId(int factoryId)
+    {
+        DepartmentsDedicatedList = await http.GetFromJsonAsync<List<Department>>("https://localhost:7259/api/departmentbyfactory/" + factoryId) ?? new List<Department>();
+    }
+
+    private async Task LoadProductTypeDedicatedListByProductFamilyId(int productFamilyId)
+    {
+        ProductTypesDedicatedList = await http.GetFromJsonAsync<List<ProductType>>("https://localhost:7259/api/producttypebyproductfamily/" + productFamilyId) ?? new List<ProductType>();
+    }
+
+    private async Task LoadDedicatedProductDisplacements(int productTypeId)
+    {
+        ProductDisplacementsDedicatedList = await http.GetFromJsonAsync<List<ProductDisplacement>>($"https://localhost:7259/api/productdisplacementbyproductfamily/{productTypeId}") ?? new List<ProductDisplacement>();
+    }
+
+    private async Task LoadDedicatedTests(int testId)
+    {
+
+        TestsDedicatedList = await http.GetFromJsonAsync<List<Test>>($"https://localhost:7259/api/testbylablocation/{testId}") ?? new List<Test>();
+    }
+
+    private async Task LoadDedicatedTestParametersByTestId(int testId)
+    {
+        TestParametersDedicatedList = await http.GetFromJsonAsync<List<TestParameter>>($"https://localhost:7259/api/parametersbytestid/{testId}") ?? new List<TestParameter>();
+        UserTicketTestVM.TicketTestParameters = ConvertTestParametersDedicatedListToTicketTestList(TestParametersDedicatedList);
+    }
+
+    private async Task OnProductTypeChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int productTypeId))
+        {
+            UserTicketVM.Product.ProductTypeId = productTypeId;
+            await LoadDedicatedProductDisplacements(UserTicketVM.Product.ProductTypeId);
+        }
+    }
+
+    private async Task OnFactoryLocationChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int factoryLocationId))
+        {
+            //selectedFactoryLocationId = factoryLocationId;
+            UserTicketVM.RequestorDepartment.FactoryLocationId = factoryLocationId;
+            await LoadDedicatedDepartmentsByFactoryId(UserTicketVM.RequestorDepartment.FactoryLocationId);
+        }
+    }
+
+    private async Task OnProductFamilyChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int productFamilyId))
+        {
+            UserTicketVM.ProductId = productFamilyId;
+            UserTicketVM.Product.ProductFamilyId = productFamilyId;
+            await LoadProductTypeDedicatedListByProductFamilyId(UserTicketVM.Product.ProductFamilyId);
+        }
+    }
+
+    private async Task OnTestPickedChanged(ChangeEventArgs e)
+    {
+
+        if (int.TryParse(e.Value.ToString(), out int testId))
+        {
+            // picked test chosen from list of dedicated tests by user
+            UserTicketTestVM.Test = TestsDedicatedList.Find(id => id.TestId == testId) ?? new Test();
+            UserTicketTestVM.TestId = testId;
+            await LoadDedicatedTestParametersByTestId(testId);
+        }
+    }
+
+    private async Task OnLabLocationChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int labLocationId))
+        {
+            UserTicketVM.LabLocationId = labLocationId;
+            await LoadDedicatedTests(labLocationId);
+        }
+    }
+
+    private void AddTestAndItsParametersToThisTicket()
+    {
+        isAddTestTableVisible = false; // not showing table with test parameters
+        isAddNewTestButtonVisible = true; // showing button to add new test parameters
+
+        AddOrEditTestFromTestsList(UserTicketTestVM);
+
+        // reseting user ticket to reset adding test and its parameters value
+        UserTicketTestVM = new TicketTest
+            {
+                TicketTestParameters = new List<TicketTestParameter>(),
+                Test = new()
+            };
+    }
+
+    /// <summary>
+    /// Convert TestParameters dedicated list to TicketList
+    /// </summary>
+    /// <param name="TestParametersDedicatedList"></param>
+    /// <returns></returns>
+    private List<TicketTestParameter> ConvertTestParametersDedicatedListToTicketTestList(List<TestParameter> testParametersDedicatedList)
+    {
+        List<TicketTestParameter> _convertedTicketTestParametersList = new();
+        foreach (var testParameter in testParametersDedicatedList)
+        {
+            TicketTestParameter _testParameter = new();
+            _testParameter.ParameterValue = 0;
+            _testParameter.TestParameterId = testParameter.TestParameterId;
+            _testParameter.TestParameter = testParameter;
+
+            _convertedTicketTestParametersList.Add(_testParameter);
+        }
+
+        return _convertedTicketTestParametersList;
+    }
+
+    private void RemoveTestFromList(int testId)
+    {
+        UserTicketVM.TicketTests?.RemoveAll(id => id?.Test?.TestId == testId);
+    }
+
+    private void AddOrEditTestFromTestsList(TicketTest test)
+    {
+        int _index = UserTicketVM.TicketTests.FindIndex(t => t.Equals(test));
+
+        if (_index != -1)
+        {
+            UserTicketTestVM = UserTicketVM?.TicketTests?[_index]; // ticket found edition of ticket available
+        }
+        else
+        {
+            // ticket doeasn't exist new ticket is added to ticket test list
+            UserTicketVM.TicketTests.Add(UserTicketTestVM); // addding new test
+        }
+    }
+
+    private void EditTestFromList(TicketTest test)
+    {
+        isAddTestTableVisible = true;
+        AddOrEditTestFromTestsList(test);
+    }
+
+    private async Task CreateTicketRequest()
+    {
+        var response = await http.PostAsJsonAsync<Ticket>($"https://localhost:7259/api/ticketcreate", UserTicketVM);
+        if (response.IsSuccessStatusCode)
+        {
+            Navigation.NavigateTo("/", true);
+        }
+
+    }
+
+    private void AddNewTestToTicketTestsList()
+    {
+        isAddTestTableVisible = true; // show table with test parameters
+        isAddNewTestButtonVisible = false; // not showing add new test button
+    }
+
+}

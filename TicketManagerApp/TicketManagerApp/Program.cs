@@ -6,6 +6,17 @@ using TicketManagerApp.Client.Pages;
 using TicketManagerApp.Components;
 using TicketManagerApp.Components.Account;
 using TicketManagerApp.Data;
+using TicketManagerApp.Services.Department_Services;
+using TicketManagerApp.Services.FactoryLocation_Services;
+using TicketManagerApp.Services.LabLocation_Services;
+using TicketManagerApp.Services.LabLocationServices;
+using TicketManagerApp.Services.ProductDisplacement_Services;
+using TicketManagerApp.Services.ProductFamily_Services;
+using TicketManagerApp.Services.ProductType_Services;
+using TicketManagerApp.Services.ProductTypeServices;
+using TicketManagerApp.Services.Test_services;
+using TicketManagerApp.Services.Test_Services;
+using TicketManagerApp.Services.TestParameter_Services;
 using TicketManagerApp.Services.Ticket_Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,6 +48,15 @@ builder.Services.AddScoped<DbSeeder>();
 
 // Register services
 builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IFactoryLocationService, FactoryLocationService>();
+builder.Services.AddScoped<ILabLocationService,LabLocationService>();
+builder.Services.AddScoped<IProductDisplacementService, ProductDisplacementService>();
+builder.Services.AddScoped<IProductFamilyService, ProductFamilyService>();
+builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
+builder.Services.AddScoped<ITestParameterServices, TestParameterServices>();
+builder.Services.AddScoped<ITestService, TestService>();
+
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()

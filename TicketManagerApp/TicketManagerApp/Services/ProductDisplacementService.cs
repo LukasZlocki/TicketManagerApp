@@ -2,7 +2,7 @@
 using TicketManager.Models.Models;
 using TicketManagerApp.Data;
 
-namespace TicketManagerApp.Services.ProductDisplacement_Services
+namespace TicketManagerApp.Services
 {
     public class ProductDisplacementService : IProductDisplacementService
     {

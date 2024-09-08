@@ -1,6 +1,6 @@
 ﻿using TicketManager.Models.Models;
 
-namespace TicketManagerApp.Services.ProductTypeServices
+namespace TicketManagerApp.Services
 {
     public interface IProductTypeService
     {

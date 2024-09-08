@@ -1,6 +1,6 @@
 ﻿using TicketManager.Models.Models;
 
-namespace TicketManagerApp.Services.LabLocationServices
+namespace TicketManagerApp.Services
 {
     public interface ILabLocationService
     {

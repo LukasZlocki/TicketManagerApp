@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TicketManager.Models.Models;
 using TicketManagerApp.Data;
 
-namespace TicketManagerApp.Services.Department_Services
+namespace TicketManagerApp.Services
 {
     public class DepartmentService : IDepartmentService
     {

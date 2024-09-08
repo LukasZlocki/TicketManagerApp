@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TicketManager.Models.Models;
 using TicketManagerApp.Data;
-using TicketManagerApp.Services.Test_Services;
 
-namespace TicketManagerApp.Services.Test_services
+namespace TicketManagerApp.Services
 {
     public class TestService : ITestService
     {

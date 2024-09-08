@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TicketManager.Models.Models;
 using TicketManagerApp.Data;
-using TicketManagerApp.Services.ProductTypeServices;
+using TicketManagerApp.Services;
 
-namespace TicketManagerApp.Services.ProductType_Services
+namespace TicketManagerApp.Services
 {
     public class ProductTypeService : IProductTypeService
     {

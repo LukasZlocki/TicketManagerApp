@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TicketManager.Models.Models;
 using TicketManagerApp.Data;
-using TicketManagerApp.Services.LabLocationServices;
+using TicketManagerApp.Services;
 
-namespace TicketManagerApp.Services.LabLocation_Services
+namespace TicketManagerApp.Services
 {
     public class LabLocationService : ILabLocationService
     {

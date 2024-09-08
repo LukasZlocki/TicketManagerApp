@@ -2,103 +2,97 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TicketManager.Infrastructure.Seeders;
-using TicketManagerApp.Client.Pages;
 using TicketManagerApp.Components;
 using TicketManagerApp.Components.Account;
 using TicketManagerApp.Data;
-using TicketManagerApp.Services.Department_Services;
-using TicketManagerApp.Services.FactoryLocation_Services;
-using TicketManagerApp.Services.LabLocation_Services;
-using TicketManagerApp.Services.LabLocationServices;
-using TicketManagerApp.Services.ProductDisplacement_Services;
-using TicketManagerApp.Services.ProductFamily_Services;
-using TicketManagerApp.Services.ProductType_Services;
-using TicketManagerApp.Services.ProductTypeServices;
-using TicketManagerApp.Services.Test_services;
-using TicketManagerApp.Services.Test_Services;
-using TicketManagerApp.Services.TestParameter_Services;
-using TicketManagerApp.Services.Ticket_Services;
+using TicketManagerApp.Services;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents()
-    .AddInteractiveWebAssemblyComponents();
-
-builder.Services.AddCascadingAuthenticationState();
-builder.Services.AddScoped<IdentityUserAccessor>();
-builder.Services.AddScoped<IdentityRedirectManager>();
-builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
-
-builder.Services.AddAuthentication(options =>
+internal class Program
+{
+    private static async Task Main(string[] args)
     {
-        options.DefaultScheme = IdentityConstants.ApplicationScheme;
-        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-    })
-    .AddIdentityCookies();
+        var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+        // Add services to the container.
+        builder.Services.AddRazorComponents()
+            .AddInteractiveServerComponents()
+            .AddInteractiveWebAssemblyComponents();
 
-// Register seeder
-builder.Services.AddScoped<DbSeeder>();
+        builder.Services.AddCascadingAuthenticationState();
+        builder.Services.AddScoped<IdentityUserAccessor>();
+        builder.Services.AddScoped<IdentityRedirectManager>();
+        builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
 
-// Register services
-builder.Services.AddScoped<ITicketService, TicketService>();
-builder.Services.AddScoped<IDepartmentService, DepartmentService>();
-builder.Services.AddScoped<IFactoryLocationService, FactoryLocationService>();
-builder.Services.AddScoped<ILabLocationService,LabLocationService>();
-builder.Services.AddScoped<IProductDisplacementService, ProductDisplacementService>();
-builder.Services.AddScoped<IProductFamilyService, ProductFamilyService>();
-builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
-builder.Services.AddScoped<ITestParameterServices, TestParameterServices>();
-builder.Services.AddScoped<ITestService, TestService>();
+        builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            })
+            .AddIdentityCookies();
+
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(connectionString));
+        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+        // Register seeder
+        builder.Services.AddScoped<DbSeeder>();
+
+        // Register services
+        builder.Services.AddScoped<ITicketService, TicketService>();
+        builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+        builder.Services.AddScoped<IFactoryLocationService, FactoryLocationService>();
+        builder.Services.AddScoped<ILabLocationService, LabLocationService>();
+        builder.Services.AddScoped<IProductDisplacementService, ProductDisplacementService>();
+        builder.Services.AddScoped<IProductFamilyService, ProductFamilyService>();
+        builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
+        builder.Services.AddScoped<ITestParameterServices, TestParameterServices>();
+        builder.Services.AddScoped<ITestService, TestService>();
 
 
-builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddSignInManager()
-    .AddDefaultTokenProviders();
+        builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddSignInManager()
+            .AddDefaultTokenProviders();
 
-builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+        builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
-// Register HttpClient
-builder.Services.AddHttpClient();
+        // Register HttpClient
+        builder.Services.AddHttpClient();
 
-var app = builder.Build();
+        var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseWebAssemblyDebugging();
-    app.UseMigrationsEndPoint();
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseWebAssemblyDebugging();
+            app.UseMigrationsEndPoint();
+        }
+        else
+        {
+            app.UseExceptionHandler("/Error", createScopeForErrors: true);
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseHsts();
+        }
+
+        // Seeding
+        var scope = app.Services.CreateScope();
+        var seeder = scope.ServiceProvider.GetRequiredService<DbSeeder>();
+        await seeder.Seed();
+
+        app.UseHttpsRedirection();
+
+        app.UseStaticFiles();
+        app.UseAntiforgery();
+
+        app.MapRazorComponents<App>()
+            .AddInteractiveServerRenderMode()
+            .AddInteractiveWebAssemblyRenderMode()
+            .AddAdditionalAssemblies(typeof(TicketManagerApp.Client._Imports).Assembly);
+
+        // Add additional endpoints required by the Identity /Account Razor components.
+        app.MapAdditionalIdentityEndpoints();
+
+        app.Run();
+    }
 }
-else
-{
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
-
-// Seeding
-var scope = app.Services.CreateScope();
-var seeder = scope.ServiceProvider.GetRequiredService<DbSeeder>();
-await seeder.Seed();
-
-app.UseHttpsRedirection();
-
-app.UseStaticFiles();
-app.UseAntiforgery();
-
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode()
-    .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(TicketManagerApp.Client._Imports).Assembly);
-
-// Add additional endpoints required by the Identity /Account Razor components.
-app.MapAdditionalIdentityEndpoints();
-
-app.Run();

@@ -2,7 +2,7 @@
 using TicketManager.Models.Models;
 using TicketManagerApp.Data;
 
-namespace TicketManagerApp.Services.ProductFamily_Services
+namespace TicketManagerApp.Services
 {
     public class ProductFamilyService : IProductFamilyService
     {

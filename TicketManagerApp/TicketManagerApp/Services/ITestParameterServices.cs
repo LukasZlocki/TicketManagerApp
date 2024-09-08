@@ -1,6 +1,6 @@
 ﻿using TicketManager.Models.Models;
 
-namespace TicketManagerApp.Services.TestParameter_Services
+namespace TicketManagerApp.Services
 {
     public interface ITestParameterServices
     {

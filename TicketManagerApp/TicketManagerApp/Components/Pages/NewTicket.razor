@@ -5,11 +5,13 @@
 @using TicketManagerApp.Services.FactoryLocation_Services
 @using TicketManagerApp.Services.LabLocationServices
 @using TicketManagerApp.Services.ProductFamily_Services
+@using TicketManagerApp.Services.ProductTypeServices
 
 @inject ILabLocationService LabLocationService
 @inject IFactoryLocationService FactoryLocationService
 @inject IProductFamilyService ProductFamilyService
 @inject IDepartmentService DepartmentSerivce
+@inject IProductTypeService ProductTypeService
 
 @inject HttpClient http
 @inject NavigationManager Navigation
@@ -284,7 +286,8 @@ else
 
     private async Task LoadProductTypeDedicatedListByProductFamilyId(int productFamilyId)
     {
-        ProductTypesDedicatedList = await http.GetFromJsonAsync<List<ProductType>>("https://localhost:7259/api/producttypebyproductfamily/" + productFamilyId) ?? new List<ProductType>();
+        // ToDo : Here !
+        ProductTypesDedicatedList = await ProductTypeService.GetAllProductTypesByFamilyId(productFamilyId);
     }
 
     private async Task LoadDedicatedProductDisplacements(int productTypeId)

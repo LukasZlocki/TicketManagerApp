@@ -1,6 +1,11 @@
 ﻿@page "/newticket"
 
 @using TicketManager.Models.Models
+@using TicketManagerApp.Services.FactoryLocation_Services
+@using TicketManagerApp.Services.LabLocationServices
+
+@inject ILabLocationService LabLocationService
+@inject IFactoryLocationService FactoryLocationService
 
 @inject HttpClient http
 @inject NavigationManager Navigation
@@ -263,9 +268,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        LabolatoryLocationsList = await http.GetFromJsonAsync<List<LabLocation>>("https://localhost:7259/api/lablocation") ?? new List<LabLocation>();
-        FactoryLocationsList = await http.GetFromJsonAsync<List<FactoryLocation>>("https://localhost:7259/api/factorylocation") ?? new List<FactoryLocation>();
-        ProductFamiliesList = await http.GetFromJsonAsync<List<ProductFamily>>("https://localhost:7259/api/productfamilies") ?? new List<ProductFamily>();
+        LabolatoryLocationsList = await LabLocationService.GetAllLabLocations();
+        FactoryLocationsList = await FactoryLocationService.GetAllFactoryLocations();
+
+        //FactoryLocationsList = await http.GetFromJsonAsync<List<FactoryLocation>>("https://localhost:7259/api/factorylocation") ?? new List<FactoryLocation>();
+        //ProductFamiliesList = await http.GetFromJsonAsync<List<ProductFamily>>("https://localhost:7259/api/productfamilies") ?? new List<ProductFamily>();
     }
 
     private async Task LoadDedicatedDepartmentsByFactoryId(int factoryId)

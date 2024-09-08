@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TicketManager.Infrastructure.Seeders;
 using TicketManagerApp.Client.Pages;
 using TicketManagerApp.Components;
 using TicketManagerApp.Components.Account;
@@ -30,6 +31,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+// Register seeder
+builder.Services.AddScoped<DbSeeder>();
+
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
@@ -51,6 +55,11 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+// Seeding
+var scope = app.Services.CreateScope();
+var seeder = scope.ServiceProvider.GetRequiredService<DbSeeder>();
+await seeder.Seed();
 
 app.UseHttpsRedirection();
 

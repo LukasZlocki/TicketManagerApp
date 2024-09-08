@@ -5,5 +5,5 @@ TicketManagerApp/TicketManagerApp/bin/*
 TicketManagerApp/TicketManagerApp.Client/obj/*
 TicketManagerApp/TicketManagerApp.Client/bin/*
 
-TicketManagerApp/TicketManager.Models/obj/*
-TicketManagerApp/TicketManager.Models/bin/*
+TicketManager.Models/obj/*
+TicketManager.Models/bin/*

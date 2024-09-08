@@ -3,9 +3,11 @@
 @using TicketManager.Models.Models
 @using TicketManagerApp.Services.FactoryLocation_Services
 @using TicketManagerApp.Services.LabLocationServices
+@using TicketManagerApp.Services.ProductFamily_Services
 
 @inject ILabLocationService LabLocationService
 @inject IFactoryLocationService FactoryLocationService
+@inject IProductFamilyService ProductFamilyService
 
 @inject HttpClient http
 @inject NavigationManager Navigation
@@ -270,14 +272,13 @@ else
     {
         LabolatoryLocationsList = await LabLocationService.GetAllLabLocations();
         FactoryLocationsList = await FactoryLocationService.GetAllFactoryLocations();
-
-        //FactoryLocationsList = await http.GetFromJsonAsync<List<FactoryLocation>>("https://localhost:7259/api/factorylocation") ?? new List<FactoryLocation>();
-        //ProductFamiliesList = await http.GetFromJsonAsync<List<ProductFamily>>("https://localhost:7259/api/productfamilies") ?? new List<ProductFamily>();
+        ProductFamiliesList = await ProductFamilyService.GetAllProductFamilies();
     }
 
     private async Task LoadDedicatedDepartmentsByFactoryId(int factoryId)
     {
-        DepartmentsDedicatedList = await http.GetFromJsonAsync<List<Department>>("https://localhost:7259/api/departmentbyfactory/" + factoryId) ?? new List<Department>();
+
+        //DepartmentsDedicatedList = await http.GetFromJsonAsync<List<Department>>("https://localhost:7259/api/departmentbyfactory/" + factoryId) ?? new List<Department>();
     }
 
     private async Task LoadProductTypeDedicatedListByProductFamilyId(int productFamilyId)

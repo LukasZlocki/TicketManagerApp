@@ -6,5 +6,6 @@ namespace TicketManagerApp.Services
     {
         public Task<Ticket> CreateTicket(Ticket ticket);
         public Task<List<Ticket>> GetAllTickets();
+        public Task <List<Ticket>> GetTicketsByLabLocation(int labLocationId);
     }
 }

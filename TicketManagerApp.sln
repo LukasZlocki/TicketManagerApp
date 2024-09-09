@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagerApp", "TicketManagerApp\TicketManagerApp\TicketManagerApp.csproj", "{5144DA7D-60EF-478B-803B-F4B25E79E81C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketManagerApp", "TicketManagerApp\TicketManagerApp\TicketManagerApp.csproj", "{5144DA7D-60EF-478B-803B-F4B25E79E81C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketManagerApp.Client", "TicketManagerApp\TicketManagerApp.Client\TicketManagerApp.Client.csproj", "{800BF1A6-853B-4AA4-9AC1-4E87DED7D40F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketManagerApp.Client", "TicketManagerApp\TicketManagerApp.Client\TicketManagerApp.Client.csproj", "{800BF1A6-853B-4AA4-9AC1-4E87DED7D40F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicketManager.Models", "TicketManager.Models\TicketManager.Models.csproj", "{F2546630-F47E-4AFC-9250-9FE330D54792}"
 EndProject

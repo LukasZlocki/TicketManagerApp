@@ -120,7 +120,7 @@
         UserTickets = new List<Ticket>();
         // ToDo: Code retriving all tickets by User email
         string userEmail = e.Value.ToString();
-        UserTickets = await http.GetFromJsonAsync<List<Ticket>>("https://localhost:7259/api/getticketbyuser/" + userEmail) ?? new List<Ticket>();
+        UserTickets = await TicketService.GetTicketsByUserEmail(userEmail);
     }
 
     private void InfoTicket(int ticketId)

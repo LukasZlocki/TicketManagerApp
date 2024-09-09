@@ -21,7 +21,7 @@ namespace TicketManagerApp.Services
             Ticket _ticket = new Ticket
             {
                 RequestorEmail = ticket.RequestorEmail,
-                ImplementedAt = ticket.ImplementedAt,
+                ImplementedAt = DateTime.UtcNow,
                 StartedAt = ticket.StartedAt,
                 FinishedAt = ticket.FinishedAt,
                 DepartmentId = ticket.DepartmentId,

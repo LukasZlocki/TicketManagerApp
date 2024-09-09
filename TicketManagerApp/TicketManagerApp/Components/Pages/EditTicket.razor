@@ -1,6 +1,10 @@
 ﻿@page "/editticket/{id:int}"
 
 @using TicketManager.Models.Models
+@using TicketManagerApp.Services
+
+@inject ITicketService TicketService
+@inject ITestService TestService
 
 @inject HttpClient http
 @inject NavigationManager Navigation
@@ -195,12 +199,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        UserTicketVM = await http.GetFromJsonAsync<Ticket>("https://localhost:7259/api/getticketdetails/" + Id) ?? new Ticket();
+        UserTicketVM = await TicketService.GetTicketDetails(Id) ?? new Ticket();
 
         if (!(UserTicketVM.LabLocationId == 0))
         {
             int labLocationId = UserTicketVM.LabLocationId;
-            TestsDedicatedList = await http.GetFromJsonAsync<List<Test>>($"https://localhost:7259/api/testbylablocation/{labLocationId}") ?? new List<Test>();
+            TestsDedicatedList = await TestService.GetTestsByLabLocation(labLocationId) ?? new List<Test>();
         }
     }
 

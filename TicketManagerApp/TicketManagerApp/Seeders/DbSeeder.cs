@@ -456,6 +456,38 @@ namespace TicketManager.Infrastructure.Seeders
                     };
                     _dbContext.TestParameters.Add(testparam4);
 
+                    var testparam5 = new TestParameter()
+                    {
+                        ParameterDescription = "Back Pressure",
+                        ParameterUnit = "bar",
+                        TestId = 3,
+                    };
+                    _dbContext.TestParameters.Add(testparam5);
+
+                    var testparam6 = new TestParameter()
+                    {
+                        ParameterDescription = "Flow",
+                        ParameterUnit = "L/min",
+                        TestId = 3,
+                    };
+                    _dbContext.TestParameters.Add(testparam6);
+
+                    var testparam7 = new TestParameter()
+                    {
+                        ParameterDescription = "Back Pressure",
+                        ParameterUnit = "bar",
+                        TestId = 4,
+                    };
+                    _dbContext.TestParameters.Add(testparam7);
+
+                    var testparam8 = new TestParameter()
+                    {
+                        ParameterDescription = "Flow",
+                        ParameterUnit = "L/min",
+                        TestId = 4,
+                    };
+                    _dbContext.TestParameters.Add(testparam8);
+
                     await _dbContext.SaveChangesAsync();
                 }
                 else

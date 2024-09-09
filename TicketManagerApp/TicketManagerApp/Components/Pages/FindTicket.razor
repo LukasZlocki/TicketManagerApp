@@ -1,0 +1,153 @@
+﻿@page "/findticket"
+@rendermode InteractiveServer
+
+@using TicketManager.Models.Models
+@using TicketManagerApp.Services
+
+@inject ILabLocationService LabLocationService
+
+@inject HttpClient http
+@inject NavigationManager Navigation
+
+<h3>Find Ticket</h3>
+
+
+<div class="border">
+    <br>
+    <h5>Filters:</h5>
+    <div class="form-group">
+        <label for="inputLabolatoryLocation">Lab location</label>
+        <select id="inputLabolatoryLocation" class="form-control" asp-items @onchange="OnLabLocationChanged">
+            <option selected>Choose labolatory location...</option>
+            <option>...</option>
+            @foreach (var item in LaboratoryLocations)
+            {
+                <option value="@item.LabLocationId">@item.Country</option>
+            }
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label for="formRequestorEmail">Requestor email</label>
+        <input type="text" class="form-control" id="formUserEmail" placeholder="Requestor email input" @onchange="OnUserEmailInput">
+    </div>
+
+</div>
+
+<!--
+ List with picked tickets
+-->
+<br>
+<br>
+<h3>Tickets</h3>
+<br>
+<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Requestor</th>
+            <th>Lab location</th>
+            <th>Product type</th>
+            <th>Implemented at</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+            @if (UserTickets == null || UserTickets.Count == 0)
+            {
+                <p><em>No tickets found.</em></p>
+            }
+            else
+                @foreach (var ticket in UserTickets)
+                {
+                    <tr>
+                        <td>@ticket.RequestorEmail</td>
+                        <td>@ticket.LabLocation.Country</td>
+                        <td>@ticket.Product.ProductType.ProductTypeDesc</td>
+                        <td>@ticket.ImplementedAt</td>
+                        <td>@ticket.TicketStatus.StatusDescription</td>
+
+                        <td>
+                            <div class="form-group">
+                                <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
+                                <button class="btn-secondary btn-sm" @onclick="() => EditTicket(ticket.TicketId)">Edit</button>
+                                <button class="btn-secondary btn-danger" @onclick="() => DeleteTicket(ticket.TicketId)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+        </tbody>
+    </table>
+</div>
+
+
+
+@code {
+    List<Ticket>? UserTickets;
+    List<LabLocation> LaboratoryLocations = new List<LabLocation>();
+
+    string? PickedUserEmai;
+    LabLocation PickedLabLocation = new LabLocation();
+
+    private Ticket UserTicket = new Ticket
+        {
+            TicketTests = new List<TicketTest>(),
+            RequestorDepartment = new(),
+            LabLocation = new(),
+            Product = new(),
+            TicketStatus = new()
+        };
+
+    protected override async Task OnInitializedAsync()
+    {
+        LaboratoryLocations = await LabLocationService.GetAllLabLocations();
+    }
+
+    private async Task OnLabLocationChanged(ChangeEventArgs e)
+    {
+        UserTickets = new List<Ticket>();
+
+        if (int.TryParse(e.Value.ToString(), out int labLocationId))
+        {
+            // Retrive all tickets by lab location
+            // ToDo : code retriving here
+            UserTickets = await LabLocationService.GetTicketsByLabLocation(labLocationId);
+            //UserTickets = await http.GetFromJsonAsync<List<Ticket>>("https://localhost:7259/api/getticketbylablocation/" + LabLocationId) ?? new List<Ticket>();
+        }
+    }
+
+    private async Task OnUserEmailInput(ChangeEventArgs e)
+    {
+        UserTickets = new List<Ticket>();
+        // ToDo: Code retriving all tickets by User email
+        string userEmail = e.Value.ToString();
+        UserTickets = await http.GetFromJsonAsync<List<Ticket>>("https://localhost:7259/api/getticketbyuser/" + userEmail) ?? new List<Ticket>();
+    }
+
+    private void InfoTicket(int ticketId)
+    {
+        // ToDo: Code to navigate to page with ticket information
+    }
+
+    private void EditTicket(int ticketId)
+    {
+        Navigation.NavigateTo("/editticket/" + ticketId, true);
+
+    }
+
+    private async Task DeleteTicket(int ticketId)
+    {
+        // Delete Ticket and its refering data
+        var responseDeleteTicket = await http.DeleteAsync($"https://localhost:7259/api/deleteticket/" + ticketId);
+        if (responseDeleteTicket.IsSuccessStatusCode)
+        {
+            // ToDo : Code information succeeded operation of ticket deletion and redirect to proper page
+            Navigation.NavigateTo("/", true);
+        }
+        else
+        {
+            // ToDo : Code information unsucceeded operation of ticket deletion and redirect to proper page
+        }
+    }
+
+}

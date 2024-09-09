@@ -5,6 +5,7 @@
 @using TicketManagerApp.Services
 
 @inject ILabLocationService LabLocationService
+@inject ITicketService TicketService
 
 @inject HttpClient http
 @inject NavigationManager Navigation
@@ -110,9 +111,7 @@
         if (int.TryParse(e.Value.ToString(), out int labLocationId))
         {
             // Retrive all tickets by lab location
-            // ToDo : code retriving here
-            UserTickets = await LabLocationService.GetTicketsByLabLocation(labLocationId);
-            //UserTickets = await http.GetFromJsonAsync<List<Ticket>>("https://localhost:7259/api/getticketbylablocation/" + LabLocationId) ?? new List<Ticket>();
+            UserTickets = await TicketService.GetTicketsByLabLocation(labLocationId);
         }
     }
 

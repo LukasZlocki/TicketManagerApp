@@ -32,7 +32,7 @@ namespace TicketManagerApp.Services
 
             try
             {
-                _db.Tickets.Add(ticket);
+                _db.Tickets.Add(_ticket);
                 await _db.SaveChangesAsync();
                 _logger.LogInformation("Ticket creted successfuly with ID: {TickedId}", _ticket.TicketId);
             }

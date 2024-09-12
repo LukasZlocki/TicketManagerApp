@@ -2,12 +2,15 @@
 
 @rendermode InteractiveServer
 
+@using Microsoft.AspNetCore.Authorization
 @using TicketManager.Models.Models
 @using TicketManagerApp.Services
 
 @inject ITicketService TicketService
 @inject ITestService TestService
 @inject ITestParameterServices TestParameterService
+
+@attribute [Authorize]
 
 
 <h3>EditTicket</h3>
@@ -166,7 +169,7 @@ else
                         </td>
                         <td>
                             <button class="btn-secondary btn-sm" @onclick="() => EditTestFromList(test)">Edit</button>
-                            <button class="btn-danger btn-sm" @onclick="() => RemoveTestFromList(test.TestId)">Delete</button>
+                            <button class="btn-danger btn-sm" @onclick="() => RemoveTestFromList(test)">Delete</button>
                         </td>
                     </tr>
                 }
@@ -247,11 +250,10 @@ else
         }
     }
 
-    private void RemoveTestFromList(int testId)
+    private void RemoveTestFromList(TicketTest test)
     {
-        /* add proper code here
-        UserTicketVM.TicketTests?.RemoveAll(id => id?.Test?.TestId == testId);
-        */
+        int _index = UserTicketVM.TicketTests.FindIndex(t => t.Equals(test));
+        UserTicketVM.TicketTests.RemoveAt(_index);
     }
 
     private async Task UpdateTicketRequest()

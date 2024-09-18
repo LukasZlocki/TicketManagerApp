@@ -1,11 +1,15 @@
 ﻿@page "/Account/Register"
 
+@rendermode InteractiveServer
+
 @using System.ComponentModel.DataAnnotations
 @using System.Text
 @using System.Text.Encodings.Web
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
+@using TicketManager.Models.Models
 @using TicketManagerApp.Data
+@using TicketManagerApp.Services
 
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserStore<ApplicationUser> UserStore
@@ -15,9 +19,36 @@
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 
+@inject IFactoryLocationService FactoryLocationService;
+@inject IDepartmentService DepartmentService;
+
 <PageTitle>Register</PageTitle>
 
 <h1>Register</h1>
+
+<div class="form-group">
+    <label for="inputFactoryLocation">Factory location</label>
+    <select id="inputFactorylocation" class="form-control" asp-items @onchange="OnFactoryLocationChanged">
+        <option selected>Choose your factory location...</option>
+        <option>...</option>
+        @foreach (var item in FactoryLocationsList)
+        {
+            <option value="@item.FactoryLocationId">@item.Country</option>
+        }
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="inputDepartmentLocation">Your department location</label>
+    <select id="inputDepartmentlocation" class="form-control" asp-items @bind="DepartmentLocationId">
+        <option selected>Choose your department...</option>
+        <option>...</option>
+        @foreach (var item in DepartmentsDedicatedList)
+        {
+            <option value="@item.DepartmentId">@item.DepartmentDescription</option>
+        }
+    </select>
+</div>
 
 <div class="row">
     <div class="col-md-4">
@@ -64,6 +95,17 @@
     private string? ReturnUrl { get; set; }
 
     private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
+
+    private List<FactoryLocation> FactoryLocationsList = new List<FactoryLocation>();
+    private List<Department> DepartmentsDedicatedList = new List<Department>();
+
+    private int FactorylocationId;
+    private int DepartmentLocationId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        FactoryLocationsList = await FactoryLocationService.GetAllFactoryLocations();
+    }
 
     public async Task RegisterUser(EditContext editContext)
     {
@@ -142,4 +184,20 @@
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; } = "";
     }
+
+    private async Task OnFactoryLocationChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int factoryLocationId))
+        {
+            FactorylocationId = factoryLocationId;
+            await LoadDedicatedDepartmentsByFactoryId(factoryLocationId);
+        }
+    }
+
+    private async Task LoadDedicatedDepartmentsByFactoryId(int factoryId)
+    {
+        DepartmentsDedicatedList = await DepartmentService.GetAllDepartmentsByFactoryLocationId(factoryId);
+    }
+
 }
+    

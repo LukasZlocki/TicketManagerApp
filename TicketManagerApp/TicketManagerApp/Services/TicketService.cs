@@ -32,7 +32,7 @@ namespace TicketManagerApp.Services
 
             try
             {
-                _db.Tickets.Add(ticket);
+                _db.Tickets.Add(_ticket);
                 await _db.SaveChangesAsync();
                 _logger.LogInformation("Ticket creted successfuly with ID: {TickedId}", _ticket.TicketId);
             }
@@ -75,6 +75,26 @@ namespace TicketManagerApp.Services
         {
             var tickets = await _db.Tickets.ToListAsync();
             return tickets;
+        }
+
+        public async Task<Ticket> GetTicketDetails(int ticketId)
+        {
+            var ticket = await _db.Tickets
+            .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.TicketTestParameters)
+                        .ThenInclude(t => t.TestParameter)
+                    .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.Test)
+                .Include(t => t.RequestorDepartment)
+                    .ThenInclude(t => t.Factorylocation)
+                .Include(t => t.LabLocation)
+                .Include(t => t.Product)
+                    .Include(t => t.Product.ProductFamily)
+                    .Include(t => t.Product.ProductDisplacement)
+                    .Include(t => t.Product.ProductType)
+                .Include(t => t.TicketStatus)
+                .FirstOrDefaultAsync(id => id.TicketId == ticketId);
+            return ticket ?? new Ticket();
         }
 
         public async Task<List<Ticket>> GetTicketsByLabLocation(int labLocationId)

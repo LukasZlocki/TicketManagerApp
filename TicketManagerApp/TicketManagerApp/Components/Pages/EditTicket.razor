@@ -1,0 +1,343 @@
+﻿@page "/editticket/{id:int}"
+
+@rendermode InteractiveServer
+
+@using Microsoft.AspNetCore.Authorization
+@using TicketManager.Models.Models
+@using TicketManagerApp.Services
+
+@inject ITicketService TicketService
+@inject ITestService TestService
+@inject ITestParameterServices TestParameterService
+
+@attribute [Authorize]
+
+
+<h3>EditTicket</h3>
+
+<!--
+ Table with base data
+-->
+<form>
+    <div class="form-group">
+        <label for="lblLabolatoryLocation">Lab location: @UserTicketVM.LabLocation.Factory / @UserTicketVM.LabLocation.Country </label>
+    </div>
+    <div class="form-group">
+        <label for="lblRequestorEmail">Requestor email: @UserTicketVM.RequestorEmail</label>
+    </div>
+    <div class="form-group">
+        <label for="lblRequestorDepartment">Requestor department: @UserTicketVM.RequestorDepartment.DepartmentDescription   </label>
+    </div>
+    <div class="form-group">
+        <label for="lblproduct">
+            Product:
+            @UserTicketVM.Product.ProductFamily.FamilyDescription
+            @UserTicketVM.Product.ProductType.ProductTypeDesc
+            @UserTicketVM.Product.ProductDisplacement.Displacement
+        </label>
+    </div>
+</form>
+
+
+<!--
+ Test request form
+-->
+<br>
+<br>
+<h3>Tests request:</h3>
+<br>
+@if (isAddNewTestButtonVisible == true)
+{
+    <button class="btn-secondary btn-sm" @onclick="() => AddNewTestToTicketTestsList()"> + </button>
+    <br>
+}
+else
+{
+    // no showing button with adding test
+}
+
+@if (isAddTestTableVisible == false)
+{
+    // show nothing
+}
+else
+{
+    <div class="border-bottom border-white shadow rounded-lg col-md-6" style="backgoround-color: #ededed">
+        <table class="table table-striped boarder table-hover">
+            <tr>
+                <th>Test Description</th>
+                <th>Units</th>
+            </tr>
+            <tbody>
+            <td>
+                <div class="form-group">
+                    <select id="inputTest" class="form-control" asp-items @onchange="OnTestPickedChanged">
+                        <option selected>@(string.IsNullOrEmpty(UserTicketTestVM.Test?.TestDescription) ? "... choose test ..." : UserTicketTestVM.Test.TestDescription)</option>
+                        <option>...</option>
+                            @foreach (var test in TestsDedicatedList)
+                            {
+                            <option value="@test.TestId">@test.TestDescription</option>
+                            }
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="formTestUnits" placeholder="@UserTicketTestVM.Test.TestUnits" readonly>
+                </div>
+            </td>
+            </tbody>
+        </table>
+    </div>
+    <br>
+
+    <!--
+     Parameters request form
+    -->
+    <div class="border-bottom border-white shadow rounded-lg col-md-6" style="background-color: #ededed">
+        <table class="table table-striped boarder table-hover">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Units</th>
+            </tr>
+            <tbody>
+                @if (UserTicketTestVM.TicketTestParameters == null)
+                {
+                    <p><em>No parameters added.</em></p>
+                }
+                else
+                {
+                    @foreach (var test in UserTicketTestVM.TicketTestParameters)
+                    {
+                        <tr>
+                            <td>@test.TestParameter.ParameterDescription</td>
+                            <td>
+                                <input type="text" class="form-control" id="formTestParameterValue" placeholder="Add parameter value" @bind="test.ParameterValue">
+                            </td>
+                            <td>@test.TestParameter.ParameterUnit</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="form-group">
+        <button class="btn btn-primary" @onclick="AddTestAndItsParametersToThisTicket">Update / Add test and parameters</button>
+    </div>
+
+}
+
+<!--
+ List with picked tests
+-->
+<br>
+<br>
+<h3>Summary tests request:</h3>
+<br>
+<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Test Description</th>
+            <th>Units</th>
+            <th>Test parameter</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+            @if (UserTicketVM.TicketTests == null)
+            {
+                <p><em>No tests added.</em></p>
+            }
+            else
+            {
+                @foreach (var test in UserTicketVM.TicketTests)
+                {
+                    <tr>
+                        <td>@test.Test.TestDescription</td>
+                        <td>@test.Test.TestUnits</td>
+                        <td>
+                            @foreach (var parameter in test.TicketTestParameters)
+                            {
+                                <label for="summaryinfo">
+                                    @parameter.TestParameter.ParameterDescription
+                                    @parameter.ParameterValue
+                                    @parameter.TestParameter.ParameterUnit
+                                </label>
+                                <br>
+                            }
+                        </td>
+                        <td>
+                            <button class="btn-secondary btn-sm" @onclick="() => EditTestFromList(test)">Edit</button>
+                            <button class="btn-danger btn-sm" @onclick="() => RemoveTestFromList(test)">Delete</button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <button class="btn btn-primary" @onclick="UpdateTicketRequest">Update ticket</button>
+    </div>
+</div>
+
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; } // ticket primary key
+
+    private Ticket? UserTicketVM = new Ticket
+        {
+            TicketTests = new List<TicketTest>(),
+            RequestorDepartment = new Department
+            {
+                Factorylocation = new()
+            },
+            LabLocation = new(),
+            Product = new Product
+            {
+                ProductFamily = new(),
+                ProductType = new(),
+                ProductDisplacement = new()
+            },
+            TicketStatus = new()
+        };
+
+    private TicketTest UserTicketTestVM = new TicketTest
+        {
+            TicketTestParameters = new List<TicketTestParameter>(),
+            Test = new()
+        };
+
+    List<Test> TestsDedicatedList = new List<Test>();
+    List<TestParameter> TestParametersDedicatedList = new List<TestParameter>();
+
+    private bool isAddTestTableVisible = false;
+    private bool isAddNewTestButtonVisible = true;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        UserTicketVM = await TicketService.GetTicketDetails(Id) ?? new Ticket();
+
+        if (!(UserTicketVM.LabLocationId == 0))
+        {
+            int labLocationId = UserTicketVM.LabLocationId;
+            TestsDedicatedList = await TestService.GetTestsByLabLocation(labLocationId) ?? new List<Test>();
+        }
+    }
+
+    private void EditTestFromList(TicketTest test)
+    {
+        isAddTestTableVisible = true;
+        isAddNewTestButtonVisible = true;
+        AddOrEditTestFromTestsList(test);
+    }
+
+    private void AddOrEditTestFromTestsList(TicketTest test)
+    {
+        int _index = UserTicketVM.TicketTests.FindIndex(t => t.Equals(test));
+
+        if (_index != -1)
+        {
+            UserTicketTestVM = UserTicketVM?.TicketTests?[_index]; // ticket found edition of ticket available
+        }
+        else
+        {
+            // ticket doeasn't exist new ticket is added to ticket test list
+            UserTicketVM.TicketTests.Add(UserTicketTestVM); // addding new test
+        }
+    }
+
+    private void RemoveTestFromList(TicketTest test)
+    {
+        int _index = UserTicketVM.TicketTests.FindIndex(t => t.Equals(test));
+        UserTicketVM.TicketTests.RemoveAt(_index);
+    }
+
+    private async Task UpdateTicketRequest()
+    {
+        /* add proper code here
+        try
+        {
+            var ticket = await TicketService.CreateTicket(UserTicketVM);
+            if (ticket != null)
+            {
+                Navigation.NavigateTo("/", true);
+            }
+            else
+            {
+                // Handle the case where ticket creation failed but no exception was thrown
+                Console.WriteLine("Ticket creation failed.");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log the exception and handle it appropriately
+            Console.WriteLine($"An error occurred while creating the ticket: {ex.Message}");
+        }
+        */
+    }
+
+    private async Task OnTestPickedChanged(ChangeEventArgs e)
+    {
+
+        if (int.TryParse(e.Value.ToString(), out int testId))
+        {
+            // picked test chosen from list of dedicated tests by user
+            UserTicketTestVM.Test = TestsDedicatedList.Find(id => id.TestId == testId) ?? new Test();
+            UserTicketTestVM.TestId = testId;
+            await LoadDedicatedTestParametersByTestId(testId);
+        }
+    }
+
+    private async Task LoadDedicatedTestParametersByTestId(int testId)
+    {
+        TestParametersDedicatedList = await TestParameterService.GetTestParametersByTestId(testId);
+        UserTicketTestVM.TicketTestParameters = ConvertTestParametersDedicatedListToTicketTestList(TestParametersDedicatedList);
+    }
+
+    /// <summary>
+    /// Convert TestParameters dedicated list to TicketList
+    /// </summary>
+    /// <param name="TestParametersDedicatedList"></param>
+    /// <returns></returns>
+    private List<TicketTestParameter> ConvertTestParametersDedicatedListToTicketTestList(List<TestParameter> testParametersDedicatedList)
+    {
+        List<TicketTestParameter> _convertedTicketTestParametersList = new();
+        foreach (var testParameter in testParametersDedicatedList)
+        {
+            TicketTestParameter _testParameter = new();
+            _testParameter.ParameterValue = 0;
+            _testParameter.TestParameterId = testParameter.TestParameterId;
+            _testParameter.TestParameter = testParameter;
+
+            _convertedTicketTestParametersList.Add(_testParameter);
+        }
+
+        return _convertedTicketTestParametersList;
+    }
+
+    private void AddNewTestToTicketTestsList()
+    {
+        isAddTestTableVisible = true; // show table with test parameters
+        isAddNewTestButtonVisible = false; // not showing add new test button
+    }
+
+    private void AddTestAndItsParametersToThisTicket()
+    {
+        isAddTestTableVisible = false; // not showing table with test parameters
+        isAddNewTestButtonVisible = true; // showing button to add new test parameters
+
+        AddOrEditTestFromTestsList(UserTicketTestVM);
+
+        // reseting user ticket to reset adding test and its parameters value
+        UserTicketTestVM = new TicketTest
+            {
+                TicketTestParameters = new List<TicketTestParameter>(),
+                Test = new()
+            };
+    }
+
+}

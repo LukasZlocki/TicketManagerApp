@@ -100,7 +100,11 @@
 
     List<Ticket>? UserTickets;
 
+    // User filter setups
     string? PickedUserEmail;
+    string? PickedTicketStatusId;
+    string? PickedLabLocationId;
+
     LabLocation PickedLabLocation = new LabLocation();
 
     private Ticket UserTicket = new Ticket

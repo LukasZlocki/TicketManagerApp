@@ -94,9 +94,11 @@
 </div>
 
 @code {
-    List<Ticket>? UserTickets;
+    // on initialized
     List<LabLocation> LaboratoryLocations = new List<LabLocation>();
     List<TicketStatus> TicketStatuses = new();
+
+    List<Ticket>? UserTickets;
 
     string? PickedUserEmai;
     LabLocation PickedLabLocation = new LabLocation();
@@ -113,7 +115,7 @@
     protected override async Task OnInitializedAsync()
     {
         LaboratoryLocations = await LabLocationService.GetAllLabLocations();
-        TicketStatuses = AWAIT
+        TicketStatuses = await TicketStatusesService.GetAllTicketStatuses();
     }
 
     private async Task OnLabLocationChanged(ChangeEventArgs e)

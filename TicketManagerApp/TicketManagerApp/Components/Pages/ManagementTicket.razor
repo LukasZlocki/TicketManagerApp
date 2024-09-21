@@ -52,11 +52,6 @@
 <br>
 <h3>Tickets</h3>
 <br>
-
-<!--
- Tickets with status : Waiting
--->
-<h4>Status : Waiting</h4>
 <div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
     <table class="table table-striped boarder table-hover">
         <tr>
@@ -73,58 +68,11 @@
                 <p><em>No tickets found.</em></p>
             }
             else
-                @foreach (var ticket in UserTickets)
-                {
-                    @if (ticket.TicketStatus.StatusDescription == "In Progress")
-                    {
-                        <tr>
-                            <td>@ticket.RequestorEmail</td>
-                        <td>@ticket.LabLocation.Country</td>
-                        <td>@ticket.Product.ProductType.ProductTypeDesc</td>
-                        <td>@ticket.ImplementedAt</td>
-                        <td>@ticket.TicketStatus.StatusDescription</td>
-
-                        <td>
-                            <div class="form-group">
-                                <button class="btn-secondary btn-sm" @onclick="() => DelegateTicket(ticket.TicketId)">Delegate</button>
-                                <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
-                                <button class="btn-secondary btn-sm" @onclick="() => EditTicket(ticket.TicketId)">Edit</button>
-                                <button class="btn-secondary btn-danger" @onclick="() => DeleteTicket(ticket.TicketId)">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                    }
-                }
-        </tbody>
-    </table>
-</div>
-
-<!--
- Tickets with status : In Pr
--->
-<h4>Status : In Progress</h4>
-<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
-    <table class="table table-striped boarder table-hover">
-        <tr>
-            <th>Requestor</th>
-            <th>Lab location</th>
-            <th>Product type</th>
-            <th>Implemented at</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-        <tbody>
-            @if (UserTickets == null || UserTickets.Count == 0)
             {
-                <p><em>No tickets found.</em></p>
-            }
-            else
                 @foreach (var ticket in UserTickets)
                 {
-                    @if (ticket.TicketStatus.StatusDescription == "Waiting")
-                    {
-                        <tr>
-                            <td>@ticket.RequestorEmail</td>
+                    <tr>
+                        <td>@ticket.RequestorEmail</td>
                         <td>@ticket.LabLocation.Country</td>
                         <td>@ticket.Product.ProductType.ProductTypeDesc</td>
                         <td>@ticket.ImplementedAt</td>
@@ -139,13 +87,11 @@
                             </div>
                         </td>
                     </tr>
-                    }
                 }
+            }
         </tbody>
     </table>
 </div>
-
-
 
 @code {
     List<Ticket>? UserTickets;

@@ -7,6 +7,7 @@
 
 @inject ILabLocationService LabLocationService
 @inject ITicketService TicketService
+@inject ITicketStatusService TicketStatusesService
 
 @inject NavigationManager Navigation
 
@@ -31,6 +32,17 @@
         <input type="text" class="form-control" id="formUserEmail" placeholder="Requestor email input" @onchange="OnUserEmailInput">
     </div>
 
+    <div class="form-group">
+        <label for="inputTicketStatus">Ticket status</label>
+        <select id="inputTicketStatus" class="form-control" asp-items @onchange="OnTicketStatusChanged">
+            <option selected>Choose ticket status...</option>
+            <option>...</option>
+            @foreach (var status in TicketStatuses)
+            {
+                <option value="@status.TicketStatusId">@status.StatusDescription</option>
+            }
+        </select>
+    </div>
 </div>
 
 <!--
@@ -138,6 +150,7 @@
 @code {
     List<Ticket>? UserTickets;
     List<LabLocation> LaboratoryLocations = new List<LabLocation>();
+    List<TicketStatus> TicketStatuses = new();
 
     string? PickedUserEmai;
     LabLocation PickedLabLocation = new LabLocation();
@@ -154,6 +167,7 @@
     protected override async Task OnInitializedAsync()
     {
         LaboratoryLocations = await LabLocationService.GetAllLabLocations();
+        TicketStatuses = AWAIT
     }
 
     private async Task OnLabLocationChanged(ChangeEventArgs e)
@@ -174,6 +188,16 @@
         string userEmail = e.Value.ToString();
         UserTickets = await TicketService.GetActiveTicketsByUserEmail(userEmail);
     }
+
+    private async Task OnTicketStatusChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int statusId))
+        {
+            // code to load all tickets with statusId, lablocation id, email
+        }
+    }
+
+
 
     private void DelegateTicket(int ticketId)
     {

@@ -152,8 +152,10 @@
         {
             // set filter global variable
             PickedTicketStatusId = statusId;
-            
+
             // ToDo : code to load all tickets with ticketStatusId, lablocation id, email
+            UserTickets = new List<Ticket>();
+            UserTickets = await TicketService.GetTicketsByFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
 
         }
     }

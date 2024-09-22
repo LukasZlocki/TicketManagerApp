@@ -142,6 +142,30 @@ namespace TicketManagerApp.Services
             return ticket ?? new Ticket();
         }
 
+        public async Task<List<Ticket>> GetTicketsByFilterSetup(int pickedLabLocationId, string pickedUserEmail, int pickedTicketStatusId)
+        {
+            var filteredtickets = await _db.Tickets
+                .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.TicketTestParameters)
+                        .ThenInclude(t => t.TestParameter)
+                    .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.Test)
+                .Include(t => t.RequestorDepartment)
+                    .ThenInclude(t => t.Factorylocation)
+                .Include(t => t.LabLocation)
+                .Include(t => t.Product)
+                    .Include(t => t.Product.ProductFamily)
+                    .Include(t => t.Product.ProductDisplacement)
+                    .Include(t => t.Product.ProductType)
+                .Include(t => t.TicketStatus)
+                    .Where(s => s.TicketStatus.TicketStatusId == pickedTicketStatusId)
+                .Where(id => id.LabLocationId == pickedLabLocationId)
+                .Where(e => e.RequestorEmail == pickedUserEmail)
+                .ToListAsync();
+            return filteredtickets;
+;
+        }
+
         public async Task<List<Ticket>> GetTicketsByLabLocation(int labLocationId)
         {
             var tickets = await _db.Tickets
@@ -158,7 +182,8 @@ namespace TicketManagerApp.Services
                     .Include(t => t.Product.ProductDisplacement)
                     .Include(t => t.Product.ProductType)
                 .Include(t => t.TicketStatus)
-                .Where(id => id.LabLocationId == labLocationId).ToListAsync();
+                    .Where(id => id.LabLocationId == labLocationId)
+                    .ToListAsync();
             return tickets;
         }
 

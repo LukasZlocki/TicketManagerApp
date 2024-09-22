@@ -144,7 +144,7 @@ namespace TicketManagerApp.Services
 
         public async Task<List<Ticket>> GetTicketsByFilterSetup(int pickedLabLocationId, string pickedUserEmail, int pickedTicketStatusId)
         {
-            if(pickedUserEmail != null)
+            if(pickedUserEmail != null && pickedUserEmail != "")
             {
                 var filteredtickets = await _db.Tickets
                 .Include(t => t.TicketTests)

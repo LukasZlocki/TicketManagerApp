@@ -131,12 +131,8 @@
             // set filter global variable
             PickedLabLocationId = labLocationId;
 
-            // if user already picked ticket status and lab location we can retrive data.
-            if (PickedTicketStatusId != null && PickedLabLocationId != null)
-            {
-                UserTickets = new List<Ticket>();
-                UserTickets = await TicketService.GetTicketsByFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
-            }
+            // Retrive ticket data base on filter setup
+            await RetriveTicketDataOnUserFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
         }
     }
 
@@ -144,14 +140,11 @@
     {
         // set filter global variable
         PickedUserEmail = e.Value.ToString();
-        
-        // if user already picked ticket status and lab location we can retrive data.
-        if(PickedTicketStatusId != null && PickedLabLocationId != null)
-        {
-            UserTickets = new List<Ticket>();
-            UserTickets = await TicketService.GetTicketsByFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
-        }
+
+        // Retrive ticket data base on filter setup
+        await RetriveTicketDataOnUserFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
     }
+
 
     private async Task OnTicketStatusChanged(ChangeEventArgs e)
     {
@@ -160,16 +153,27 @@
             // set filter global variable
             PickedTicketStatusId = statusId;
 
-            // if user already picked ticket status and lab location we can retrive data.
-            if (PickedTicketStatusId != null && PickedLabLocationId != null)
-            {
-                UserTickets = new List<Ticket>();
-                UserTickets = await TicketService.GetTicketsByFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
-            }
+            // Retrive ticket data base on filter setup
+            await RetriveTicketDataOnUserFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
         }
     }
 
-
+    /// <summary>
+    /// Retrive tickets base on filter setup. Run only when main filters are alread setup.
+    /// </summary>
+    /// <param name="pickedLaboratoryId"></param>
+    /// <param name="pickedUserEmail"></param>
+    /// <param name="pickedTicketStatusId"></param>
+    /// <returns></returns>
+    private async Task RetriveTicketDataOnUserFilterSetup(int pickedLaboratoryId, string pickedUserEmail, int pickedTicketStatusId)
+    {
+        // if user already picked ticket status and lab location we can retrive data.
+        if (pickedTicketStatusId != null && pickedLaboratoryId != null)
+        {
+            UserTickets = new List<Ticket>();
+            UserTickets = await TicketService.GetTicketsByFilterSetup(pickedLaboratoryId, pickedUserEmail, pickedTicketStatusId);
+        }
+    }
 
     private void DelegateTicket(int ticketId)
     {

@@ -200,7 +200,8 @@
         // ToDo : Code delete ticket
         try
         {
-
+            await TicketService.DeleteTicketById(ticketId);
+            Navigation.NavigateTo("/managementticket", true);
         }
         catch(Exception e)
         {

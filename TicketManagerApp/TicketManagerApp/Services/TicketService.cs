@@ -71,6 +71,34 @@ namespace TicketManagerApp.Services
             return ticket;
         }
 
+        public async Task DeleteTicketById(int ticketId)
+        {
+            // ToDo: Code deleting ticket
+            try
+            {
+                // Find ticket by id
+                var ticket = await _db.Tickets.FindAsync(ticketId);
+                if (ticket == null)
+                {
+                    _logger.LogWarning("Ticket with ID {TicketId} not found", ticketId);
+                    return;
+                }
+
+                // Remove the ticket from the database
+                _db.Tickets.Remove(ticket);
+
+                // Save changes to the database
+                await _db.SaveChangesAsync();
+
+                _logger.LogInformation("Ticket with ID {TicketId} deleted successfully", ticketId);
+
+            }
+            catch (Exception ex) 
+            {
+                _logger.LogInformation("Ticket with ID {TicketId} NOT deleted successfully", ticketId);
+            }
+        }
+
         public async Task<List<Ticket>> GetActiveTicketsByLabLocation(int labLocationId)
         {
             var activeTickets = await _db.Tickets

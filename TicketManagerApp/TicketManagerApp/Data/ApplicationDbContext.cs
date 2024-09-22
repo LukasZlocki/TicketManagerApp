@@ -43,7 +43,7 @@ namespace TicketManagerApp.Data
                 .HasMany(tt => tt.TicketTestParameters)
                 .WithOne()
                 .HasForeignKey(ttp => ttp.TicketTestId)
-                .OnDelete(DeleteBehavior.Restrict); // Prevent TicketTestParameters from being deleted
+                .OnDelete(DeleteBehavior.Cascade); // This will delete TicketTestParameters when a TicketTest is deleted
 
             // Configure the relationship between TicketTest and Test
             modelBuilder.Entity<TicketTest>()

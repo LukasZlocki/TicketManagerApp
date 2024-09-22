@@ -102,8 +102,8 @@
 
     // User filter setups
     private string? PickedUserEmail;
-    private int? PickedTicketStatusId;
-    private int? PickedLabLocationId;
+    private int PickedTicketStatusId;
+    private int PickedLabLocationId;
 
     LabLocation PickedLabLocation = new LabLocation();
 
@@ -156,7 +156,6 @@
             // ToDo : code to load all tickets with ticketStatusId, lablocation id, email
             UserTickets = new List<Ticket>();
             UserTickets = await TicketService.GetTicketsByFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
-
         }
     }
 

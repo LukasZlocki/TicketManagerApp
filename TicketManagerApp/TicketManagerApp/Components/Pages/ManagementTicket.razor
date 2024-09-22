@@ -130,24 +130,31 @@
         {
             // set filter global variable
             PickedLabLocationId = labLocationId;
-            // Retrive all tickets by lab location
-            UserTickets = await TicketService.GetActiveTicketsByLabLocation(labLocationId);
+            // Retrive all active tickets by lab location
+            //UserTickets = await TicketService.GetActiveTicketsByLabLocation(labLocationId);
         }
     }
 
     private async Task OnUserEmailInput(ChangeEventArgs e)
     {
-        UserTickets = new List<Ticket>();
+        // set filter global variable
+        PickedUserEmail = e.Value.ToString();
+
+        //UserTickets = new List<Ticket>();
         // ToDo: Code retriving all tickets by User email
-        string userEmail = e.Value.ToString();
-        UserTickets = await TicketService.GetActiveTicketsByUserEmail(userEmail);
+        //string userEmail = e.Value.ToString();
+        //UserTickets = await TicketService.GetActiveTicketsByUserEmail(userEmail);
     }
 
     private async Task OnTicketStatusChanged(ChangeEventArgs e)
     {
         if (int.TryParse(e.Value.ToString(), out int statusId))
         {
+            // set filter global variable
+            PickedTicketStatusId = statusId;
+            
             // ToDo : code to load all tickets with ticketStatusId, lablocation id, email
+
         }
     }
 

@@ -102,8 +102,8 @@
 
     // User filter setups
     string? PickedUserEmail;
-    string? PickedTicketStatusId;
-    string? PickedLabLocationId;
+    int? PickedTicketStatusId;
+    int? PickedLabLocationId;
 
     LabLocation PickedLabLocation = new LabLocation();
 
@@ -128,6 +128,8 @@
 
         if (int.TryParse(e.Value.ToString(), out int labLocationId))
         {
+            // set 
+            PickedLabLocation = labLocationId;
             // Retrive all tickets by lab location
             UserTickets = await TicketService.GetActiveTicketsByLabLocation(labLocationId);
         }

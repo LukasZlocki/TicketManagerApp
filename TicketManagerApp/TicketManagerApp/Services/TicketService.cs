@@ -161,8 +161,7 @@ namespace TicketManagerApp.Services
                     .Include(t => t.Product.ProductType)
                 .Include(t => t.TicketStatus)
                     .Where(s => s.TicketStatus.TicketStatusId == pickedTicketStatusId)
-                .Where(id => id.LabLocationId == pickedLabLocationId)
-                .Where(e => e.RequestorEmail == pickedUserEmail)
+                .Where(i => i.LabLocationId == pickedLabLocationId && i.RequestorEmail == pickedUserEmail)
                 .ToListAsync();
                 return filteredtickets;
             }

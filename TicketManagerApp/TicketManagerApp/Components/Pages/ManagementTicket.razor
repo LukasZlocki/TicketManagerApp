@@ -130,8 +130,13 @@
         {
             // set filter global variable
             PickedLabLocationId = labLocationId;
-            // Retrive all active tickets by lab location
-            //UserTickets = await TicketService.GetActiveTicketsByLabLocation(labLocationId);
+
+            // if user already picked ticket status and only cahnge lab location filter the data.
+            if(PickedTicketStatusId != null)
+            {
+                UserTickets = new List<Ticket>();
+                UserTickets = await TicketService.GetTicketsByFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
+            }
         }
     }
 

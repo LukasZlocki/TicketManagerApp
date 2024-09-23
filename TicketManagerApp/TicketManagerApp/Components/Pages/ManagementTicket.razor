@@ -205,23 +205,8 @@
         }
         catch(Exception e)
         {
-            
+            // ToDo: write logger to rise exception information
         }
-
-
-        /* code it later
-        // Delete Ticket and its refering data
-        var responseDeleteTicket = await http.DeleteAsync($"https://localhost:7259/api/deleteticket/" + ticketId);
-        if (responseDeleteTicket.IsSuccessStatusCode)
-        {
-            // ToDo : Code information succeeded operation of ticket deletion and redirect to proper page
-            Navigation.NavigateTo("/", true);
-        }
-        else
-        {
-            // ToDo : Code information unsucceeded operation of ticket deletion and redirect to proper page
-        }
-        */
     }
 
 }

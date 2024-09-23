@@ -36,6 +36,14 @@
             </NavLink>
         </div>
 
+        <AuthorizeView Roles="Customer">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="yourtickets">
+                    <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Your Tickets
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
         <AuthorizeView Roles="Manager, Admin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="managementticket">

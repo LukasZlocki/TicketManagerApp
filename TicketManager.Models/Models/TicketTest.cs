@@ -12,5 +12,6 @@ namespace TicketManager.Models.Models
         public Test? Test { get; set; }
 
         public int TicketId { get; set; }
+        public Ticket? Ticket { get; set; }
     }
 }

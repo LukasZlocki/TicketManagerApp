@@ -1,0 +1,211 @@
+﻿@page "/managementticket"
+
+@rendermode InteractiveServer
+
+@using TicketManager.Models.Models
+@using TicketManagerApp.Services
+
+@inject ILabLocationService LabLocationService
+@inject ITicketService TicketService
+@inject ITicketStatusService TicketStatusesService
+
+@inject NavigationManager Navigation
+
+<h3>Manage Ticket</h3>
+
+<div class="border">
+    <br>
+    <h5>Filters:</h5>
+    <div class="form-group">
+        <label for="inputLabolatoryLocation">Lab location</label>
+        <select id="inputLabolatoryLocation" class="form-control" asp-items @onchange="OnLabLocationChanged">
+            <option selected>Choose labolatory location...</option>
+            <option>...</option>
+            @foreach (var item in LaboratoryLocations)
+            {
+                <option value="@item.LabLocationId">@item.Country</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="formRequestorEmail">Requestor email</label>
+        <input type="text" class="form-control" id="formUserEmail" placeholder="Requestor email input" @onchange="OnUserEmailInput">
+    </div>
+
+    <div class="form-group">
+        <label for="inputTicketStatus">Ticket status</label>
+        <select id="inputTicketStatus" class="form-control" asp-items @onchange="OnTicketStatusChanged">
+            <option selected>Choose ticket status...</option>
+            <option>...</option>
+            @foreach (var status in TicketStatuses)
+            {
+                <option value="@status.TicketStatusId">@status.StatusDescription</option>
+            }
+        </select>
+    </div>
+</div>
+
+<!--
+ List with picked tickets
+-->
+<br>
+<br>
+<h3>Tickets</h3>
+<br>
+<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Requestor</th>
+            <th>Lab location</th>
+            <th>Product type</th>
+            <th>Implemented at</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+            @if (UserTickets == null || UserTickets.Count == 0)
+            {
+                <p><em>No tickets found.</em></p>
+            }
+            else
+            {
+                @foreach (var ticket in UserTickets)
+                {
+                    <tr>
+                        <td>@ticket.RequestorEmail</td>
+                        <td>@ticket.LabLocation.Country</td>
+                        <td>@ticket.Product.ProductType.ProductTypeDesc</td>
+                        <td>@ticket.ImplementedAt</td>
+                        <td>@ticket.TicketStatus.StatusDescription</td>
+
+                        <td>
+                            <div class="form-group">
+                                <button class="btn-secondary btn-sm" @onclick="() => DelegateTicket(ticket.TicketId)">Delegate</button>
+                                <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
+                                <button class="btn-secondary btn-sm" @onclick="() => EditTicket(ticket.TicketId)">Edit</button>
+                                <button class="btn-secondary btn-danger" @onclick="() => DeleteTicket(ticket.TicketId)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    // on initialized
+    List<LabLocation> LaboratoryLocations = new List<LabLocation>();
+    List<TicketStatus> TicketStatuses = new();
+
+    List<Ticket>? UserTickets;
+
+    // User filter setups
+    private string? PickedUserEmail;
+    private int PickedTicketStatusId;
+    private int PickedLabLocationId;
+
+    LabLocation PickedLabLocation = new LabLocation();
+
+    private Ticket UserTicket = new Ticket
+        {
+            TicketTests = new List<TicketTest>(),
+            RequestorDepartment = new(),
+            LabLocation = new(),
+            Product = new(),
+            TicketStatus = new()
+        };
+
+    protected override async Task OnInitializedAsync()
+    {
+        LaboratoryLocations = await LabLocationService.GetAllLabLocations();
+        TicketStatuses = await TicketStatusesService.GetAllTicketStatuses();
+    }
+
+    private async Task OnLabLocationChanged(ChangeEventArgs e)
+    {
+        UserTickets = new List<Ticket>();
+
+        if (int.TryParse(e.Value.ToString(), out int labLocationId))
+        {
+            // set filter global variable
+            PickedLabLocationId = labLocationId;
+
+            // Retrive ticket data base on filter setup
+            await RetriveTicketDataOnUserFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
+        }
+    }
+
+    private async Task OnUserEmailInput(ChangeEventArgs e)
+    {
+        // set filter global variable
+        PickedUserEmail = e.Value.ToString();
+
+        // Retrive ticket data base on filter setup
+        await RetriveTicketDataOnUserFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
+    }
+
+
+    private async Task OnTicketStatusChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int statusId))
+        {
+            // set filter global variable
+            PickedTicketStatusId = statusId;
+
+            // Retrive ticket data base on filter setup
+            await RetriveTicketDataOnUserFilterSetup(PickedLabLocationId, PickedUserEmail, PickedTicketStatusId);
+        }
+    }
+
+    /// <summary>
+    /// Retrive tickets base on filter setup. Run only when main filters are alread setup.
+    /// </summary>
+    /// <param name="pickedLaboratoryId"></param>
+    /// <param name="pickedUserEmail"></param>
+    /// <param name="pickedTicketStatusId"></param>
+    /// <returns></returns>
+    private async Task RetriveTicketDataOnUserFilterSetup(int pickedLaboratoryId, string pickedUserEmail, int pickedTicketStatusId)
+    {
+        // if user already picked ticket status and lab location we can retrive data.
+        if (pickedTicketStatusId != null && pickedLaboratoryId != null)
+        {
+            UserTickets = new List<Ticket>();
+            UserTickets = await TicketService.GetTicketsByFilterSetup(pickedLaboratoryId, pickedUserEmail, pickedTicketStatusId);
+        }
+    }
+
+    private void DelegateTicket(int ticketId)
+    {
+        // ToDo: Code delegate ticket here
+        // manger need to chooose lab specialist after choosing confirm delegation,
+        // person responsible need to be added to ticket
+        // date of ticket change need to be updated
+
+    }
+
+    private void InfoTicket(int ticketId)
+    {
+        // ToDo: Code to navigate to page with ticket information
+    }
+
+    private void EditTicket(int ticketId)
+    {
+        Navigation.NavigateTo("/editticket/" + ticketId, true);
+
+    }
+
+    private async Task DeleteTicket(int ticketId)
+    {
+        try
+        {
+            await TicketService.DeleteTicketById(ticketId);
+            Navigation.NavigateTo("/managementticket", true);
+        }
+        catch(Exception e)
+        {
+            // ToDo: write logger to rise exception information
+        }
+    }
+
+}

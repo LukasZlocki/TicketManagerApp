@@ -76,6 +76,9 @@
     private async Task DeleteTicket(int ticketId)
     {
         // ToDo : Code to delete ticket , see manager page for code
+
+        // refreshing patge
+        Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
     }
 
 }

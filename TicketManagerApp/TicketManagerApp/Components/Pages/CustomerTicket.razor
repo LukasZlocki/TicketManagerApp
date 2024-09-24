@@ -1,8 +1,10 @@
 ﻿@page "/yourtickets"
 
 @using TicketManager.Models.Models
+@using TicketManagerApp.Services
 
 @inject NavigationManager Navigation
+@inject ITicketService TicketService
 
 <h3>Your Active Tickets</h3>
 
@@ -24,12 +26,12 @@
             <th>Action</th>
         </tr>
         <tbody>
-            @if (UserTickets == null || UserTickets.Count == 0)
+            @if (UserActiveTickets == null || UserActiveTickets.Count == 0)
             {
                 <p><em>No tickets found.</em></p>
             }
             else
-                @foreach (var ticket in UserTickets)
+                @foreach (var ticket in UserActiveTickets)
                 {
                     <tr>
                         <td>@ticket.RequestorEmail</td>
@@ -53,7 +55,13 @@
 
 @code {
 
-    List<Ticket>? UserTickets;
+    List<Ticket>? UserActiveTickets;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // ToDo : Code retrive active tickets by user guid
+        UserActiveTickets = await TicketService.GetActiveTicketsByLabLocation(1);
+    }
 
     private void InfoTicket(int ticketId)
     {

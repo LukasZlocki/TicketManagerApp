@@ -12,6 +12,7 @@ namespace TicketManager.Models.Models
         public DateTime ImplementedAt { get; set; }
         public DateTime StartedAt { get; set; }
         public DateTime FinishedAt { get; set; }
+        public Guid UserId { get; set; }
 
         public List<TicketTest>? TicketTests { get; set; }
 

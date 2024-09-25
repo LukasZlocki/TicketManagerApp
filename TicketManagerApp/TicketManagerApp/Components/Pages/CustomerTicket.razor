@@ -59,8 +59,6 @@
 @code {
 
     List<Ticket>? UserActiveTickets;
-
-    Guid UserGuideId;
     string? UserEmail;
 
     protected override async Task OnInitializedAsync()
@@ -71,13 +69,8 @@
 
         if (user.Identity.IsAuthenticated)
         {
-            var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             UserEmail = user.FindFirst(e => e.Type == ClaimTypes.Email)?.Value;
-            if (Guid.TryParse(userId, out Guid userGuid))
-            {
-                UserGuideId = userGuid;
-                //UserActiveTickets = await TicketService.GetActiveTicketsByUserGuidId(UserGuideId);
-            }
+            UserActiveTickets = await TicketService.GetActiveTicketsByUserEmail(UserEmail);
         }
     }
 

@@ -257,5 +257,21 @@ namespace TicketManagerApp.Services
                 .ToListAsync();
             return tickets;
         }
+
+        public async Task<bool> UpdateTicketData(Ticket updatedTicket)
+        {
+            _db.Entry(updatedTicket).State = EntityState.Modified;
+            try
+            {
+                await _db.SaveChangesAsync();
+                _logger.LogInformation("Ticket with ID {updatedTicket.TicketId} successfully updated.", updatedTicket.TicketId);
+                return true;
+            }
+            catch
+            {
+                _logger.LogInformation("Ticket with ID {updatedTicket.TicketId} NOT updated.", updatedTicket.TicketId);
+                return false;
+            }
+        }
     }
 }

@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\images\wd_products_motors.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\TicketManager.Models\TicketManager.Models.csproj" />
     <ProjectReference Include="..\TicketManagerApp.Client\TicketManagerApp.Client.csproj" />
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.4" />

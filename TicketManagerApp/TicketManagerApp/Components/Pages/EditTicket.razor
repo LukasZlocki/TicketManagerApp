@@ -258,11 +258,10 @@ else
 
     private async Task UpdateTicketRequest()
     {
-        /* add proper code here
         try
         {
-            var ticket = await TicketService.CreateTicket(UserTicketVM);
-            if (ticket != null)
+            var isTicketUpdated = await TicketService.UpdateTicketData(UserTicketVM);
+            if (isTicketUpdated)
             {
                 Navigation.NavigateTo("/", true);
             }
@@ -277,7 +276,6 @@ else
             // Log the exception and handle it appropriately
             Console.WriteLine($"An error occurred while creating the ticket: {ex.Message}");
         }
-        */
     }
 
     private async Task OnTestPickedChanged(ChangeEventArgs e)

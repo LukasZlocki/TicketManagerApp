@@ -17,7 +17,7 @@ namespace TicketManagerApp.Services
             var user = await _userManager.FindByIdAsync(userId.ToString());
             if (user == null)
             {
-                throw new Exception("User not found");
+                return "N/a";
             }
             var _userEmail = await _userManager.GetUserNameAsync(user);
             return _userEmail;

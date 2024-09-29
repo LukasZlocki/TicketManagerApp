@@ -49,6 +49,8 @@ internal class Program
         builder.Services.AddScoped<ITestParameterServices, TestParameterServices>();
         builder.Services.AddScoped<ITestService, TestService>();
         builder.Services.AddScoped<ITicketStatusService, TicketStatusService>();
+        builder.Services.AddScoped<IUserService, UserService>();
+
 
         builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
             .AddRoles<IdentityRole>()

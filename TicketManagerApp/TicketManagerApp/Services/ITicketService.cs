@@ -13,6 +13,7 @@ namespace TicketManagerApp.Services
         public Task<List<Ticket>> GetTicketsByFilterSetup(int pickedLabLocationId, string pickedUserEmail, int pickedTicketStatusId);
         public Task<Ticket> GetTicketDetails(int ticketId);
         public Task<bool> UpdateTicketData(Ticket updatedTicket);
+        public Task UpdateResponsibleUserTicketData(Ticket ticket);
         public Task DeleteTicketById(int ticketId);
 
     }

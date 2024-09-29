@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TicketManager.Models.Models
+@using TicketManagerApp.Data
+@using TicketManagerApp.Services
+
+@rendermode InteractiveServer
+
+@inject IUserService _userService
+@inject ITicketService _ticketService
+
+<div class="modal" tabindex="-1" style="display:block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <label for="inputLabSpecialist">Lab Specialist</label>
+                <select id="inputLabSpecialist" class="form-control" asp-items @onchange="OnLabSpecialistChanged">
+                    <option selected>Delegate labolatory specialist...</option>
+                    <option>...</option>
+                    @foreach (var user in LabSpecialistsList)
+                    {
+                        <option value="@user.Id">@user.NormalizedUserName</option>
+                    }
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @onclick="CloseModal">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="DelegateTicket">Delegate</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public Ticket modalTicket { get; set; }
+    [Parameter] public EventCallback<Ticket> OnDelegate { get; set; }
+
+    private List<ApplicationUser> LabSpecialistsList;
+
+    private Guid PickedLabSpecialistId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // ToDo: Code retriving lab specialist by lab location id
+        LabSpecialistsList = new();
+        try
+        {
+            LabSpecialistsList = await _userService.GetUsersInRoleAsync("Manager");
+        }
+        catch (Exception ex)
+        {
+            // ToDo : Write log exception here
+        }
+    }
+
+    private async Task DelegateTicket()
+    {
+        modalTicket.ResponsibleLabSpecialist = PickedLabSpecialistId;
+        await _ticketService.UpdateResponsibleUserTicketData(modalTicket);
+
+        // close modal
+        await OnDelegate.InvokeAsync();
+    }
+
+    private void CloseModal()
+    {
+        // Logic to close the modal
+        // close modal
+        OnDelegate.InvokeAsync();
+
+    }
+
+    private async Task OnLabSpecialistChanged(ChangeEventArgs e)
+    {
+        if (Guid.TryParse(e.Value.ToString(), out Guid labSpecialistId))
+        {
+            PickedLabSpecialistId = labSpecialistId;
+        }
+    }
+
+}

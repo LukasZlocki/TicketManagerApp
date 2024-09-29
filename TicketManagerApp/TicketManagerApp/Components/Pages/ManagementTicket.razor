@@ -4,11 +4,13 @@
 
 @using Microsoft.AspNetCore.Authorization
 @using TicketManager.Models.Models
+@using TicketManagerApp.Components.Modals
 @using TicketManagerApp.Services
 
 @inject ILabLocationService LabLocationService
 @inject ITicketService TicketService
 @inject ITicketStatusService TicketStatusesService
+@inject IUserService _userService;
 
 @inject NavigationManager Navigation
 
@@ -62,6 +64,7 @@
             <th>Lab location</th>
             <th>Product type</th>
             <th>Implemented at</th>
+            <th>Responsible email</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -79,11 +82,12 @@
                         <td>@ticket.LabLocation.Country</td>
                         <td>@ticket.Product.ProductType.ProductTypeDesc</td>
                         <td>@ticket.ImplementedAt</td>
+                        <td>@userEmailsInTickets[ticket.ResponsibleLabSpecialist]</td>
                         <td>@ticket.TicketStatus.StatusDescription</td>
 
                         <td>
                             <div class="form-group">
-                                <button class="btn-secondary btn-sm" @onclick="() => DelegateTicket(ticket.TicketId)">Delegate</button>
+                                <button class="btn-secondary btn-sm" @onclick="() => DelegateTicket(ticket)">Delegate</button>
                                 <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
                                 <button class="btn-secondary btn-sm" @onclick="() => EditTicket(ticket.TicketId)">Edit</button>
                                 <button class="btn-secondary btn-danger" @onclick="() => DeleteTicket(ticket.TicketId)">Delete</button>
@@ -96,6 +100,12 @@
     </table>
 </div>
 
+<!-- modal -->
+@if (showModal)
+{
+    <DelegateModal modalTicket="modalTicket" OnDelegate="HandleDelegate" />
+}
+
 @code {
     // on initialized
     List<LabLocation> LaboratoryLocations = new List<LabLocation>();
@@ -103,12 +113,19 @@
 
     List<Ticket>? UserTickets;
 
+    private Dictionary<Guid, string> userEmailsInTickets = new Dictionary<Guid, string>();
+
     // User filter setups
     private string? PickedUserEmail;
     private int PickedTicketStatusId;
     private int PickedLabLocationId;
 
     LabLocation PickedLabLocation = new LabLocation();
+
+    Ticket modalTicket;
+
+    // modal window
+    private bool showModal = false;
 
     private Ticket UserTicket = new Ticket
         {
@@ -175,16 +192,45 @@
         {
             UserTickets = new List<Ticket>();
             UserTickets = await TicketService.GetTicketsByFilterSetup(pickedLaboratoryId, pickedUserEmail, pickedTicketStatusId);
+            await GetUsersBaseOnTickets(UserTickets);
         }
     }
 
-    private void DelegateTicket(int ticketId)
+    private async Task GetUsersBaseOnTickets(List<Ticket> tickets)
     {
-        // ToDo: Code delegate ticket here
-        // manger need to chooose lab specialist after choosing confirm delegation,
-        // person responsible need to be added to ticket
-        // date of ticket change need to be updated
+        foreach (var ticket in UserTickets)
+        {
+            if (!userEmailsInTickets.ContainsKey(ticket.ResponsibleLabSpecialist))
+            {
+                string email;
+                try
+                {
+                    email = await _userService.GetUserEmailByUserId(ticket.ResponsibleLabSpecialist);
+                }
+                catch (Exception ex)
+                {
+                    email = "N/a";
+                }
+                userEmailsInTickets[ticket.ResponsibleLabSpecialist] = email;
+            }
+        }
+    }
 
+    private void DelegateTicket(Ticket ticket)
+    {
+        OpenModal(ticket);
+    }
+
+    private void OpenModal(Ticket ticket)
+    {
+        modalTicket = ticket;
+        showModal = true;
+    }
+
+    private async Task HandleDelegate()
+    {
+        // Logic to update the ticket owner
+        showModal = false;
     }
 
     private void InfoTicket(int ticketId)

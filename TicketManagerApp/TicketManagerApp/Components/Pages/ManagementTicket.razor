@@ -110,6 +110,11 @@
 
     LabLocation PickedLabLocation = new LabLocation();
 
+    Ticket modalTicket;
+
+    // modal window
+    private bool showModal = false;
+
     private Ticket UserTicket = new Ticket
         {
             TicketTests = new List<TicketTest>(),
@@ -181,6 +186,12 @@
     private void DelegateTicket(Ticket ticket)
     {
         OpenModal(ticket);
+    }
+
+    private void OpenModal(Ticket ticket)
+    {
+        modalTicket = ticket;
+        showModal = true;
     }
 
     private void InfoTicket(int ticketId)

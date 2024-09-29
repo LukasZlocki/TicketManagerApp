@@ -58,7 +58,7 @@
         // ToDo : Code update ticket data with lab specialist Guid heref
 
         modalTicket.ResponsibleLabSpecialist = PickedLabSpecialistId;
-        // ToDo: uncomment this code: await _ticketService.UpdateResponsibleUserTicketData(modalTicket);
+        await _ticketService.UpdateResponsibleUserTicketData(modalTicket);
 
         // close modal
         await OnDelegate.InvokeAsync();

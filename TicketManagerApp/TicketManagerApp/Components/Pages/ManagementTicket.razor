@@ -96,6 +96,12 @@
     </table>
 </div>
 
+<!-- modal -->
+@if (showModal)
+{
+    <DelegateModal modalTicket="modalTicket" OnDelegate="HandleDelegate" />
+}
+
 @code {
     // on initialized
     List<LabLocation> LaboratoryLocations = new List<LabLocation>();
@@ -192,6 +198,12 @@
     {
         modalTicket = ticket;
         showModal = true;
+    }
+
+    private async Task HandleDelegate()
+    {
+        // Logic to update the ticket owner
+        showModal = false;
     }
 
     private void InfoTicket(int ticketId)

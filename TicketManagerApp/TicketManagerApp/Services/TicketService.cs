@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Net.Sockets;
 using TicketManager.Models.Models;
 using TicketManagerApp.Data;
 
@@ -277,6 +278,24 @@ namespace TicketManagerApp.Services
                 .Where(e => e.RequestorEmail == userEmail)
                 .ToListAsync();
             return tickets;
+        }
+
+        public async Task UpdateClaimedTicket(Guid specialistId, int ticketId)
+        {
+            var ticketStatuses = await _db.TicketStatuses.ToListAsync();
+            var updateTicket = await _db.Tickets.FindAsync(ticketId);
+
+            if (updateTicket != null)
+            {
+                updateTicket.ResponsibleLabSpecialist = specialistId;
+                updateTicket.TicketStatus.TicketStatusId = ticketStatuses.FirstOrDefault(s => s.StatusDescription == "In Progress")?.TicketStatusId ?? 0;
+                updateTicket.StartedAt = DateTime.UtcNow;
+                await _db.SaveChangesAsync();
+            }
+            else
+            {
+                throw new KeyNotFoundException("Ticket not found");
+            }
         }
 
         public async Task UpdateResponsibleUserTicketData(Ticket ticket)

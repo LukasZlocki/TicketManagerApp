@@ -1,0 +1,102 @@
+﻿@page "/marketticket"
+
+<h3>MarketTicket</h3>
+
+
+@rendermode InteractiveServer
+
+@using System.Security.Claims
+@using TicketManager.Models.Models
+@using TicketManagerApp.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+
+@inject ITicketService TicketService
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h3>Tickets to addres</h3>
+
+<!--
+ List with picked active tickets
+-->
+<br>
+<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Requestor</th>
+            <th>Lab location</th>
+            <th>Product type</th>
+            <th>Implemented at</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+            @if (UserActiveTickets == null || UserActiveTickets.Count == 0)
+            {
+                <p><em>No tickets found.</em></p>
+            }
+            else
+                @foreach (var ticket in UserActiveTickets)
+                {
+                    <tr>
+                        <td>@ticket.RequestorEmail</td>
+                        <td>@ticket.LabLocation.Country</td>
+                        <td>@ticket.Product.ProductType.ProductTypeDesc</td>
+                        <td>@ticket.ImplementedAt</td>
+                        <td>@ticket.TicketStatus.StatusDescription</td>
+
+                        <td>
+                            <div class="form-group">
+                                <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
+                                <button class="btn-secondary btn-sm" @onclick="() => EditTicket(ticket.TicketId)">Edit</button>
+                                <button class="btn-secondary btn-danger" @onclick="() => DeleteTicket(ticket.TicketId)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+        </tbody>
+    </table>
+</div>
+
+@code {
+
+    List<Ticket>? UserActiveTickets;
+    string? UserEmail;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // ToDo : Code retrive active tickets by user guid
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            // ToDo: use auth data to sign responsible person for ticket, after ticket claim
+        }
+    }
+
+    private void InfoTicket(int ticketId)
+    {
+        // ToDo: Code to navigate to page with ticket information
+    }
+
+    private void EditTicket(int ticketId)
+    {
+        Navigation.NavigateTo("/editticket/" + ticketId, true);
+    }
+
+    private async Task DeleteTicket(int ticketId)
+    {
+        try
+        {
+            await TicketService.DeleteTicketById(ticketId);
+            Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+        }
+        catch (Exception e)
+        {
+            // ToDo: write logger to rise exception information
+        }
+    }
+
+}

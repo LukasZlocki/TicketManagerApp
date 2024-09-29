@@ -45,7 +45,7 @@
         LabSpecialistsList = new();
         try
         {
-            LabSpecialistsList = await _userService.GetUsersInRoleAsync("Manager");
+            LabSpecialistsList = await _userService.GetUsersInRoleAsync("Specialist");
         }
         catch (Exception ex)
         {

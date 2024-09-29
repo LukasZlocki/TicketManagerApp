@@ -258,6 +258,20 @@ namespace TicketManagerApp.Services
             return tickets;
         }
 
+        public async Task UpdateResponsibleUserTicketData(Ticket ticket)
+        {
+            var updateTicket = await _db.Tickets.FindAsync(ticket.TicketId);
+            if (updateTicket != null)
+            {
+                updateTicket.ResponsibleLabSpecialist = ticket.ResponsibleLabSpecialist;
+                await _db.SaveChangesAsync();
+            }
+            else
+            {
+                throw new KeyNotFoundException("Ticket not found");
+            }
+        }
+
         public async Task<bool> UpdateTicketData(Ticket updatedTicket)
         {
             _db.Entry(updatedTicket).State = EntityState.Modified;

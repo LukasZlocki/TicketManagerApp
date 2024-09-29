@@ -3,17 +3,38 @@ html, body {
 }
 
 a, .btn-link {
-    color: #006bb7;
+    color: #ff6600;
 }
 
 .btn-primary {
     color: #fff;
     background-color: #ff6600;
-    border-color: #1861ac;
+    border-color: #ff6600;
 }
 
+button.btn-wdprod {
+    color: #fff !important;
+    background-color: #ff6600 !important;
+    border: 1px solid #ff6600 !important;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+    button.btn-wdprod:hover {
+        background-color: #ff3300 !important;
+        border-color: #ff3300 !important;
+    }
+
+.btn-primary-override:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+        background-color: #ff3300 !important; /* Change this to your desired hover color */
+        border-color: #ff3300 !important; /* Match the border color to the hover color */
+    }
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #ff6600;
 }
 
 .content {

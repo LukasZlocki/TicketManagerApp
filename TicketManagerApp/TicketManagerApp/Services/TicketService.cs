@@ -288,7 +288,7 @@ namespace TicketManagerApp.Services
             if (updateTicket != null)
             {
                 updateTicket.ResponsibleLabSpecialist = specialistId;
-                updateTicket.TicketStatus.TicketStatusId = ticketStatuses.FirstOrDefault(s => s.StatusDescription == "In Progress")?.TicketStatusId ?? 0;
+                updateTicket.StatusId = ticketStatuses.FirstOrDefault(s => s.StatusDescription == "In Progress")?.TicketStatusId ?? 0;
                 updateTicket.StartedAt = DateTime.UtcNow;
                 await _db.SaveChangesAsync();
             }

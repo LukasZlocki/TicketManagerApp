@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Net.Sockets;
 using TicketManager.Models.Models;
 using TicketManagerApp.Data;
 
@@ -150,6 +151,27 @@ namespace TicketManagerApp.Services
             return tickets;
         }
 
+        public async Task<List<Ticket>> GetAllWaitingTickets()
+        {
+            var activeTickets = await _db.Tickets
+                .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.TicketTestParameters)
+                        .ThenInclude(t => t.TestParameter)
+                    .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.Test)
+                .Include(t => t.RequestorDepartment)
+                    .ThenInclude(t => t.Factorylocation)
+                .Include(t => t.LabLocation)
+                .Include(t => t.Product)
+                    .Include(t => t.Product.ProductFamily)
+                    .Include(t => t.Product.ProductDisplacement)
+                    .Include(t => t.Product.ProductType)
+                .Include(t => t.TicketStatus)
+                    .Where(s => s.TicketStatus.StatusDescription == "Waiting")
+                .ToListAsync();
+            return activeTickets;
+        }
+
         public async Task<Ticket> GetTicketDetails(int ticketId)
         {
             var ticket = await _db.Tickets
@@ -256,6 +278,24 @@ namespace TicketManagerApp.Services
                 .Where(e => e.RequestorEmail == userEmail)
                 .ToListAsync();
             return tickets;
+        }
+
+        public async Task UpdateClaimedTicket(Guid specialistId, int ticketId)
+        {
+            var ticketStatuses = await _db.TicketStatuses.ToListAsync();
+            var updateTicket = await _db.Tickets.FindAsync(ticketId);
+
+            if (updateTicket != null)
+            {
+                updateTicket.ResponsibleLabSpecialist = specialistId;
+                updateTicket.StatusId = ticketStatuses.FirstOrDefault(s => s.StatusDescription == "In Progress")?.TicketStatusId ?? 0;
+                updateTicket.StartedAt = DateTime.UtcNow;
+                await _db.SaveChangesAsync();
+            }
+            else
+            {
+                throw new KeyNotFoundException("Ticket not found");
+            }
         }
 
         public async Task UpdateResponsibleUserTicketData(Ticket ticket)

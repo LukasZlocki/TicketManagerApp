@@ -1,4 +1,7 @@
-﻿@page "/yourtickets"
+﻿@page "/marketticket"
+
+<h3>MarketTicket</h3>
+
 
 @rendermode InteractiveServer
 
@@ -11,8 +14,9 @@
 @inject ITicketService TicketService
 @inject NavigationManager Navigation
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IUserService _userService;
 
-<h3>Your Active Tickets</h3>
+<h3>Tickets to addres</h3>
 
 <!--
  List with picked active tickets
@@ -25,31 +29,30 @@
             <th>Lab location</th>
             <th>Product type</th>
             <th>Implemented at</th>
-            <th>Responsible email</th>
+            <th>Responsible</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
         <tbody>
-            @if (UserActiveTickets == null || UserActiveTickets.Count == 0)
+            @if (WaitingTicketsList == null || WaitingTicketsList.Count == 0)
             {
-                <p><em>No tickets found.</em></p>
+                <p><em>No waiting tickets found.</em></p>
             }
             else
-                @foreach (var ticket in UserActiveTickets)
+                @foreach (var ticket in WaitingTicketsList)
                 {
                     <tr>
                         <td>@ticket.RequestorEmail</td>
                         <td>@ticket.LabLocation.Country</td>
                         <td>@ticket.Product.ProductType.ProductTypeDesc</td>
                         <td>@ticket.ImplementedAt</td>
-
+                        <td>@userEmailsInTickets[ticket.ResponsibleLabSpecialist]</td>
                         <td>@ticket.TicketStatus.StatusDescription</td>
 
                         <td>
                             <div class="form-group">
                                 <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
-                                <button class="btn-secondary btn-sm" @onclick="() => EditTicket(ticket.TicketId)">Edit</button>
-                                <button class="btn-secondary btn-danger" @onclick="() => DeleteTicket(ticket.TicketId)">Delete</button>
+                                <button class="btn-secondary btn-sm" @onclick="() => ClaimTicket(ticket.TicketId)">Claim</button>
                             </div>
                         </td>
                     </tr>
@@ -60,19 +63,41 @@
 
 @code {
 
-    List<Ticket>? UserActiveTickets;
+    List<Ticket>? WaitingTicketsList;
     string? UserEmail;
+
+    private Dictionary<Guid, string> userEmailsInTickets = new Dictionary<Guid, string>();
+
+    Guid UserGuidId;
 
     protected override async Task OnInitializedAsync()
     {
-        // ToDo : Code retrive active tickets by user guid
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
+        var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        Guid.TryParse(userId, out UserGuidId);
 
-        if (user.Identity.IsAuthenticated)
+        WaitingTicketsList = await TicketService.GetAllWaitingTickets();
+        await GetUsersBaseOnTickets(WaitingTicketsList);
+    }
+
+    private async Task GetUsersBaseOnTickets(List<Ticket> tickets)
+    {
+        foreach (var ticket in WaitingTicketsList)
         {
-            UserEmail = user.FindFirst(e => e.Type == ClaimTypes.Email)?.Value;
-            UserActiveTickets = await TicketService.GetActiveTicketsByUserEmail(UserEmail);
+            if (!userEmailsInTickets.ContainsKey(ticket.ResponsibleLabSpecialist))
+            {
+                string email;
+                try
+                {
+                    email = await _userService.GetUserEmailByUserId(ticket.ResponsibleLabSpecialist);
+                }
+                catch (Exception ex)
+                {
+                    email = "N/a";
+                }
+                userEmailsInTickets[ticket.ResponsibleLabSpecialist] = email;
+            }
         }
     }
 
@@ -81,22 +106,17 @@
         // ToDo: Code to navigate to page with ticket information
     }
 
-    private void EditTicket(int ticketId)
-    {
-        Navigation.NavigateTo("/editticket/" + ticketId, true);
-    }
-
-    private async Task DeleteTicket(int ticketId)
+    private async Task ClaimTicket(int ticketId)
     {
         try
         {
-            await TicketService.DeleteTicketById(ticketId);
-            Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+            await TicketService.UpdateClaimedTicket(UserGuidId, ticketId);
         }
         catch (Exception e)
         {
             // ToDo: write logger to rise exception information
         }
+        Navigation.NavigateTo("/marketticket");
     }
 
 }

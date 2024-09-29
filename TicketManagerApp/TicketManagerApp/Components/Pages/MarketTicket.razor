@@ -29,6 +29,7 @@
             <th>Lab location</th>
             <th>Product type</th>
             <th>Implemented at</th>
+            <th>Responsible</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -67,8 +68,15 @@
 
     private Dictionary<Guid, string> userEmailsInTickets = new Dictionary<Guid, string>();
 
+    Guid UserGuidId;
+
     protected override async Task OnInitializedAsync()
     {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        Guid.TryParse(userId, out UserGuidId);
+
         WaitingTicketsList = await TicketService.GetAllWaitingTickets();
         await GetUsersBaseOnTickets(WaitingTicketsList);
     }
@@ -102,12 +110,13 @@
     {
         try
         {
-            // ToDo : Write claim ticket here
+            await TicketService.UpdateClaimedTicket(UserGuidId, ticketId);
         }
         catch (Exception e)
         {
             // ToDo: write logger to rise exception information
         }
+        Navigation.NavigateTo("/marketticket");
     }
 
 }

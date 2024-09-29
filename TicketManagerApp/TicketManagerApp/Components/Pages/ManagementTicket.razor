@@ -9,6 +9,7 @@
 @inject ILabLocationService LabLocationService
 @inject ITicketService TicketService
 @inject ITicketStatusService TicketStatusesService
+@inject IUserService _userService;
 
 @inject NavigationManager Navigation
 
@@ -111,7 +112,7 @@
 
     List<Ticket>? UserTickets;
 
-        private Dictionary<Guid, string> userEmailsInTickets = new Dictionary<Guid, string>();
+    private Dictionary<Guid, string> userEmailsInTickets = new Dictionary<Guid, string>();
 
     // User filter setups
     private string? PickedUserEmail;
@@ -190,6 +191,27 @@
         {
             UserTickets = new List<Ticket>();
             UserTickets = await TicketService.GetTicketsByFilterSetup(pickedLaboratoryId, pickedUserEmail, pickedTicketStatusId);
+            await GetUsersBaseOnTickets(UserTickets);
+        }
+    }
+
+    private async Task GetUsersBaseOnTickets(List<Ticket> tickets)
+    {
+        foreach (var ticket in UserTickets)
+        {
+            if (!userEmailsInTickets.ContainsKey(ticket.ResponsibleLabSpecialist))
+            {
+                string email;
+                try
+                {
+                    email = await _userService.GetUserEmailByUserId(ticket.ResponsibleLabSpecialist);
+                }
+                catch (Exception ex)
+                {
+                    email = "N/a";
+                }
+                userEmailsInTickets[ticket.ResponsibleLabSpecialist] = email;
+            }
         }
     }
 

@@ -58,20 +58,12 @@
 
 @code {
 
-    List<Ticket>? UserActiveTickets;
+    List<Ticket>? WaitingTicketsList;
     string? UserEmail;
 
     protected override async Task OnInitializedAsync()
     {
-        // ToDo : Code retrive active tickets by user guid
-        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        var user = authState.User;
-
-        if (user.Identity.IsAuthenticated)
-        {
-            UserEmail = user.FindFirst(e => e.Type == ClaimTypes.Email)?.Value;
-            UserActiveTickets = await TicketService.GetActiveTicketsByUserEmail(UserEmail);
-        }
+        WaitingTicketsList = await TicketService.GetAllWaitingTickets();
     }
 
     private void InfoTicket(int ticketId)

@@ -51,8 +51,7 @@
                         <td>
                             <div class="form-group">
                                 <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
-                                <button class="btn-secondary btn-sm" @onclick="() => EditTicket(ticket.TicketId)">Edit</button>
-                                <button class="btn-secondary btn-danger" @onclick="() => DeleteTicket(ticket.TicketId)">Delete</button>
+                                <button class="btn-secondary btn-sm" @onclick="() => ClaimTicket(ticket.TicketId)">Claim</button>
                             </div>
                         </td>
                     </tr>
@@ -99,17 +98,11 @@
         // ToDo: Code to navigate to page with ticket information
     }
 
-    private void EditTicket(int ticketId)
-    {
-        Navigation.NavigateTo("/editticket/" + ticketId, true);
-    }
-
-    private async Task DeleteTicket(int ticketId)
+    private async Task ClaimTicket(int ticketId)
     {
         try
         {
-            await TicketService.DeleteTicketById(ticketId);
-            Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+            // ToDo : Write claim ticket here
         }
         catch (Exception e)
         {

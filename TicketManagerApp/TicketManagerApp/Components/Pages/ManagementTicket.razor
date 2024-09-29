@@ -83,7 +83,7 @@
 
                         <td>
                             <div class="form-group">
-                                <button class="btn-secondary btn-sm" @onclick="() => DelegateTicket(ticket.TicketId)">Delegate</button>
+                                <button class="btn-secondary btn-sm" @onclick="() => DelegateTicket(ticket)">Delegate</button>
                                 <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
                                 <button class="btn-secondary btn-sm" @onclick="() => EditTicket(ticket.TicketId)">Edit</button>
                                 <button class="btn-secondary btn-danger" @onclick="() => DeleteTicket(ticket.TicketId)">Delete</button>
@@ -178,13 +178,9 @@
         }
     }
 
-    private void DelegateTicket(int ticketId)
+    private void DelegateTicket(Ticket ticket)
     {
-        // ToDo: Code delegate ticket here
-        // manger need to chooose lab specialist after choosing confirm delegation,
-        // person responsible need to be added to ticket
-        // date of ticket change need to be updated
-
+        OpenModal(ticket);
     }
 
     private void InfoTicket(int ticketId)

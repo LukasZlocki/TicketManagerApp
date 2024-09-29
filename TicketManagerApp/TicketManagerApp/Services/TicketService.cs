@@ -150,6 +150,27 @@ namespace TicketManagerApp.Services
             return tickets;
         }
 
+        public async Task<List<Ticket>> GetAllWaitingTickets()
+        {
+            var activeTickets = await _db.Tickets
+                .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.TicketTestParameters)
+                        .ThenInclude(t => t.TestParameter)
+                    .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.Test)
+                .Include(t => t.RequestorDepartment)
+                    .ThenInclude(t => t.Factorylocation)
+                .Include(t => t.LabLocation)
+                .Include(t => t.Product)
+                    .Include(t => t.Product.ProductFamily)
+                    .Include(t => t.Product.ProductDisplacement)
+                    .Include(t => t.Product.ProductType)
+                .Include(t => t.TicketStatus)
+                    .Where(s => s.TicketStatus.StatusDescription == "Waiting")
+                .ToListAsync();
+            return activeTickets;
+        }
+
         public async Task<Ticket> GetTicketDetails(int ticketId)
         {
             var ticket = await _db.Tickets

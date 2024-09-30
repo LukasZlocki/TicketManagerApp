@@ -46,7 +46,7 @@
                         <td>
                             <div class="form-group">
                                 <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
-                                <button class="btn-secondary btn-danger" @onclick="() => AddReport(ticket.TicketId)">Delete</button>
+                                <button class="btn-secondary btn-danger" @onclick="() => AddReport(ticket.TicketId)">Add Report</button>
                             </div>
                         </td>
                     </tr>
@@ -70,7 +70,7 @@
 
         if (user.Identity.IsAuthenticated)
         {
-            UserActiveTickets = await TicketService.GetTicketsBySpecialistGuidId(UserId);
+            UserActiveTickets = await TicketService.GetTicketsByUserGuidId(UserId);
         }
     }
 

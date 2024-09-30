@@ -16,6 +16,7 @@ namespace TicketManagerApp.Services
         public Task<List<Ticket>>GetTicketsByUserGuidId(Guid userId);
         public Task<bool> UpdateTicketData(Ticket updatedTicket);
         public Task UpdateResponsibleUserTicketData(Ticket ticket);
+        public Task UpdateTicketStatus(int ticketId, string status);
         public Task UpdateClaimedTicket(Guid specialistId, int ticketId);
         public Task DeleteTicketById(int ticketId);
 

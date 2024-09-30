@@ -365,7 +365,7 @@ namespace TicketManagerApp.Services
             {
                 try
                 {
-                    updateTicket.TicketStatus.TicketStatusId = statusId;
+                    updateTicket.StatusId = statusId;
                     await _db.SaveChangesAsync();
                     _logger.LogInformation("Ticket status updated");
                 }

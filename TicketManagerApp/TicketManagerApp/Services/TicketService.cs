@@ -9,11 +9,13 @@ namespace TicketManagerApp.Services
     {
         private readonly ApplicationDbContext _db;
         private readonly ILogger<TicketService> _logger;
+        private readonly ITicketStatusService _statusService;
 
-        public TicketService(ApplicationDbContext db, ILogger<TicketService> logger)
+        public TicketService(ApplicationDbContext db, ILogger<TicketService> logger, ITicketStatusService statusService)
         {
             _db = db;
             _logger = logger;
+            _statusService = statusService;
         }
 
         public async Task<Ticket> CreateTicket(Ticket ticket)
@@ -94,7 +96,7 @@ namespace TicketManagerApp.Services
                 _logger.LogInformation("Ticket with ID {TicketId} deleted successfully", ticketId);
 
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 _logger.LogInformation("Ticket with ID {TicketId} NOT deleted successfully", ticketId);
             }
@@ -116,7 +118,7 @@ namespace TicketManagerApp.Services
                     .Include(t => t.Product.ProductDisplacement)
                     .Include(t => t.Product.ProductType)
                 .Include(t => t.TicketStatus)
-                    .Where(s => s.TicketStatus.StatusDescription == "In Progress" || 
+                    .Where(s => s.TicketStatus.StatusDescription == "In Progress" ||
                     s.TicketStatus.StatusDescription == "Waiting")
                 .Where(id => id.LabLocationId == labLocationId).ToListAsync();
             return activeTickets;
@@ -194,7 +196,7 @@ namespace TicketManagerApp.Services
 
         public async Task<List<Ticket>> GetTicketsByFilterSetup(int pickedLabLocationId, string pickedUserEmail, int pickedTicketStatusId)
         {
-            if(pickedUserEmail != null && pickedUserEmail != "")
+            if (pickedUserEmail != null && pickedUserEmail != "")
             {
                 var filteredtickets = await _db.Tickets
                 .Include(t => t.TicketTests)
@@ -280,6 +282,27 @@ namespace TicketManagerApp.Services
             return tickets;
         }
 
+        public async Task<List<Ticket>> GetTicketsByUserGuidId(Guid userId)
+        {
+            var tickets = await _db.Tickets
+                .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.TicketTestParameters)
+                        .ThenInclude(t => t.TestParameter)
+                    .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.Test)
+                .Include(t => t.RequestorDepartment)
+                    .ThenInclude(t => t.Factorylocation)
+                .Include(t => t.LabLocation)
+                .Include(t => t.Product)
+                    .Include(t => t.Product.ProductFamily)
+                    .Include(t => t.Product.ProductDisplacement)
+                    .Include(t => t.Product.ProductType)
+                .Include(t => t.TicketStatus)
+                .Where(u => u.ResponsibleLabSpecialist == userId)
+                .ToListAsync();
+            return tickets;
+        }
+
         public async Task UpdateClaimedTicket(Guid specialistId, int ticketId)
         {
             var ticketStatuses = await _db.TicketStatuses.ToListAsync();
@@ -325,6 +348,35 @@ namespace TicketManagerApp.Services
             {
                 _logger.LogInformation("Ticket with ID {updatedTicket.TicketId} NOT updated.", updatedTicket.TicketId);
                 return false;
+            }
+        }
+
+        public async Task UpdateTicketStatus(int ticketId, string status)
+        {
+            // Get status id
+            var ticketStatuses = await _statusService.GetAllTicketStatuses();
+            var statusId = ticketStatuses
+                .Where(s => s.StatusDescription.Equals("In Progress", StringComparison.OrdinalIgnoreCase))
+                .Select(s => s.TicketStatusId)
+                .FirstOrDefault();
+
+            var updateTicket = await _db.Tickets.FindAsync(ticketId);
+            if (updateTicket != null)
+            {
+                try
+                {
+                    updateTicket.StatusId = statusId;
+                    await _db.SaveChangesAsync();
+                    _logger.LogInformation("Ticket status updated");
+                }
+                catch
+                {
+                    _logger.LogInformation("Ticket status not updated");
+                }
+            }
+            else
+            {
+                _logger.LogInformation("No ticket found");
             }
         }
     }

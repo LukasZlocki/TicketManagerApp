@@ -1,0 +1,148 @@
+﻿@page "/specialistticket"
+
+@rendermode InteractiveServer
+
+@using System.Security.Claims
+@using TicketManager.Models.Models
+@using TicketManagerApp.Services
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+
+@inject ITicketService TicketService
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h3>Your Active Tickets</h3>
+
+<!--
+ List with picked active tickets - waiting
+-->
+<br>
+<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+    <h5>Waiting tickets</h5>
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Requestor</th>
+            <th>Lab location</th>
+            <th>Product type</th>
+            <th>Implemented at</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+            @if (UserActiveTickets == null || UserActiveTickets.Count == 0)
+            {
+                <p><em>No tickets found.</em></p>
+            }
+            else
+            {
+                @foreach (var ticket in UserActiveTickets)
+                {
+                    if(ticket.TicketStatus.StatusDescription == "Waiting")
+                    {
+                        <tr>
+                            <td>@ticket.RequestorEmail</td>
+                            <td>@ticket.LabLocation.Country</td>
+                            <td>@ticket.Product.ProductType.ProductTypeDesc</td>
+                            <td>@ticket.ImplementedAt</td>
+                            <td>@ticket.TicketStatus.StatusDescription</td>
+
+                            <td>
+                                <div class="form-group">
+                                    <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
+                                    <button class="btn-secondary btn-primary" @onclick="() => StartTicket(ticket.TicketId)">Start Ticket</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<!--
+ List with picked active tickets - InProgress
+-->
+<br>
+<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+    <h5>In progress tickets</h5>
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Requestor</th>
+            <th>Lab location</th>
+            <th>Product type</th>
+            <th>Implemented at</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+            @if (UserActiveTickets == null || UserActiveTickets.Count == 0)
+            {
+                <p><em>No tickets found.</em></p>
+            }
+            else
+            {
+                @foreach (var ticket in UserActiveTickets)
+                {
+                    if (ticket.TicketStatus.StatusDescription == "In Progress")
+                    {
+                        <tr>
+                            <td>@ticket.RequestorEmail</td>
+                            <td>@ticket.LabLocation.Country</td>
+                            <td>@ticket.Product.ProductType.ProductTypeDesc</td>
+                            <td>@ticket.ImplementedAt</td>
+                            <td>@ticket.TicketStatus.StatusDescription</td>
+
+                            <td>
+                                <div class="form-group">
+                                    <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
+                                    <button class="btn-secondary btn-primary" @onclick="() => AddReport(ticket.TicketId)">Add Report</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+
+    List<Ticket>? UserActiveTickets;
+    Guid? UserId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // ToDo : Code retrive active tickets by user guid
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        var userIdString = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        Guid.TryParse(userIdString, out Guid UserId);
+
+        if (user.Identity.IsAuthenticated)
+        {
+            UserActiveTickets = await TicketService.GetTicketsByUserGuidId(UserId);
+        }
+    }
+
+    private void InfoTicket(int ticketId)
+    {
+        // ToDo: Code to navigate to page with ticket information
+    }
+
+    private void AddReport(int ticketId)
+    {
+        // ToDo : redirect to add report page
+    }
+
+    private async void StartTicket(int ticketId)
+    {
+        // ToDo : change status to in progress & refresh page
+        await TicketService.UpdateTicketStatus(ticketId, "In Progress");
+        Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+    }
+
+}
+

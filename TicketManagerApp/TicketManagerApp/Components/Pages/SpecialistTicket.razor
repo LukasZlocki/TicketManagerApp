@@ -137,9 +137,11 @@
         // ToDo : redirect to add report page
     }
 
-    private void StartTicket(int ticketId)
+    private async void StartTicket(int ticketId)
     {
         // ToDo : change status to in progress & refresh page
+        await TicketService.UpdateTicketStatus(ticketId, "In Progress");
+        Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
     }
 
 }

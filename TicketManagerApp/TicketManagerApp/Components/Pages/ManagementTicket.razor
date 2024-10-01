@@ -227,8 +227,10 @@
         showModal = true;
     }
 
-    private async Task HandleDelegate()
+    private async void HandleDelegate()
     {
+        // refresh user dictionary for tickets in order to avoid error connected with lack of user in dictionary
+        await GetUsersBaseOnTickets(UserTickets);
         // Logic to update the ticket owner
         showModal = false;
     }

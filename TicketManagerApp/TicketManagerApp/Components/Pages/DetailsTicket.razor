@@ -1,0 +1,102 @@
+﻿@page "/detailsticket/{id:int}"
+
+
+@using TicketManager.Models.Models
+@using TicketManagerApp.Services
+@using TicketManagerApp.Services;
+
+@inject ITicketService _ticketService;
+
+<h3>Ticket Details</h3>
+
+<br>
+<h5>Ticket information</h5>
+<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Ticket Nb</th>
+            <th>Requestor</th>
+            <th>Implemented At</th>
+            <th>Status</th>
+            <th>Responsible Specialist</th>
+            <th>Product</th>
+        </tr>
+        <tbody>
+        <td>@DetailedTicket.TicketId</td>
+        <td>@DetailedTicket.RequestorEmail</td>
+        <td>@DetailedTicket.ImplementedAt</td>
+        <td>@DetailedTicket.TicketStatus.StatusDescription</td>
+        <td>@DetailedTicket.ResponsibleLabSpecialist</td>
+        <td>@DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductDisplacement.Displacement</td>
+        </tbody>
+    </table>
+</div>
+
+<br>
+<h5>Test information</h5>
+<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Test Description</th>
+            <th>Units</th>
+            <th>Test parameter</th>
+        </tr>
+        <tbody>
+            @if (DetailedTicket.TicketTests == null)
+            {
+                <p><em>No tests added.</em></p>
+            }
+            else
+            {
+                @foreach (var test in DetailedTicket.TicketTests)
+                {
+                    <tr>
+                        <td>@test.Test.TestDescription</td>
+                        <td>@test.Test.TestUnits</td>
+                        <td>
+                            @foreach (var parameter in test.TicketTestParameters)
+                            {
+                                <label for="summaryinfo">
+                                    @parameter.TestParameter.ParameterDescription
+                                    @parameter.ParameterValue
+                                    @parameter.TestParameter.ParameterUnit
+                                </label>
+                                <br>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; } // ticket primary key
+
+    private Ticket DetailedTicket = new()
+        {
+            TicketTests = new List<TicketTest>(),
+            RequestorDepartment = new Department
+            {
+                Factorylocation = new()
+            },
+            LabLocation = new(),
+            Product = new Product
+            {
+                ProductFamily = new(),
+                ProductType = new(),
+                ProductDisplacement = new()
+            },
+            TicketStatus = new()
+        };
+
+    protected override async Task OnInitializedAsync()
+    {
+        DetailedTicket = await _ticketService.GetTicketDetails(Id) ?? new Ticket();
+    }
+
+}
+

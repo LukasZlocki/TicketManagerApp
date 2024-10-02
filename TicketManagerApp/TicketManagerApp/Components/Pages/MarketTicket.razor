@@ -103,7 +103,8 @@
 
     private void InfoTicket(int ticketId)
     {
-        // ToDo: Code to navigate to page with ticket information
+        // Navigate to page with detailed ticket information
+        Navigation.NavigateTo("/detailsticket/" + ticketId, true);
     }
 
     private async Task ClaimTicket(int ticketId)

@@ -1,6 +1,6 @@
 ﻿@page "/Account/Register"
 
-@rendermode InteractiveServer
+
 
 @using System.ComponentModel.DataAnnotations
 @using System.Text
@@ -25,6 +25,7 @@
 <PageTitle>Register</PageTitle>
 
 <h1>Register</h1>
+
 <div class="row">
     <div class="col-md-4">
         <StatusMessage Message="@Message" />
@@ -32,26 +33,8 @@
             <DataAnnotationsValidator />
             <h2>Create a new account.</h2>
             <hr />
-            <div class="form-floating mb-3">
-                <select id="inputFactorylocation" class="form-control" asp-items @onchange="OnFactoryLocationChanged">
-                    <option selected>Choose your factory location...</option>
-                    <option>...</option>
-                    @foreach (var item in FactoryLocationsList)
-                    {
-                        <option value="@item.FactoryLocationId">@item.Country</option>
-                    }
-                </select>
-            </div>
-            <div class="form-floating mb-3">
-                <select id="inputDepartmentlocation" class="form-control" asp-items @bind="DepartmentLocationId">
-                    <option selected>Choose your department...</option>
-                    <option>...</option>
-                    @foreach (var item in DepartmentsDedicatedList)
-                    {
-                        <option value="@item.DepartmentId">@item.DepartmentDescription</option>
-                    }
-                </select>
-            </div>
+            <UserPickerLocation OnSelectionComplete="HandleOnSelectionComplete" />
+
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
                 <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
@@ -97,10 +80,6 @@
     private int FactorylocationId;
     private int DepartmentLocationId;
 
-    protected override async Task OnInitializedAsync()
-    {
-        FactoryLocationsList = await FactoryLocationService.GetAllFactoryLocations();
-    }
 
     public async Task RegisterUser(EditContext editContext)
     {
@@ -180,18 +159,11 @@
         public string ConfirmPassword { get; set; } = "";
     }
 
-    private async Task OnFactoryLocationChanged(ChangeEventArgs e)
-    {
-        if (int.TryParse(e.Value.ToString(), out int factoryLocationId))
-        {
-            FactorylocationId = factoryLocationId;
-            await LoadDedicatedDepartmentsByFactoryId(factoryLocationId);
-        }
-    }
+    private bool selectionComplete = false;
 
-    private async Task LoadDedicatedDepartmentsByFactoryId(int factoryId)
+    private void HandleOnSelectionComplete()
     {
-        DepartmentsDedicatedList = await DepartmentService.GetAllDepartmentsByFactoryLocationId(factoryId);
+        selectionComplete = true;
     }
 
 }

@@ -1,0 +1,68 @@
+﻿@page "/user-picker-location"
+
+@rendermode InteractiveServer
+
+@using TicketManager.Models.Models
+@using TicketManagerApp.Services
+@inject IFactoryLocationService _factoryLocationService
+@inject IDepartmentService _departmentService
+
+
+<h5> user-picker-location</h5>
+<div class="form-floating mb-3">
+    <select id="inputFactorylocation" class="form-control" @onchange="OnFactoryLocationChanged">
+        <option selected>Choose your factory location...</option>
+        <option>...</option>
+        @foreach (var item in FactoryLocationsList)
+        {
+            <option value="@item.FactoryLocationId">@item.Country</option>
+        }
+    </select>
+</div>
+<div class="form-floating mb-3">
+    <select id="inputDepartmentlocation" class="form-control" @bind="DepartmentLocationId">
+        <option selected>Choose your department...</option>
+        <option>...</option>
+        @foreach (var item in DepartmentsDedicatedList)
+        {
+            <option value="@item.DepartmentId">@item.DepartmentDescription</option>
+        }
+    </select>
+</div>
+
+
+@code {
+    [Parameter] 
+    public EventCallback OnSelectionComplete { get; set; }
+
+    List<FactoryLocation> FactoryLocationsList = new List<FactoryLocation>();
+    List<Department> DepartmentsDedicatedList = new List<Department>();
+
+    private int FactoryLocationId;
+    private int DepartmentLocationId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        FactoryLocationsList = await _factoryLocationService.GetAllFactoryLocations();
+    }
+
+    private async Task OnFactoryLocationChanged(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value.ToString(), out int factoryLocationId))
+        {
+            FactoryLocationId = factoryLocationId;
+            await LoadDedicatedDepartmentsByFactoryId(factoryLocationId);
+        }
+    }
+
+    private async Task LoadDedicatedDepartmentsByFactoryId(int factoryId)
+    {
+        DepartmentsDedicatedList = await _departmentService.GetAllDepartmentsByFactoryLocationId(factoryId);
+    }
+
+    private async Task OnSubmit()
+    {
+        await OnSelectionComplete.InvokeAsync();
+    }
+
+}

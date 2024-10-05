@@ -1,7 +1,6 @@
 ﻿@page "/Account/Register"
 
-@inject NavigationManager Navigation
-@rendermode "@GetRenderMode()"
+@rendermode InteractiveServer
 
 @using System.ComponentModel.DataAnnotations
 @using System.Text
@@ -171,14 +170,13 @@
         new InteractiveServerRenderMode(prerender: false);
     }
 
-    private bool isRenderModeOn = true;
+    private bool switchoff = true; // Set this based on your logic
 
     private RenderMode GetRenderMode()
     {
-        return isRenderModeOn ? new InteractiveServerRenderMode(prerender: false) : new InteractiveServerRenderMode(prerender: true);
+        return switchoff ? new InteractiveServerRenderMode(prerender: false) : new InteractiveServerRenderMode(prerender: true);
     }
 
+
 }
-
-
     

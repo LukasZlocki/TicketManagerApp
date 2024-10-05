@@ -1,7 +1,5 @@
 ﻿@page "/user-picker-location"
 
-@rendermode InteractiveServer
-
 @using TicketManager.Models.Models
 @using TicketManagerApp.Services
 @inject IFactoryLocationService _factoryLocationService
@@ -20,7 +18,7 @@
     </select>
 </div>
 <div class="form-floating mb-3">
-    <select id="inputDepartmentlocation" class="form-control" @bind="DepartmentLocationId">
+    <select id="inputDepartmentlocation" class="form-control" @onchange="OnDepartmentLocationChanged">
         <option selected>Choose your department...</option>
         <option>...</option>
         @foreach (var item in DepartmentsDedicatedList)
@@ -32,8 +30,8 @@
 
 
 @code {
-    [Parameter] 
-    public EventCallback OnSelectionComplete { get; set; }
+    [Parameter]
+    public EventCallback<(int FactoryLocationId, int DepartmentLocationId)> OnSelectionComplete { get; set; }
 
     List<FactoryLocation> FactoryLocationsList = new List<FactoryLocation>();
     List<Department> DepartmentsDedicatedList = new List<Department>();
@@ -60,9 +58,15 @@
         DepartmentsDedicatedList = await _departmentService.GetAllDepartmentsByFactoryLocationId(factoryId);
     }
 
+    private async void OnDepartmentLocationChanged(ChangeEventArgs e)
+    {
+        DepartmentLocationId = Convert.ToInt32(e.Value);
+        await OnSubmit();
+    }
+
     private async Task OnSubmit()
     {
-        await OnSelectionComplete.InvokeAsync();
+        await OnSelectionComplete.InvokeAsync((FactoryLocationId, DepartmentLocationId));
     }
 
 }

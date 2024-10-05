@@ -1,6 +1,7 @@
 ﻿@page "/Account/Register"
 
-
+@inject NavigationManager Navigation
+@rendermode "@GetRenderMode()"
 
 @using System.ComponentModel.DataAnnotations
 @using System.Text
@@ -33,7 +34,7 @@
             <DataAnnotationsValidator />
             <h2>Create a new account.</h2>
             <hr />
-            <UserPickerLocation OnSelectionComplete="HandleOnSelectionComplete" />
+            <UserPickerLocation OnSelectionComplete="OnSelectionComplete" />
 
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
@@ -77,13 +78,17 @@
     private List<FactoryLocation> FactoryLocationsList = new List<FactoryLocation>();
     private List<Department> DepartmentsDedicatedList = new List<Department>();
 
-    private int FactorylocationId;
-    private int DepartmentLocationId;
+    private int PickedFactorylocationId;
+    private int PickedDepartmentLocationId;
 
 
     public async Task RegisterUser(EditContext editContext)
     {
         var user = CreateUser();
+
+        // Set extended user app fields
+        user.FactoryLocationId = PickedDepartmentLocationId;
+        user.DepartmentId = PickedDepartmentLocationId;
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
@@ -159,12 +164,21 @@
         public string ConfirmPassword { get; set; } = "";
     }
 
-    private bool selectionComplete = false;
-
-    private void HandleOnSelectionComplete()
+    private void OnSelectionComplete((int factoryLocationId, int departmentLocationId) selection)
     {
-        selectionComplete = true;
+        PickedFactorylocationId = selection.factoryLocationId;
+        PickedDepartmentLocationId = selection.departmentLocationId;
+        new InteractiveServerRenderMode(prerender: false);
+    }
+
+    private bool isRenderModeOn = true;
+
+    private RenderMode GetRenderMode()
+    {
+        return isRenderModeOn ? new InteractiveServerRenderMode(prerender: false) : new InteractiveServerRenderMode(prerender: true);
     }
 
 }
+
+
     

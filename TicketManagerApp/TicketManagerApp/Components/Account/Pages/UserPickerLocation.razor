@@ -1,5 +1,7 @@
 ﻿@page "/user-picker-location"
 
+@rendermode InteractiveServer
+
 @using TicketManager.Models.Models
 @using TicketManagerApp.Services
 @inject IFactoryLocationService _factoryLocationService
@@ -30,14 +32,14 @@
 
 
 @code {
-    [Parameter]
-    public EventCallback<(int FactoryLocationId, int DepartmentLocationId)> OnSelectionComplete { get; set; }
+    [Parameter] public EventCallback<int> OnFactoryLocationChangedCallback { get; set; }
+    [Parameter] public EventCallback<int> OnDepartmentLocationChangedCallback { get; set; }
 
     List<FactoryLocation> FactoryLocationsList = new List<FactoryLocation>();
     List<Department> DepartmentsDedicatedList = new List<Department>();
 
-    private int FactoryLocationId;
-    private int DepartmentLocationId;
+    private int PickedFactoryLocationId;
+    private int PickedDepartmentLocationId;
 
     protected override async Task OnInitializedAsync()
     {
@@ -48,7 +50,7 @@
     {
         if (int.TryParse(e.Value.ToString(), out int factoryLocationId))
         {
-            FactoryLocationId = factoryLocationId;
+            PickedFactoryLocationId = factoryLocationId;
             await LoadDedicatedDepartmentsByFactoryId(factoryLocationId);
         }
     }
@@ -60,13 +62,14 @@
 
     private async void OnDepartmentLocationChanged(ChangeEventArgs e)
     {
-        DepartmentLocationId = Convert.ToInt32(e.Value);
-        await OnSubmit();
+        PickedDepartmentLocationId = Convert.ToInt32(e.Value);
+        OnSubmit();
     }
 
-    private async Task OnSubmit()
+    private void OnSubmit()
     {
-        await OnSelectionComplete.InvokeAsync((FactoryLocationId, DepartmentLocationId));
+        OnFactoryLocationChangedCallback.InvokeAsync(PickedFactoryLocationId);
+        OnDepartmentLocationChangedCallback.InvokeAsync(PickedDepartmentLocationId);
     }
 
 }

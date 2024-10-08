@@ -115,13 +115,15 @@
 
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
-            RedirectManager.RedirectTo(
-                "Account/RegisterConfirmation",
-                new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+            // Navigate to RegisterConfirmation if confirmation is required
+            NavigationManager.NavigateTo($"Account/RegisterConfirmation?email={Input.Email}&returnUrl={ReturnUrl}");
         }
-
-        await SignInManager.SignInAsync(user, isPersistent: false);
-        RedirectManager.RedirectTo(ReturnUrl);
+        else
+        {
+            // Sign in the user and then navigate
+            await SignInManager.SignInAsync(user, isPersistent: false);
+            NavigationManager.NavigateTo(ReturnUrl);
+        }
     }
 
     private ApplicationUser CreateUser()

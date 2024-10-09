@@ -25,6 +25,7 @@
 <PageTitle>Register</PageTitle>
 
 <h1>Register</h1>
+
 <div class="row">
     <div class="col-md-4">
         <StatusMessage Message="@Message" />
@@ -32,26 +33,10 @@
             <DataAnnotationsValidator />
             <h2>Create a new account.</h2>
             <hr />
-            <div class="form-floating mb-3">
-                <select id="inputFactorylocation" class="form-control" asp-items @onchange="OnFactoryLocationChanged">
-                    <option selected>Choose your factory location...</option>
-                    <option>...</option>
-                    @foreach (var item in FactoryLocationsList)
-                    {
-                        <option value="@item.FactoryLocationId">@item.Country</option>
-                    }
-                </select>
-            </div>
-            <div class="form-floating mb-3">
-                <select id="inputDepartmentlocation" class="form-control" asp-items @bind="DepartmentLocationId">
-                    <option selected>Choose your department...</option>
-                    <option>...</option>
-                    @foreach (var item in DepartmentsDedicatedList)
-                    {
-                        <option value="@item.DepartmentId">@item.DepartmentDescription</option>
-                    }
-                </select>
-            </div>
+
+            <UserPickerLocation OnFactoryLocationChangedCallback="HandleFactoryLocationChanged"
+                                OnDepartmentLocationChangedCallback="HandleDepartmentLocationChanged" />
+
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
                 <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
@@ -94,17 +79,17 @@
     private List<FactoryLocation> FactoryLocationsList = new List<FactoryLocation>();
     private List<Department> DepartmentsDedicatedList = new List<Department>();
 
-    private int FactorylocationId;
-    private int DepartmentLocationId;
+    private int PickedFactoryLocationId;
+    private int PickedDepartmentLocationId;
 
-    protected override async Task OnInitializedAsync()
-    {
-        FactoryLocationsList = await FactoryLocationService.GetAllFactoryLocations();
-    }
 
     public async Task RegisterUser(EditContext editContext)
     {
         var user = CreateUser();
+
+        // Set extended user app fields
+        user.FactoryLocationId = PickedDepartmentLocationId;
+        user.DepartmentId = PickedDepartmentLocationId;
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
@@ -130,13 +115,15 @@
 
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
-            RedirectManager.RedirectTo(
-                "Account/RegisterConfirmation",
-                new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+            // Navigate to RegisterConfirmation if confirmation is required
+            NavigationManager.NavigateTo($"Account/RegisterConfirmation?email={Input.Email}&returnUrl={ReturnUrl}");
         }
-
-        await SignInManager.SignInAsync(user, isPersistent: false);
-        RedirectManager.RedirectTo(ReturnUrl);
+        else
+        {
+            // Sign in the user and then navigate
+            await SignInManager.SignInAsync(user, isPersistent: false);
+            NavigationManager.NavigateTo(ReturnUrl);
+        }
     }
 
     private ApplicationUser CreateUser()
@@ -180,18 +167,14 @@
         public string ConfirmPassword { get; set; } = "";
     }
 
-    private async Task OnFactoryLocationChanged(ChangeEventArgs e)
+    private void HandleFactoryLocationChanged(int id)
     {
-        if (int.TryParse(e.Value.ToString(), out int factoryLocationId))
-        {
-            FactorylocationId = factoryLocationId;
-            await LoadDedicatedDepartmentsByFactoryId(factoryLocationId);
-        }
+        PickedFactoryLocationId = id;
     }
 
-    private async Task LoadDedicatedDepartmentsByFactoryId(int factoryId)
+    private void HandleDepartmentLocationChanged(int id)
     {
-        DepartmentsDedicatedList = await DepartmentService.GetAllDepartmentsByFactoryLocationId(factoryId);
+        PickedDepartmentLocationId = id;
     }
 
 }

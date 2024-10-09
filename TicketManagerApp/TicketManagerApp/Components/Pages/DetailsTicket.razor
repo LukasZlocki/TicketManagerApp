@@ -1,14 +1,11 @@
 ﻿@page "/detailsticket/{id:int}"
 
-
 @using TicketManager.Models.Models
 @using TicketManagerApp.Services
-@using TicketManagerApp.Services;
 
 @inject ITicketService _ticketService;
 
 <h3>Ticket Details</h3>
-
 <br>
 <h5>Ticket information</h5>
 <div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
@@ -26,7 +23,7 @@
         <td>@DetailedTicket.RequestorEmail</td>
         <td>@DetailedTicket.ImplementedAt</td>
         <td>@DetailedTicket.TicketStatus.StatusDescription</td>
-        <td>@DetailedTicket.ResponsibleLabSpecialist</td>
+        <td>@DetailedTicket.ResponsibleEmail</td>
         <td>@DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductDisplacement.Displacement</td>
         </tbody>
     </table>
@@ -99,4 +96,5 @@
     }
 
 }
+
 

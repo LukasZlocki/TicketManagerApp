@@ -2,7 +2,6 @@
 
 <h3>MarketTicket</h3>
 
-
 @rendermode InteractiveServer
 
 @using System.Security.Claims
@@ -46,7 +45,7 @@
                         <td>@ticket.LabLocation.Country</td>
                         <td>@ticket.Product.ProductType.ProductTypeDesc</td>
                         <td>@ticket.ImplementedAt</td>
-                        <td>@userEmailsInTickets[ticket.ResponsibleLabSpecialist]</td>
+                        <td>@ticket.ResponsibleEmail</td>
                         <td>@ticket.TicketStatus.StatusDescription</td>
 
                         <td>
@@ -64,42 +63,18 @@
 @code {
 
     List<Ticket>? WaitingTicketsList;
-    string? UserEmail;
-
-    private Dictionary<Guid, string> userEmailsInTickets = new Dictionary<Guid, string>();
-
-    Guid UserGuidId;
+    string? ResponsibleEmail;
 
     protected override async Task OnInitializedAsync()
     {
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
-        var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        Guid.TryParse(userId, out UserGuidId);
+        // Get the user's email
+        var UserEmaill = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
 
         WaitingTicketsList = await TicketService.GetAllWaitingTickets();
-        await GetUsersBaseOnTickets(WaitingTicketsList);
     }
 
-    private async Task GetUsersBaseOnTickets(List<Ticket> tickets)
-    {
-        foreach (var ticket in WaitingTicketsList)
-        {
-            if (!userEmailsInTickets.ContainsKey(ticket.ResponsibleLabSpecialist))
-            {
-                string email;
-                try
-                {
-                    email = await _userService.GetUserEmailByUserId(ticket.ResponsibleLabSpecialist);
-                }
-                catch (Exception ex)
-                {
-                    email = "N/a";
-                }
-                userEmailsInTickets[ticket.ResponsibleLabSpecialist] = email;
-            }
-        }
-    }
 
     private void InfoTicket(int ticketId)
     {
@@ -111,7 +86,7 @@
     {
         try
         {
-            await TicketService.UpdateClaimedTicket(UserGuidId, ticketId);
+            await TicketService.UpdateClaimedTicket(ResponsibleEmail, ticketId);
         }
         catch (Exception e)
         {

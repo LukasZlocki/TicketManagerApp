@@ -38,7 +38,7 @@
             {
                 @foreach (var ticket in UserActiveTickets)
                 {
-                    if(ticket.TicketStatus.StatusDescription == "Waiting")
+                    if (ticket.TicketStatus.StatusDescription == "Waiting")
                     {
                         <tr>
                             <td>@ticket.RequestorEmail</td>
@@ -118,12 +118,11 @@
         // ToDo : Code retrive active tickets by user guid
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
-        var userIdString = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        Guid.TryParse(userIdString, out Guid UserId);
+        var responsibleEmail = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
 
         if (user.Identity.IsAuthenticated)
         {
-            UserActiveTickets = await TicketService.GetTicketsByUserGuidId(UserId);
+            UserActiveTickets = await TicketService.GetTicketsByResponsiblePersonEmail(responsibleEmail);
         }
     }
 

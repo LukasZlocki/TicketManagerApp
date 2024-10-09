@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Net.Sockets;
 using TicketManager.Models.Models;
 using TicketManagerApp.Data;
 
@@ -27,6 +26,7 @@ namespace TicketManagerApp.Services
                 ImplementedAt = DateTime.UtcNow,
                 StartedAt = ticket.StartedAt,
                 FinishedAt = ticket.FinishedAt,
+                ResponsibleEmail = "N/A",
                 DepartmentId = ticket.DepartmentId,
                 LabLocationId = ticket.LabLocationId,
                 ProductId = ticket.ProductId,
@@ -76,7 +76,6 @@ namespace TicketManagerApp.Services
 
         public async Task DeleteTicketById(int ticketId)
         {
-            // ToDo: Code deleting ticket
             try
             {
                 // Find ticket by id
@@ -256,9 +255,31 @@ namespace TicketManagerApp.Services
                     .Include(t => t.Product.ProductDisplacement)
                     .Include(t => t.Product.ProductType)
                 .Include(t => t.TicketStatus)
-                    .Where(id => id.LabLocationId == labLocationId)
-                    .ToListAsync();
+                .Where(id => id.LabLocationId == labLocationId).ToListAsync();
             return tickets;
+        }
+
+        public async Task<List<Ticket>> GetTicketsByResponsiblePersonEmail(string responsibleEmail)
+        {
+            var reponsiblePersonTickets = await _db.Tickets
+                .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.TicketTestParameters)
+                        .ThenInclude(t => t.TestParameter)
+                    .Include(t => t.TicketTests)
+                    .ThenInclude(t => t.Test)
+                .Include(t => t.RequestorDepartment)
+                    .ThenInclude(t => t.Factorylocation)
+                .Include(t => t.LabLocation)
+                .Include(t => t.Product)
+                    .Include(t => t.Product.ProductFamily)
+                    .Include(t => t.Product.ProductDisplacement)
+                    .Include(t => t.Product.ProductType)
+                .Include(t => t.TicketStatus)
+                    .Where(s => s.TicketStatus.StatusDescription == "In Progress" ||
+                    s.TicketStatus.StatusDescription == "Waiting")
+                .Where(e => e.ResponsibleEmail == responsibleEmail)
+                .ToListAsync();
+            return reponsiblePersonTickets;
         }
 
         public async Task<List<Ticket>> GetTicketsByUserEmail(string userEmail)
@@ -282,7 +303,7 @@ namespace TicketManagerApp.Services
             return tickets;
         }
 
-        public async Task<List<Ticket>> GetTicketsByUserGuidId(Guid userId)
+        public async Task<List<Ticket>> GetTicketsByUserGuidId(string responsibleEmail)
         {
             var tickets = await _db.Tickets
                 .Include(t => t.TicketTests)
@@ -298,21 +319,19 @@ namespace TicketManagerApp.Services
                     .Include(t => t.Product.ProductDisplacement)
                     .Include(t => t.Product.ProductType)
                 .Include(t => t.TicketStatus)
-                .Where(u => u.ResponsibleLabSpecialist == userId)
+                .Where(u => u.ResponsibleEmail == responsibleEmail)
                 .ToListAsync();
             return tickets;
         }
 
-        public async Task UpdateClaimedTicket(Guid specialistId, int ticketId)
+        public async Task UpdateClaimedTicket(string responsibleEmail, int ticketId)
         {
             var ticketStatuses = await _db.TicketStatuses.ToListAsync();
             var updateTicket = await _db.Tickets.FindAsync(ticketId);
 
             if (updateTicket != null)
             {
-                updateTicket.ResponsibleLabSpecialist = specialistId;
-                updateTicket.StatusId = ticketStatuses.FirstOrDefault(s => s.StatusDescription == "In Progress")?.TicketStatusId ?? 0;
-                updateTicket.StartedAt = DateTime.UtcNow;
+                updateTicket.ResponsibleEmail = responsibleEmail;
                 await _db.SaveChangesAsync();
             }
             else
@@ -326,7 +345,7 @@ namespace TicketManagerApp.Services
             var updateTicket = await _db.Tickets.FindAsync(ticket.TicketId);
             if (updateTicket != null)
             {
-                updateTicket.ResponsibleLabSpecialist = ticket.ResponsibleLabSpecialist;
+                updateTicket.ResponsibleEmail = ticket.ResponsibleEmail;
                 await _db.SaveChangesAsync();
             }
             else

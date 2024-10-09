@@ -2,7 +2,6 @@
 @using TicketManager.Models.Models
 @using TicketManagerApp.Data
 @using TicketManagerApp.Services
-
 @rendermode InteractiveServer
 
 @inject IUserService _userService
@@ -18,7 +17,7 @@
                     <option>...</option>
                     @foreach (var user in LabSpecialistsList)
                     {
-                        <option value="@user.Id">@user.NormalizedUserName</option>
+                        <option value="@user.Email">@user.NormalizedUserName</option>
                     }
                 </select>
             </div>
@@ -37,7 +36,7 @@
 
     private List<ApplicationUser> LabSpecialistsList;
 
-    private Guid PickedLabSpecialistId;
+    private string PickedLabSpecialistEmail;
 
     protected override async Task OnInitializedAsync()
     {
@@ -55,7 +54,9 @@
 
     private async Task DelegateTicket()
     {
-        modalTicket.ResponsibleLabSpecialist = PickedLabSpecialistId;
+        // ToDo : Code update ticket data with lab specialist Guid heref
+
+        modalTicket.ResponsibleEmail = PickedLabSpecialistEmail;
         await _ticketService.UpdateResponsibleUserTicketData(modalTicket);
 
         // close modal
@@ -72,9 +73,9 @@
 
     private async Task OnLabSpecialistChanged(ChangeEventArgs e)
     {
-        if (Guid.TryParse(e.Value.ToString(), out Guid labSpecialistId))
+        if (e.Value != null)
         {
-            PickedLabSpecialistId = labSpecialistId;
+            PickedLabSpecialistEmail = e.Value.ToString();
         }
     }
 

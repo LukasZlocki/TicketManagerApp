@@ -82,7 +82,7 @@
                         <td>@ticket.LabLocation.Country</td>
                         <td>@ticket.Product.ProductType.ProductTypeDesc</td>
                         <td>@ticket.ImplementedAt</td>
-                        <td>@userEmailsInTickets[ticket.ResponsibleLabSpecialist]</td>
+                        <td>@ticket.ResponsibleEmail</td>
                         <td>@ticket.TicketStatus.StatusDescription</td>
 
                         <td>
@@ -112,8 +112,6 @@
     List<TicketStatus> TicketStatuses = new();
 
     List<Ticket>? UserTickets;
-
-    private Dictionary<Guid, string> userEmailsInTickets = new Dictionary<Guid, string>();
 
     // User filter setups
     private string? PickedUserEmail;
@@ -192,27 +190,6 @@
         {
             UserTickets = new List<Ticket>();
             UserTickets = await TicketService.GetTicketsByFilterSetup(pickedLaboratoryId, pickedUserEmail, pickedTicketStatusId);
-            await GetUsersBaseOnTickets(UserTickets);
-        }
-    }
-
-    private async Task GetUsersBaseOnTickets(List<Ticket> tickets)
-    {
-        foreach (var ticket in UserTickets)
-        {
-            if (!userEmailsInTickets.ContainsKey(ticket.ResponsibleLabSpecialist))
-            {
-                string email;
-                try
-                {
-                    email = await _userService.GetUserEmailByUserId(ticket.ResponsibleLabSpecialist);
-                }
-                catch (Exception ex)
-                {
-                    email = "N/a";
-                }
-                userEmailsInTickets[ticket.ResponsibleLabSpecialist] = email;
-            }
         }
     }
 
@@ -227,10 +204,8 @@
         showModal = true;
     }
 
-    private async void HandleDelegate()
+    private async Task HandleDelegate()
     {
-        // refresh user dictionary for tickets in order to avoid error connected with lack of user in dictionary
-        await GetUsersBaseOnTickets(UserTickets);
         // Logic to update the ticket owner
         showModal = false;
     }
@@ -254,7 +229,7 @@
             await TicketService.DeleteTicketById(ticketId);
             Navigation.NavigateTo("/managementticket", true);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             // ToDo: write logger to rise exception information
         }

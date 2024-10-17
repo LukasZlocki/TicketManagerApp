@@ -11,6 +11,7 @@
 @inject ITicketService TicketService
 @inject NavigationManager Navigation
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IUserService _userService
 
 <h3>Your Active Tickets</h3>
 
@@ -21,11 +22,12 @@
 <div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
     <table class="table table-striped boarder table-hover">
         <tr>
+            <th>Ticket Nb</th>
             <th>Requestor</th>
-            <th>Lab location</th>
-            <th>Product type</th>
-            <th>Implemented at</th>
-            <th>Responsible email</th>
+            <th>Lab Location</th>
+            <th>Product Type</th>
+            <th>Implemented At</th>
+            <th>Responsible Email</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
@@ -38,11 +40,12 @@
                 @foreach (var ticket in UserActiveTickets)
                 {
                     <tr>
+                        <td>T @ticket.TicketId</td>
                         <td>@ticket.RequestorEmail</td>
                         <td>@ticket.LabLocation.Country</td>
                         <td>@ticket.Product.ProductType.ProductTypeDesc</td>
-                        <td>@ticket.ImplementedAt</td>
-
+                        <td>@ticket.ImplementedAt.ToString("yyyy-MM-dd")</td>
+                        <td>@ticket.ResponsibleEmail</td>
                         <td>@ticket.TicketStatus.StatusDescription</td>
 
                         <td>
@@ -65,13 +68,13 @@
 
     protected override async Task OnInitializedAsync()
     {
-        // ToDo : Code retrive active tickets by user guid
+        // Retrive user data by user guid
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
-
-        if (user.Identity.IsAuthenticated)
+        var userId = user.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (Guid.TryParse(userId, out Guid _userGuid))
         {
-            UserEmail = user.FindFirst(e => e.Type == ClaimTypes.Email)?.Value;
+            UserEmail = await _userService.GetUserEmailByUserId(_userGuid);
             UserActiveTickets = await TicketService.GetActiveTicketsByUserEmail(UserEmail);
         }
     }

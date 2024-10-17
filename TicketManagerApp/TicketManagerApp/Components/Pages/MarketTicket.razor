@@ -24,6 +24,7 @@
 <div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
     <table class="table table-striped boarder table-hover">
         <tr>
+            <th>Ticket nb</th>
             <th>Requestor</th>
             <th>Lab location</th>
             <th>Product type</th>
@@ -41,10 +42,11 @@
                 @foreach (var ticket in WaitingTicketsList)
                 {
                     <tr>
+                        <td>T @ticket.TicketId</td>
                         <td>@ticket.RequestorEmail</td>
                         <td>@ticket.LabLocation.Country</td>
                         <td>@ticket.Product.ProductType.ProductTypeDesc</td>
-                        <td>@ticket.ImplementedAt</td>
+                        <td>@ticket.ImplementedAt.ToString("yyyy-MM-dd")</td>
                         <td>@ticket.ResponsibleEmail</td>
                         <td>@ticket.TicketStatus.StatusDescription</td>
 
@@ -70,11 +72,10 @@
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
         // Get the user's email
-        var UserEmaill = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
+        ResponsibleEmail = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
 
         WaitingTicketsList = await TicketService.GetAllWaitingTickets();
     }
-
 
     private void InfoTicket(int ticketId)
     {

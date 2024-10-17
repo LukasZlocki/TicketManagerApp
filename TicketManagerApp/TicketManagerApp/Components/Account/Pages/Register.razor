@@ -91,6 +91,9 @@
         user.FactoryLocationId = PickedDepartmentLocationId;
         user.DepartmentId = PickedDepartmentLocationId;
 
+        // Set role CUSTOMER as default role
+        await UserManager.AddToRoleAsync(user, "CUSTOMER");
+
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
         await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
@@ -178,4 +181,3 @@
     }
 
 }
-    

@@ -23,6 +23,26 @@ namespace TicketManagerApp.Services
             return _userEmail;
         }
 
+        public async Task<int> GetUserDepartmentIdByUserId(Guid userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            return user.DepartmentId;
+        }
+
+        public async Task<int> GetUserFactoryIdByUserId(Guid userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            return user.FactoryLocationId;
+        }
+
         public async Task<List<ApplicationUser>> GetUsersInRoleAsync(string roleName)
         {
             var userRoles = await _userManager.GetUsersInRoleAsync(roleName);
@@ -30,3 +50,4 @@ namespace TicketManagerApp.Services
         }
     }
 }
+

@@ -3,7 +3,10 @@
 @rendermode InteractiveServer
 
 @using Microsoft.AspNetCore.Authorization
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
 @using TicketManager.Models.Models
+@using TicketManagerApp.Data
 @using TicketManagerApp.Services
 
 @inject ILabLocationService LabLocationService
@@ -15,6 +18,9 @@
 @inject ITestService TestService
 @inject ITestParameterServices TestParameterService
 @inject ITicketService TicketService
+@inject IUserService _userService
+
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 @inject NavigationManager Navigation
 
@@ -34,35 +40,6 @@
             @foreach (var item in LabolatoryLocationsList)
             {
                 <option value="@item.LabLocationId">@item.Country</option>
-            }
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="formRequestorEmail">Requestor email</label>
-        <input type="text" class="form-control" id="formRequestorEmail" placeholder="Requestor email input" @bind="UserTicketVM.RequestorEmail">
-    </div>
-
-    <div class="form-group">
-        <label for="inputFactoryLocation">Factory location</label>
-        <select id="inputFactorylocation" class="form-control" asp-items @onchange="OnFactoryLocationChanged">
-            <option selected>Choose your factory location...</option>
-            <option>...</option>
-            @foreach (var item in FactoryLocationsList)
-            {
-                <option value="@item.FactoryLocationId">@item.Country</option>
-            }
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="inputDepartmentLocation">Your department location</label>
-        <select id="inputDepartmentlocation" class="form-control" asp-items @bind="UserTicketVM.DepartmentId">
-            <option selected>Choose your department...</option>
-            <option>...</option>
-            @foreach (var item in DepartmentsDedicatedList)
-            {
-                <option value="@item.DepartmentId">@item.DepartmentDescription</option>
             }
         </select>
     </div>
@@ -264,9 +241,10 @@ else
             Test = new()
         };
 
+    string? UserEmail;
+    int UserDepartmentId;
+
     List<LabLocation> LabolatoryLocationsList = new List<LabLocation>();
-    List<FactoryLocation> FactoryLocationsList = new List<FactoryLocation>();
-    List<Department> DepartmentsDedicatedList = new List<Department>();
     List<ProductFamily> ProductFamiliesList = new List<ProductFamily>();
     List<ProductType> ProductTypesDedicatedList = new List<ProductType>();
     List<ProductDisplacement> ProductDisplacementsDedicatedList = new List<ProductDisplacement>();
@@ -278,14 +256,18 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        LabolatoryLocationsList = await LabLocationService.GetAllLabLocations();
-        FactoryLocationsList = await FactoryLocationService.GetAllFactoryLocations();
-        ProductFamiliesList = await ProductFamilyService.GetAllProductFamilies();
-    }
+        // Retrive user data by user guid
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        var userId = user.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        if (Guid.TryParse(userId, out Guid _userGuid))
+        {
+            UserDepartmentId = await _userService.GetUserDepartmentIdByUserId(_userGuid);
+            UserEmail = await _userService.GetUserEmailByUserId(_userGuid);
+        }
 
-    private async Task LoadDedicatedDepartmentsByFactoryId(int factoryId)
-    {
-        DepartmentsDedicatedList = await DepartmentSerivce.GetAllDepartmentsByFactoryLocationId(factoryId);
+        LabolatoryLocationsList = await LabLocationService.GetAllLabLocations();
+        ProductFamiliesList = await ProductFamilyService.GetAllProductFamilies();
     }
 
     private async Task LoadProductTypeDedicatedListByProductFamilyId(int productFamilyId)
@@ -315,16 +297,6 @@ else
         {
             UserTicketVM.Product.ProductTypeId = productTypeId;
             await LoadDedicatedProductDisplacements(UserTicketVM.Product.ProductTypeId);
-        }
-    }
-
-    private async Task OnFactoryLocationChanged(ChangeEventArgs e)
-    {
-        if (int.TryParse(e.Value.ToString(), out int factoryLocationId))
-        {
-            //selectedFactoryLocationId = factoryLocationId;
-            UserTicketVM.RequestorDepartment.FactoryLocationId = factoryLocationId;
-            await LoadDedicatedDepartmentsByFactoryId(UserTicketVM.RequestorDepartment.FactoryLocationId);
         }
     }
 
@@ -424,6 +396,9 @@ else
 
     private async Task CreateTicketRequest()
     {
+        // Add user basic data to ticket
+        UserTicketVM.RequestorEmail = UserEmail;
+        UserTicketVM.DepartmentId = UserDepartmentId;
         try
         {
             var ticket = await TicketService.CreateTicket(UserTicketVM);
@@ -443,7 +418,6 @@ else
             Console.WriteLine($"An error occurred while creating the ticket: {ex.Message}");
         }
     }
-
 
     private void AddNewTestToTicketTestsList()
     {

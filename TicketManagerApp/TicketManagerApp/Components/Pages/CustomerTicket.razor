@@ -44,7 +44,7 @@
                         <td>@ticket.RequestorEmail</td>
                         <td>@ticket.LabLocation.Country</td>
                         <td>@ticket.Product.ProductType.ProductTypeDesc</td>
-                        <td>@ticket.ImplementedAt.ToString("yyyy-MM-dd")</td>
+                        <td>@ticket.Product.ProductFamily.FamilyDescription @ticket.Product.ProductType.ProductTypeDesc @ticket.Product.ProductDisplacement.Displacement</td>
                         <td>@ticket.ResponsibleEmail</td>
                         <td>@ticket.TicketStatus.StatusDescription</td>
 

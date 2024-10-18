@@ -13,7 +13,7 @@ namespace TicketManagerApp.Services
             _db = db;
         }
 
-        public Task<List<ReportType>> GetAllReportTypes()
+        public async Task<List<ReportType>> GetAllReportTypes()
         {
             var reportTypes = await _db.ReportTypes.ToListAsync();
             return reportTypes;

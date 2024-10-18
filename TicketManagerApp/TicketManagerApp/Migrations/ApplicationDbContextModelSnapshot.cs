@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketManagerApp.Data;
 
@@ -12,11 +11,9 @@ using TicketManagerApp.Data;
 namespace TicketManagerApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241009154420_ticketResponsibilityByEmail")]
-    partial class ticketResponsibilityByEmail
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -417,6 +414,9 @@ namespace TicketManagerApp.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ReportTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RequestorEmail")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -438,6 +438,8 @@ namespace TicketManagerApp.Migrations
                     b.HasIndex("LabLocationId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("ReportTypeId");
 
                     b.HasIndex("StatusId");
 
@@ -675,13 +677,13 @@ namespace TicketManagerApp.Migrations
                     b.HasOne("TicketManager.Models.Models.Department", "RequestorDepartment")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TicketManager.Models.Models.LabLocation", "LabLocation")
                         .WithMany()
                         .HasForeignKey("LabLocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TicketManager.Models.Models.Product", "Product")
@@ -690,15 +692,23 @@ namespace TicketManagerApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("TicketManager.Models.Models.ReportType", "ReportType")
+                        .WithMany()
+                        .HasForeignKey("ReportTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("TicketManager.Models.Models.TicketStatus", "TicketStatus")
                         .WithMany()
                         .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("LabLocation");
 
                     b.Navigation("Product");
+
+                    b.Navigation("ReportType");
 
                     b.Navigation("RequestorDepartment");
 

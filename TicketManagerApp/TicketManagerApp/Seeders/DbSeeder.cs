@@ -334,93 +334,6 @@ namespace TicketManager.Infrastructure.Seeders
                     System.Console.WriteLine("TicketStatuses data exist - no need to seed.");
                 }
 
-                // Seed Tickets db
-                if (!_dbContext.Tickets.Any())
-                {
-                    var ticket1 = new Ticket()
-                    {
-                        RequestorEmail = "req1@email.com",
-                        ImplementedAt = DateTime.UtcNow,
-                        StartedAt = DateTime.UtcNow,
-                        FinishedAt = DateTime.UtcNow,
-                        DepartmentId = 1,
-                        LabLocationId = 1,
-                        ProductId = 1,
-                        StatusId = 3
-                    };
-                    _dbContext.Tickets.Add(ticket1);
-
-                    var ticket2 = new Ticket()
-                    {
-                        RequestorEmail = "req2@email.com",
-                        ImplementedAt = DateTime.UtcNow,
-                        //StartedAt = DateTime.UtcNow,
-                        //FinishedAt = DateTime.UtcNow,
-                        DepartmentId = 1,
-                        LabLocationId = 1,
-                        ProductId = 1,
-                        StatusId = 1
-                    };
-                    _dbContext.Tickets.Add(ticket2);
-
-                    var ticket3 = new Ticket()
-                    {
-                        RequestorEmail = "req3@email.com",
-                        ImplementedAt = DateTime.UtcNow,
-                        StartedAt = DateTime.UtcNow,
-                        //FinishedAt = DateTime.UtcNow,
-                        DepartmentId = 1,
-                        LabLocationId = 1,
-                        ProductId = 1,
-                        StatusId = 2
-                    };
-                    _dbContext.Tickets.Add(ticket3);
-
-                    await _dbContext.SaveChangesAsync();
-                }
-                else
-                {
-                    System.Console.WriteLine("Tickets data exist - no need to seed.");
-                }
-
-                // Seed TicketTests db
-                if (!_dbContext.TicketTests.Any())
-                {
-                    var tickettest1 = new TicketTest()
-                    {
-                        TestId = 1,
-                        TicketId = 1
-                    };
-                    _dbContext.TicketTests.Add(tickettest1);
-
-                    var tickettest2 = new TicketTest()
-                    {
-                        TestId = 2,
-                        TicketId = 1
-                    };
-                    _dbContext.TicketTests.Add(tickettest2);
-
-                    var tickettest3 = new TicketTest()
-                    {
-                        TestId = 2,
-                        TicketId = 2
-                    };
-                    _dbContext.TicketTests.Add(tickettest3);
-
-                    var tickettest4 = new TicketTest()
-                    {
-                        TestId = 1,
-                        TicketId = 3
-                    };
-                    _dbContext.TicketTests.Add(tickettest4);
-
-                    await _dbContext.SaveChangesAsync();
-                }
-                else
-                {
-                    System.Console.WriteLine("TicketTests data exist - no need to seed.");
-                }
-
                 // Seed TestParameter db
                 if (!_dbContext.TestParameters.Any())
                 {
@@ -493,49 +406,7 @@ namespace TicketManager.Infrastructure.Seeders
                 else
                 {
                     System.Console.WriteLine("TestParameters data exist - no need to seed.");
-                }
-
-                // Seed TicketTestParameter db
-                if (!_dbContext.TicketTestParameters.Any())
-                {
-                    var tickettestparam1 = new TicketTestParameter()
-                    {
-                        ParameterValue = 12.00,
-                        TestParameterId = 1,
-                        TicketTestId = 1
-                    };
-                    _dbContext.TicketTestParameters.Add(tickettestparam1);
-
-                    var tickettestparam2 = new TicketTestParameter()
-                    {
-                        ParameterValue = 5.5,
-                        TestParameterId = 2,
-                        TicketTestId = 1
-                    };
-                    _dbContext.TicketTestParameters.Add(tickettestparam2);
-
-                    var tickettestparam3 = new TicketTestParameter()
-                    {
-                        ParameterValue = 65.50,
-                        TestParameterId = 3,
-                        TicketTestId = 2
-                    };
-                    _dbContext.TicketTestParameters.Add(tickettestparam3);
-
-                    var tickettestparam4 = new TicketTestParameter()
-                    {
-                        ParameterValue = 38.00,
-                        TestParameterId = 4,
-                        TicketTestId = 2
-                    };
-                    _dbContext.TicketTestParameters.Add(tickettestparam4);
-
-                    await _dbContext.SaveChangesAsync();
-                }
-                else
-                {
-                    System.Console.WriteLine("TicketTestParameters data exist - no need to seed.");
-                }
+                }         
             }
         }
 

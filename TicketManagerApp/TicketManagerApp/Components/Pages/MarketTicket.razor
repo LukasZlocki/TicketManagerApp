@@ -45,11 +45,10 @@
                         <td>T @ticket.TicketId</td>
                         <td>@ticket.RequestorEmail</td>
                         <td>@ticket.LabLocation.Country</td>
-                        <td>@ticket.Product.ProductType.ProductTypeDesc</td>
-                        <td>@ticket.ImplementedAt.ToString("yyyy-MM-dd")</td>
+                        <td>@ticket.Product.ProductFamily.FamilyDescription @ticket.Product.ProductType.ProductTypeDesc @ticket.Product.ProductDisplacement.Displacement</td>
+                        <td>@ticket.ImplementedAt.ToString("yyyy-MM-dd, HH:mm")</td>
                         <td>@ticket.ResponsibleEmail</td>
                         <td>@ticket.TicketStatus.StatusDescription</td>
-
                         <td>
                             <div class="form-group">
                                 <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>

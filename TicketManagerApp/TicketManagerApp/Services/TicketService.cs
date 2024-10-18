@@ -19,6 +19,7 @@ namespace TicketManagerApp.Services
 
         public async Task<Ticket> CreateTicket(Ticket ticket)
         {
+
             // step1: create ticket - get ticket id
             Ticket _ticket = new Ticket
             {
@@ -27,10 +28,12 @@ namespace TicketManagerApp.Services
                 StartedAt = ticket.StartedAt,
                 FinishedAt = ticket.FinishedAt,
                 ResponsibleEmail = "N/A",
+                ReportTypeId = ticket.ReportTypeId,
                 DepartmentId = ticket.DepartmentId,
                 LabLocationId = ticket.LabLocationId,
                 ProductId = ticket.ProductId,
                 StatusId = 1,
+                TicketTests = ticket.TicketTests
             };
 
             try
@@ -43,33 +46,6 @@ namespace TicketManagerApp.Services
             {
                 _logger.LogError(ex, "An error occurred while creating the ticket.");
                 throw;
-            }
-
-            // ad ticket id to ticket object
-            ticket.TicketId = _ticket.TicketId;
-            // step2: add Ticket id to TicketTest and its subclasses
-            foreach (var ticketTest in ticket.TicketTests)
-            {
-                ticketTest.TicketId = _ticket.TicketId;
-            }
-
-            // step3: save tickettest -get tickettest id
-            // save each tickettest to database one by one. retrive tickettest id.
-            int _ticketTestCounter = 0;
-            foreach (var ticketTest in ticket.TicketTests)
-            {
-                try
-                {
-                    _db.TicketTests.Add(ticketTest);
-                    await _db.SaveChangesAsync();
-                    _logger.LogInformation("Ticket test creted successfuly with ID: {TickedTestId}", ticketTest.TicketTestId);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "An error occurred while creating ticket test.");
-                    throw;
-                }
-                // what to do with ticket test parameters ? are they saved automaticly ?
             }
             return ticket;
         }

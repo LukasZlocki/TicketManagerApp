@@ -19,6 +19,7 @@
 @inject ITestParameterServices TestParameterService
 @inject ITicketService TicketService
 @inject IUserService _userService
+@inject IReportTypeService _reportTypeService
 
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
@@ -77,6 +78,18 @@
             @foreach (var item in ProductDisplacementsDedicatedList)
             {
                 <option value="@item.ProductDisplacementId">@item.Displacement</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="inputReportType">Report Type</label>
+        <select id="inputReportType" class="form-control" asp-items @bind="UserTicketVM.ReportTypeId">
+            <option selected>Choose report type...</option>
+            <option>...</option>
+            @foreach (var item in ReportTypesList)
+            {
+                <option value="@item.ReportTypeId">@item.ReportShortType</option>
             }
         </select>
     </div>
@@ -243,6 +256,7 @@ else
 
     string? UserEmail;
     int UserDepartmentId;
+    int UserFactoryId;
 
     List<LabLocation> LabolatoryLocationsList = new List<LabLocation>();
     List<ProductFamily> ProductFamiliesList = new List<ProductFamily>();
@@ -250,6 +264,7 @@ else
     List<ProductDisplacement> ProductDisplacementsDedicatedList = new List<ProductDisplacement>();
     List<Test> TestsDedicatedList = new List<Test>();
     List<TestParameter> TestParametersDedicatedList = new List<TestParameter>();
+    List<ReportType> ReportTypesList = new List<ReportType>();
 
     private bool isAddTestTableVisible = false;
     private bool isAddNewTestButtonVisible = true;
@@ -263,11 +278,13 @@ else
         if (Guid.TryParse(userId, out Guid _userGuid))
         {
             UserDepartmentId = await _userService.GetUserDepartmentIdByUserId(_userGuid);
+            UserFactoryId = await _userService.GetUserFactoryIdByUserId(_userGuid);
             UserEmail = await _userService.GetUserEmailByUserId(_userGuid);
         }
 
         LabolatoryLocationsList = await LabLocationService.GetAllLabLocations();
         ProductFamiliesList = await ProductFamilyService.GetAllProductFamilies();
+        ReportTypesList = await _reportTypeService.GetAllReportTypes();
     }
 
     private async Task LoadProductTypeDedicatedListByProductFamilyId(int productFamilyId)
@@ -399,6 +416,8 @@ else
         // Add user basic data to ticket
         UserTicketVM.RequestorEmail = UserEmail;
         UserTicketVM.DepartmentId = UserDepartmentId;
+        UserTicketVM.RequestorDepartment.FactoryLocationId = UserFactoryId;
+
         try
         {
             var ticket = await TicketService.CreateTicket(UserTicketVM);

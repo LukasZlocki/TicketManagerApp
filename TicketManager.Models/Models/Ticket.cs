@@ -16,6 +16,10 @@ namespace TicketManager.Models.Models
 
         public List<TicketTest>? TicketTests { get; set; }
 
+        public int ReportTypeId { get; set; }
+        [ForeignKey("ReportTypeId")]
+        public ReportType? ReportType { get; set; }
+
         public int DepartmentId { get; set; }
         [ForeignKey("DepartmentId")]
         public Department? RequestorDepartment { get; set; }

@@ -38,6 +38,35 @@ namespace TicketManagerApp.Data
                 .HasForeignKey(tt => tt.TicketId)
                 .OnDelete(DeleteBehavior.Cascade); // Delete TicketTests when a Ticket is deleted
 
+            // Configure the relationship between Ticket and ReportType
+            modelBuilder.Entity<Ticket>()
+                .HasOne(t => t.ReportType)
+                .WithMany()
+                .HasForeignKey(t => t.ReportTypeId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent ReportType from being deleted
+
+            // Configure the relationship between Ticket and TicketStatus
+            modelBuilder.Entity<Ticket>()
+                .HasOne(t => t.TicketStatus)
+                .WithMany()
+                .HasForeignKey(t => t.StatusId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent TicketStatus from being deleted
+
+            // Configure the relationship between Ticket and LabLocation
+            modelBuilder.Entity<Ticket>()
+                .HasOne(t => t.LabLocation)
+                .WithMany()
+                .HasForeignKey(t => t.LabLocationId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent LabLocation from being deleted
+
+            // Configure the relationship between Ticket and Department
+            modelBuilder.Entity<Ticket>()
+                .HasOne(t => t.RequestorDepartment)
+                .WithMany()
+                .HasForeignKey(t => t.DepartmentId)
+                .OnDelete(DeleteBehavior.Restrict); // Prevent Department from being deleted
+
+
             // Configure the relationship between TicketTest and TicketTestParameter
             modelBuilder.Entity<TicketTest>()
                 .HasMany(tt => tt.TicketTestParameters)
@@ -58,7 +87,9 @@ namespace TicketManagerApp.Data
                 .WithMany()
                 .HasForeignKey(ttp => ttp.TestParameterId)
                 .OnDelete(DeleteBehavior.Restrict); // Prevent TestParameter from being deleted
+
         }
 
     }
 }
+

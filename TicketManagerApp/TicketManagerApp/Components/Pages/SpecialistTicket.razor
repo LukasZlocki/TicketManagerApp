@@ -9,6 +9,8 @@
 @using Microsoft.AspNetCore.Identity
 
 @inject ITicketService TicketService
+@inject IServerDriveService _serverDriveService
+
 @inject NavigationManager Navigation
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
@@ -133,9 +135,11 @@
         Navigation.NavigateTo("/detailsticket/" + ticketId, true);
     }
 
-    private void AddReport(int ticketId)
+    private async void AddReport(int ticketId)
     {
         // ToDo : redirect to add report page
+        // Create folder accroding to report type structure
+        await _serverDriveService.CreateReportTypeFolderStructure(ticketId);
     }
 
     private async void StartTicket(int ticketId)

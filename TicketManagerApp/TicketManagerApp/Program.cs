@@ -51,6 +51,9 @@ internal class Program
         builder.Services.AddScoped<ITicketStatusService, TicketStatusService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IReportTypeService, ReportTypeService>();
+        builder.Services.AddScoped<IReportStructureService, ReportStructureService>();
+        builder.Services.AddScoped<IServerDriveService, ServerDriveService>();
+
 
 
         builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)

@@ -20,6 +20,5 @@ namespace TicketManagerApp.Services
         public Task<bool> UpdateTicketData(Ticket ticket);
         public Task UpdateTicketStatus(int ticketId, string status);
         public Task DeleteTicketById(int ticketId);
-
     }
 }

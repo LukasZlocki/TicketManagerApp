@@ -4,7 +4,7 @@ namespace TicketManagerApp.Services
 {
     public class ServerDriveService : IServerDriveService
     {
-        private string _serverPathToDatabas = @"C:\VirtualServer\Tickets";
+        private string _serverPathToDatabas = @"C:\\VirtualServer\Tickets";
 
         private readonly IReportTypeService _reportTypeService;
         private readonly ITicketService _ticketService;

@@ -4,7 +4,7 @@ namespace TicketManagerApp.Services
 {
     public class ServerDriveService : IServerDriveService
     {
-        private string _serverPathToDatabas = @"C:\\VirtualServer\Tickets";
+        private string _serverPathToDatabase = @"C:\\VirtualServer\Tickets\";
 
         private readonly IReportTypeService _reportTypeService;
         private readonly ITicketService _ticketService;
@@ -24,7 +24,7 @@ namespace TicketManagerApp.Services
 
             // Create main report folder with name {ReportTypeDescription+TicketId}
             string? mainFolderName = ticket.ReportType.ReportShortType + ticketId;
-            string? mainPathToReportFolder = _serverPathToDatabas + @"\" + mainFolderName;
+            string? mainPathToReportFolder = _serverPathToDatabase + mainFolderName;
 
             try
             {
@@ -41,13 +41,13 @@ namespace TicketManagerApp.Services
 
             // Create subfolders according to report structure
             int reportTypeId = ticket.ReportType.ReportTypeId;
-            var subFoldersStructure = await _reportStructureService.GetReportStructureByReportTypeId(reportTypeId);
+            var subFoldersStructure = await _reportStructureService.GetReportFoldersStructureByReportTypeId(reportTypeId);
 
             try
             {
                 foreach (var subFolder in subFoldersStructure)
                 {
-                    string subFolderPath = Path.Combine(mainPathToReportFolder, subFolder.FolderDescription);
+                    string subFolderPath = Path.Combine(mainPathToReportFolder, subFolder);
                     if (!Directory.Exists(subFolderPath))
                     {
                         Directory.CreateDirectory(subFolderPath);
@@ -60,6 +60,38 @@ namespace TicketManagerApp.Services
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Get list of files in specific folder
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <returns>List<string> of files</string></returns>
+        public async Task<List<(string FolderPath, string FileName)>> GetListOfFilesInFolder(List<string> folderPaths, string ticketCodeNumber)
+        {
+            var files = new List<(string folderPath, string fileName)>();
+
+            foreach (var folderPath in folderPaths)
+            {
+                var _fullFolderPath = _serverPathToDatabase + ticketCodeNumber + @"\" + folderPath;
+                try
+                {
+                    if (Directory.Exists(_fullFolderPath))
+                    {
+                        var fileEntries = Directory.GetFiles(_fullFolderPath);
+                        foreach (var filePath in fileEntries)
+                        {
+                            string fileName = Path.GetFileName(filePath);
+                            files.Add((folderPath, fileName));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // ToDo : Print exception here ...
+                }
+            }
+            return files;
         }
     }
 }

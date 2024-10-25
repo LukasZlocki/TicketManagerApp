@@ -199,31 +199,87 @@ namespace TicketManager.Infrastructure.Seeders
                 {
                     var structure1 = new ReportStructure()
                     {
-                        FolderDescription = "00 Test description folder",
+                        FolderDescription = "01 Test data Lab",
                         ReportTypeId = 1
                     };
                     _dbContext.ReportStructures.Add(structure1);
 
                     var structure2 = new ReportStructure()
                     {
-                        FolderDescription = "10 Test result folder",
+                        FolderDescription = "02 Calculations",
                         ReportTypeId = 1
                     };
                     _dbContext.ReportStructures.Add(structure2);
 
                     var structure3 = new ReportStructure()
                     {
-                        FolderDescription = "1 Test description folder",
-                        ReportTypeId = 2
+                        FolderDescription = "03 Pictures",
+                        ReportTypeId = 1
                     };
                     _dbContext.ReportStructures.Add(structure3);
 
                     var structure4 = new ReportStructure()
                     {
-                        FolderDescription = "2 Test result folder",
-                        ReportTypeId = 2
+                        FolderDescription = "04 Communication",
+                        ReportTypeId = 1
                     };
                     _dbContext.ReportStructures.Add(structure4);
+
+                    var structure5 = new ReportStructure()
+                    {
+                        FolderDescription = "05 Meeting",
+                        ReportTypeId = 1
+                    };
+                    _dbContext.ReportStructures.Add(structure5);
+
+                    var structure10 = new ReportStructure()
+                    {
+                        FolderDescription = "01 Test data Lab",
+                        ReportTypeId = 2
+                    };
+                    _dbContext.ReportStructures.Add(structure10);
+
+                    var structure20 = new ReportStructure()
+                    {
+                        FolderDescription = "02 Calculations",
+                        ReportTypeId = 2
+                    };
+                    _dbContext.ReportStructures.Add(structure20);
+
+                    var structure30 = new ReportStructure()
+                    {
+                        FolderDescription = "03 Pictures",
+                        ReportTypeId = 2
+                    };
+                    _dbContext.ReportStructures.Add(structure30);
+
+                    var structure40 = new ReportStructure()
+                    {
+                        FolderDescription = "04 Communication",
+                        ReportTypeId = 2
+                    };
+                    _dbContext.ReportStructures.Add(structure40);
+
+                    var structure50 = new ReportStructure()
+                    {
+                        FolderDescription = "05 Meeting",
+                        ReportTypeId = 2
+                    };
+                    _dbContext.ReportStructures.Add(structure50);
+
+                    var structure00 = new ReportStructure()
+                    {
+                        FolderDescription = "01 Test data Lab",
+                        ReportTypeId = 3
+                    };
+                    _dbContext.ReportStructures.Add(structure00);
+
+                    var structure01 = new ReportStructure()
+                    {
+                        FolderDescription = "02 Test results LAB",
+                        ReportTypeId = 3
+                    };
+                    _dbContext.ReportStructures.Add(structure01);
 
                     await _dbContext.SaveChangesAsync();
                 }

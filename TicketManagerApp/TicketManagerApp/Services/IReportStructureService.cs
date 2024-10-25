@@ -4,6 +4,6 @@ namespace TicketManagerApp.Services
 {
     public interface IReportStructureService
     {
-        public Task<List<ReportStructure>> GetReportStructureByReportTypeId(int reportTypeId);
+        public Task<List<string>> GetReportFoldersStructureByReportTypeId(int reportTypeId);
     }
 }

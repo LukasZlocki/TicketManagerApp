@@ -18,5 +18,11 @@ namespace TicketManagerApp.Services
             var reportTypes = await _db.ReportTypes.ToListAsync();
             return reportTypes;
         }
+
+        public async Task<string> GetReportTypeById(int id)
+        {
+            var reportType = await _db.ReportTypes.SingleOrDefaultAsync(i => i.ReportTypeId == id);
+            return reportType.ReportShortType;
+        }
     }
 }

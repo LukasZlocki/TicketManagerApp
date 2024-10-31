@@ -44,7 +44,7 @@
                     if (ticket.TicketStatus.StatusDescription == "Waiting")
                     {
                         <tr>
-                            <td>T @ticket.TicketId</td>
+                            <td>@ticket.IdentificationCode</td>
                             <td>@ticket.RequestorEmail</td>
                             <td>@ticket.LabLocation.Country</td>
                             <td>@ticket.Product.ProductFamily.FamilyDescription @ticket.Product.ProductType.ProductTypeDesc @ticket.Product.ProductDisplacement.Displacement</td>
@@ -72,6 +72,7 @@
     <h5>In progress tickets</h5>
     <table class="table table-striped boarder table-hover">
         <tr>
+            <th>Ticket Nb</th>
             <th>Requestor</th>
             <th>Lab location</th>
             <th>Product type</th>
@@ -91,6 +92,7 @@
                     if (ticket.TicketStatus.StatusDescription == "In Progress")
                     {
                         <tr>
+                            <td>@ticket.IdentificationCode</td>
                             <td>@ticket.RequestorEmail</td>
                             <td>@ticket.LabLocation.Country</td>
                             <td>@ticket.Product.ProductType.ProductTypeDesc</td>

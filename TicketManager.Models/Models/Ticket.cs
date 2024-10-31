@@ -7,6 +7,8 @@ namespace TicketManager.Models.Models
     {
         [Key]
         public int TicketId { get; set; }
+        [StringLength(10)]
+        public string IdentificationCode { get; set; }
         [StringLength(100)]
         public string? RequestorEmail { get; set; }
         public DateTime ImplementedAt { get; set; }

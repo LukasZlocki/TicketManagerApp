@@ -23,6 +23,7 @@ namespace TicketManagerApp.Services
             // step1: create ticket - get ticket id
             Ticket _ticket = new Ticket
             {
+                IdentificationCode = "N/A",
                 RequestorEmail = ticket.RequestorEmail,
                 ImplementedAt = DateTime.UtcNow,
                 StartedAt = ticket.StartedAt,
@@ -41,6 +42,16 @@ namespace TicketManagerApp.Services
                 _db.Tickets.Add(_ticket);
                 await _db.SaveChangesAsync();
                 _logger.LogInformation("Ticket creted successfuly with ID: {TickedId}", _ticket.TicketId);
+                // generate new ticket code number and update ticket in db
+                bool isTicketUpdated = await UpdateTicketCodeNumber(_ticket.TicketId);
+                if (isTicketUpdated == true)
+                {
+                    _logger.LogInformation("Ticket updated with new ticket code number. Ticket ID: {TickedId}", _ticket.TicketId);
+                }
+                else
+                {
+                    _logger.LogInformation("Ticket NOT updated with new ticket code number. Ticket ID: {TickedId}", _ticket.TicketId);
+                }
             }
             catch (Exception ex)
             {
@@ -48,6 +59,57 @@ namespace TicketManagerApp.Services
                 throw;
             }
             return ticket;
+        }
+
+        private async Task<bool> UpdateTicketCodeNumber(int ticketId)
+        {
+            try
+            {
+                var ticketToUpdate = await _db.Tickets.FirstOrDefaultAsync(id => id.TicketId == ticketId);
+                var reportType = await _db.ReportTypes.FirstOrDefaultAsync(id => id.ReportTypeId == ticketToUpdate.ReportTypeId);
+                // Generate ticket code number
+                string ticketCodeNumber = GenerateTicketCodeNumber(ticketId, reportType.ReportShortType);
+                // Add ticket code number to ticket
+                ticketToUpdate.IdentificationCode = ticketCodeNumber;
+                await UpdateTicketData(ticketToUpdate);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Code ticket number to format MERXXXXX, where MER - report type , XXXXX - primary key number
+        /// </summary>
+        /// <param name="ticketId"></param>
+        /// <param name="reportType"></param>
+        /// <returns>ticket code number as string</returns>
+        private string GenerateTicketCodeNumber(int ticketId, string reportType)
+        {
+            string ticketCodeNumber = "";
+            // code number in format ex MERXXXXX where MER - report type , XXXXX - id number
+            if (ticketId <= 9)
+            {
+                return reportType + "0000" + ticketId.ToString();
+            }
+            if (ticketId <= 99)
+            {
+                return reportType + "000" + ticketId.ToString();
+            }
+            if (ticketId <= 999)
+            {
+                return reportType + "00" + ticketId.ToString();
+            }
+            if (ticketId <= 9999)
+            {
+                return reportType + "0" + ticketId.ToString();
+            }
+            else
+            {
+                return reportType + ticketId.ToString();
+            }
         }
 
         public async Task DeleteTicketById(int ticketId)

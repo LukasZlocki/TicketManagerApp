@@ -40,7 +40,7 @@
                 @foreach (var ticket in UserActiveTickets)
                 {
                     <tr>
-                        <td>T @ticket.TicketId</td>
+                        <td>@ticket.IdentificationCode</td>
                         <td>@ticket.RequestorEmail</td>
                         <td>@ticket.LabLocation.Country</td>
                         <td>@ticket.Product.ProductType.ProductTypeDesc</td>

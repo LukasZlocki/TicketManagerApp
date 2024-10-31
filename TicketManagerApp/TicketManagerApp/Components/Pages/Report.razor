@@ -1,0 +1,95 @@
+﻿@page "/report/{id:int}"
+
+@using TicketManager.Models.Models
+@using TicketManagerApp.Services
+
+@inject ITicketService _ticketService;
+@inject IReportStructureService _reportStructureService;
+@inject IServerDriveService _serverDriveService;
+@inject IReportTypeService _reportTypeService;
+
+<h3>Report</h3>
+
+<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Folder Name</th>
+            <th>Files</th>
+        </tr>
+        <tbody>
+            @if (FolderList.Count() == 0)
+            {
+                <p><em>No folders added.</em></p>
+            }
+            else
+            {
+                @foreach (var folder in FolderList)
+                {
+                    <tr>
+                        <td>@folder</td>
+                        <td>
+                            <table class="table boarder table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td style="background-color: orange;">Drag and Drop File here</td>
+                                    </tr>
+                                    @foreach (var (folderName, fileName) in FoldersAndFiles)
+                                    {
+                                        if (folderName == folder)
+                                        {
+                                            <tr>
+                                                <td>@fileName </td>
+                                                <td>
+                                                    <button>View</button>
+                                                    <button>Remove</button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; } // ticket primary key
+
+    private Ticket UserTicket = new();
+    // ToDo : In future add Ticket Code Number to ticket model
+    string DocumentCodeNumber;
+    string ReportTypeShortDescription;
+
+    private List<string> FolderList = new List<string>();
+    private List<(string folderPath, string fileName)> FoldersAndFiles = new List<(string folderPath, string fileName)>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        UserTicket = await _ticketService.GetTicketBasicData(Id);
+        ReportTypeShortDescription = await _reportTypeService.GetReportTypeById(UserTicket.ReportTypeId);
+        FolderList = await _reportStructureService.GetReportFoldersStructureByReportTypeId(UserTicket.ReportTypeId);
+        DocumentCodeNumber = SetDocumentCodeNumber(UserTicket, ReportTypeShortDescription);
+        FoldersAndFiles = await _serverDriveService.GetListOfFilesInFolder(FolderList, DocumentCodeNumber);
+    }
+
+    // ToDo : In future add Ticket Code Number to ticket model
+    private string SetDocumentCodeNumber(Ticket ticket, string reportTypeShortDescription)
+    {
+        string _documentCodeNumber;
+        _documentCodeNumber = reportTypeShortDescription + ticket.TicketId;
+        return _documentCodeNumber;
+    }
+
+    // Drag and Drop
+    private List<string> imageSources;
+    private const int maxAllowedFiles = 2;
+    private string ErrorMessage;
+
+}

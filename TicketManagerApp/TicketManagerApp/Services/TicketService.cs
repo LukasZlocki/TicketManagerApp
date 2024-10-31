@@ -152,6 +152,12 @@ namespace TicketManagerApp.Services
             return activeTickets;
         }
 
+        public async Task<Ticket> GetTicketBasicData(int ticketId)
+        {
+            var basicTicket = await _db.Tickets.FindAsync(ticketId);
+            return basicTicket ?? new Ticket();
+        }
+
         public async Task<Ticket> GetTicketDetails(int ticketId)
         {
             var ticket = await _db.Tickets

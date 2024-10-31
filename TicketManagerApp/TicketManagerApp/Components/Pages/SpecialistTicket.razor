@@ -137,9 +137,11 @@
 
     private async void AddReport(int ticketId)
     {
-        // ToDo : redirect to add report page
         // Create folder accroding to report type structure
         await _serverDriveService.CreateReportTypeFolderStructure(ticketId);
+
+        // Redirect to add report page
+        Navigation.NavigateTo("/report/" + ticketId, true);
     }
 
     private async void StartTicket(int ticketId)

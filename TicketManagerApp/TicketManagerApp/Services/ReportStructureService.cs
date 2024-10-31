@@ -6,6 +6,7 @@ namespace TicketManagerApp.Services
 {
     public class ReportStructureService : IReportStructureService
     {
+
         private readonly ApplicationDbContext _db;
 
         public ReportStructureService(ApplicationDbContext db)
@@ -13,13 +14,18 @@ namespace TicketManagerApp.Services
             _db = db;
         }
 
-        public async Task<List<ReportStructure>> GetReportStructureByReportTypeId(int reportTypeId)
+        public async Task<List<string>> GetReportFoldersStructureByReportTypeId(int reportTypeId)
         {
             var ListOfReportsStructures = await _db.ReportStructures
                 .Where(id => id.ReportTypeId == reportTypeId)
                 .ToListAsync();
+            var listOfFolders = new List<string>();
+            foreach (var folder in ListOfReportsStructures)
+            {
+                listOfFolders.Add(folder.FolderDescription);
+            }
 
-            return ListOfReportsStructures;
+            return listOfFolders;
         }
     }
 }

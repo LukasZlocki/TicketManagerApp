@@ -13,6 +13,7 @@ namespace TicketManagerApp.Services
         public Task<List<Ticket>> GetActiveTicketsByUserEmail(string userEmail);
         public Task<List<Ticket>> GetTicketsByFilterSetup(int pickedLabLocationId, string pickedUserEmail, int pickedTicketStatusId);
         public Task<Ticket> GetTicketDetails(int ticketId);
+        public Task<Ticket> GetTicketBasicData(int ticketId);
         public Task<List<Ticket>> GetAllWaitingTickets();
         public Task<List<Ticket>> GetTicketsByUserGuidId(string responsibleEmail);
         public Task UpdateResponsibleUserTicketData(Ticket ticket);

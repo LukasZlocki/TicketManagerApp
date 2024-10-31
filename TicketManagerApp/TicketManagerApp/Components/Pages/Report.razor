@@ -1,8 +1,12 @@
 ﻿@page "/report/{id:int}"
 
+@rendermode InteractiveServer
+
+@using System.Diagnostics
 @using TicketManager.Models.Models
 @using TicketManagerApp.Services
 
+@inject NavigationManager Navigation
 @inject ITicketService _ticketService;
 @inject IReportStructureService _reportStructureService;
 @inject IServerDriveService _serverDriveService;
@@ -31,7 +35,9 @@
                             <table class="table boarder table-hover">
                                 <tbody>
                                     <tr>
-                                        <td style="background-color: orange;">Drag and Drop File here</td>
+                                        <td style="background-color: orange;">
+                                            <InputFile OnChange="@(e => UploadFiles(e, folder))" />
+                                        </td>
                                     </tr>
                                     @foreach (var (folderName, fileName) in FoldersAndFiles)
                                     {
@@ -40,8 +46,8 @@
                                             <tr>
                                                 <td>@fileName </td>
                                                 <td>
-                                                    <button>View</button>
-                                                    <button>Remove</button>
+                                                    <button @onclick="() => OpenFile(folderName, fileName)">View</button>
+                                                    <button @onclick="() => RemoveFile(folderName, fileName)">Remove</button>
                                                 </td>
                                             </tr>
                                         }
@@ -87,9 +93,35 @@
         return _documentCodeNumber;
     }
 
-    // Drag and Drop
-    private List<string> imageSources;
-    private const int maxAllowedFiles = 2;
-    private string ErrorMessage;
+    private async Task UploadFiles(InputFileChangeEventArgs e, string targetFolder)
+    {
+        foreach (var file in e.GetMultipleFiles())
+        {
+            string _documentCodeNumber = SetDocumentCodeNumber(UserTicket, ReportTypeShortDescription);
+            var fileName = file.Name;
+            var fileStream = file.OpenReadStream();
+            await _serverDriveService.SaveFileToFolder(fileStream, fileName, targetFolder, _documentCodeNumber);
+        }
+
+        Navigation.NavigateTo($"/report/{Id}", forceLoad: true);
+    }
+
+    private void OpenFile(string folderName, string fileName)
+    {
+        string serverPath = _serverDriveService.GetServerPathToDatabaseFolder();
+        string filePath = serverPath + DocumentCodeNumber + @"\" + folderName + @"\" + fileName;
+        Process.Start(new ProcessStartInfo
+            {
+                FileName = filePath,
+                UseShellExecute = true
+            });
+    }
+
+    private async Task RemoveFile(string folderName, string fileName)
+    {
+        await _serverDriveService.DeleteFileFromFolder(fileName, folderName, DocumentCodeNumber);
+        // Refresh page
+        Navigation.NavigateTo($"/report/{Id}", forceLoad: true);
+    }
 
 }

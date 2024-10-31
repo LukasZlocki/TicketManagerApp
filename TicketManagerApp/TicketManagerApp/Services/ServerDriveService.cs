@@ -93,5 +93,43 @@ namespace TicketManagerApp.Services
             }
             return files;
         }
+
+        /// <summary>
+        /// Saving file to target folder at server 
+        /// </summary>
+        /// <param name="fileStream">file data</param>
+        /// <param name="fileName">file name</param>
+        /// <param name="targetFolderPath">target path/folder to save file</param>
+        /// <returns></returns>
+        public async Task SaveFileToFolder(Stream fileStream, string fileName, string targetFolderPath, string reportNumber)
+        {
+            //var filePath = Path.Combine(_serverPathToDatabase, targetFolderPath, fileName);
+            var filePath = _serverPathToDatabase + reportNumber + @"\" + targetFolderPath + @"\" + fileName;
+            using (var fileStreamCopy = new FileStream(filePath, FileMode.Create))
+            {
+                await fileStream.CopyToAsync(fileStreamCopy);
+            }
+        }
+
+        public string GetServerPathToDatabaseFolder()
+        {
+            return this._serverPathToDatabase;
+        }
+
+        public async Task DeleteFileFromFolder(string fileName, string targetFolderPath, string documentCodeNumber)
+        {
+            var filePath = _serverPathToDatabase + documentCodeNumber + @"\" + targetFolderPath + @"\" + fileName;
+
+            // Check if the file exists
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+                Console.WriteLine($"{fileName} has been deleted.");
+            }
+            else
+            {
+                Console.WriteLine($"{fileName} does not exist in the specified folder.");
+            }
+        }
     }
 }

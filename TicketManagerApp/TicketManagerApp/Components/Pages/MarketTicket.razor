@@ -1,4 +1,4 @@
-﻿@page "/marketticket"
+@page "/marketticket"
 
 <h3>MarketTicket</h3>
 
@@ -49,6 +49,7 @@
                         <td>@ticket.ImplementedAt.ToString("yyyy-MM-dd, HH:mm")</td>
                         <td>@ticket.ResponsibleEmail</td>
                         <td>@ticket.TicketStatus.StatusDescription</td>
+
                         <td>
                             <div class="form-group">
                                 <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
@@ -76,10 +77,11 @@
         WaitingTicketsList = await TicketService.GetAllWaitingTickets();
     }
 
+
     private void InfoTicket(int ticketId)
     {
         // Navigate to page with detailed ticket information
-        Navigation.NavigateTo("/detailsticket/" + ticketId, true);
+        Navigation.NavigateTo("/ticketmanagerapp/detailsticket/" + ticketId, true);
     }
 
     private async Task ClaimTicket(int ticketId)
@@ -92,7 +94,7 @@
         {
             // ToDo: write logger to rise exception information
         }
-        Navigation.NavigateTo("/marketticket");
+        Navigation.NavigateTo("/ticketmanagerapp/marketticket");
     }
 
 }

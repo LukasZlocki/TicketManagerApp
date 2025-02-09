@@ -262,9 +262,9 @@ else
         try
         {
             var isTicketUpdated = await TicketService.UpdateTicketData(UserTicketVM);
-            if (isTicketUpdated)
+            if (isTicketUpdated )
             {
-                Navigation.NavigateTo("/", true);
+                Navigation.NavigateTo("/ticketmanagerapp/", true);
             }
             else
             {
@@ -308,7 +308,7 @@ else
         foreach (var testParameter in testParametersDedicatedList)
         {
             TicketTestParameter _testParameter = new();
-            _testParameter.ParameterValue = 0;
+            _testParameter.ParameterValue = "";
             _testParameter.TestParameterId = testParameter.TestParameterId;
             _testParameter.TestParameter = testParameter;
 

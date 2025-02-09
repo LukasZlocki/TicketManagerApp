@@ -50,6 +50,7 @@
                             <td>@ticket.Product.ProductFamily.FamilyDescription @ticket.Product.ProductType.ProductTypeDesc @ticket.Product.ProductDisplacement.Displacement</td>
                             <td>@ticket.ImplementedAt.ToString("yyyy-MM-dd, HH:mm")</td>
                             <td>@ticket.TicketStatus.StatusDescription</td>
+
                             <td>
                                 <div class="form-group">
                                     <button class="btn-secondary btn-info" @onclick="() => InfoTicket(ticket.TicketId)">Info</button>
@@ -95,7 +96,7 @@
                             <td>@ticket.IdentificationCode</td>
                             <td>@ticket.RequestorEmail</td>
                             <td>@ticket.LabLocation.Country</td>
-                            <td>@ticket.Product.ProductType.ProductTypeDesc</td>
+                            <td>@ticket.Product.ProductFamily.FamilyDescription @ticket.Product.ProductType.ProductTypeDesc @ticket.Product.ProductDisplacement.Displacement</td>
                             <td>@ticket.ImplementedAt</td>
                             <td>@ticket.TicketStatus.StatusDescription</td>
 
@@ -134,24 +135,21 @@
     private void InfoTicket(int ticketId)
     {
         // Navigate to page with detailed ticket information
-        Navigation.NavigateTo("/detailsticket/" + ticketId, true);
+        Navigation.NavigateTo("/ticketmanagerapp/detailsticket/" + ticketId, true);
     }
 
     private async void AddReport(int ticketId)
     {
-        // Create folder accroding to report type structure
-        await _serverDriveService.CreateReportTypeFolderStructure(ticketId);
-
         // Redirect to add report page
-        Navigation.NavigateTo("/report/" + ticketId, true);
+        Navigation.NavigateTo("/ticketmanagerapp/report/" + ticketId, true);      
     }
 
     private async void StartTicket(int ticketId)
     {
-        // ToDo : change status to in progress & refresh page
-        await TicketService.UpdateTicketStatus(ticketId, "In Progress");
+        // Starting ticket by specialist
+        await TicketService.StartThisTicket(ticketId);
+
         Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
     }
 
 }
-

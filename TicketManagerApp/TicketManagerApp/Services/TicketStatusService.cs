@@ -4,7 +4,6 @@ using TicketManagerApp.Data;
 
 namespace TicketManagerApp.Services
 {
-
     public class TicketStatusService : ITicketStatusService
     {
         private readonly ApplicationDbContext _db;

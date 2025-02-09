@@ -16,14 +16,24 @@ namespace TicketManagerApp.Services
         /// <summary>
         /// Returns all displacements related to product family by product family primary key 
         /// </summary>
-        /// <param name="productFamilyId"></param>
+        /// <param name="productTypeId"></param>
         /// <returns>List of OriductDisplacement objects</returns>
-        public async Task<List<ProductDisplacement>> GetProductDisplacementsByProductFamilyId(int productFamilyId)
+        public async Task<List<ProductDisplacement>> GetProductDisplacementsByProductTypeId(int productTypeId)
         {
-            var displacements = await _db.ProductDisplacements
-                .Where(pr => pr.ProductFamilyId == productFamilyId)
+            try
+            {
+                var displacements = await _db.ProductDisplacements
+                    .Where(pr => pr.ProductTypeId == productTypeId)
                     .ToListAsync();
-            return displacements;
+                return displacements;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                // Return an empty list
+                return new List<ProductDisplacement>();
+            }
         }
     }
 }

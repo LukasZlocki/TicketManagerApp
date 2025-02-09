@@ -4,6 +4,6 @@ namespace TicketManagerApp.Services
 {
     public interface IProductDisplacementService
     {
-        public Task <List<ProductDisplacement>> GetProductDisplacementsByProductFamilyId(int productFamilyId);
+        public Task <List<ProductDisplacement>> GetProductDisplacementsByProductTypeId(int productTypeId);
     }
 }

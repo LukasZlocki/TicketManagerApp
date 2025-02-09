@@ -1,4 +1,4 @@
-﻿using TicketManagerApp.Data;
+using TicketManagerApp.Data;
 
 namespace TicketManagerApp.Services
 {

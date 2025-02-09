@@ -20,10 +20,68 @@ namespace TicketManagerApp.Services
         /// <returns></returns>
         public async Task<List<Test>> GetTestsByLabLocation(int labLocationId)
         {
-            var service = await _db.Tests
-                .Where(id => id.LabLocationId == labLocationId)
+            try
+            {
+                var service = await _db.Tests
+                    .Where(id => id.LabLocationId == labLocationId)
                     .ToListAsync();
-            return service;
+                return service;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return new List<Test>(); 
+            }
         }
+
+        /// <summary>
+        /// Returns all test by product family primary key
+        /// </summary>
+        /// <param name="productFamilyId">Product family primary key</param>
+        /// <returns>List of Test objects</returns>
+        public async Task<List<Test>> GetTestsByProductTypeFamily(int productFamilyId)
+        {
+            try
+            {
+                var service = await _db.Tests
+                    .Where(id => id.ProductFamilyId == productFamilyId)
+                    .ToListAsync();
+                return service;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                // Handle the exception as needed
+                return new List<Test>(); 
+            }
+        }
+
+        /// <summary>
+        /// Retrive test dedicated to product family and lab loction
+        /// </summary>
+        /// <param name="productFamilyId">Foreign key</param>
+        /// <param name="labLocationId">Foreign key</param>
+        /// <returns>List of Test objects</returns>
+        public async Task<List<Test>> GetTestsByProductFamilyIdAndLabLocationId(int productFamilyId, int labLocationId)
+        {
+            try
+            {
+                var service = await _db.Tests
+                    .Where(id => id.ProductFamilyId == productFamilyId && id.LabLocationId == labLocationId)
+                    .ToListAsync();
+                return service;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                // Handle the exception as needed
+                return new List<Test>();
+            }
+        }
+
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using TicketManagerApp.Data;
 
 namespace TicketManagerApp.Services
@@ -50,4 +50,3 @@ namespace TicketManagerApp.Services
         }
     }
 }
-

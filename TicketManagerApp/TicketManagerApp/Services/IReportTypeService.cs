@@ -6,5 +6,7 @@ namespace TicketManagerApp.Services
     {
         public Task<List<ReportType>> GetAllReportTypes();
         public Task<string> GetReportTypeById(int id);
+        public Task<int> GetReportTypeIdByReportTypeShortDescription(string reportTypeShortDescription);
+        public Task<List<ReportType>> GetReportTypesByProdcutFamilyId(int id);
     }
 }

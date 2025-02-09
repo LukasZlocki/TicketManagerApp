@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using TicketManager.Models.Models;
 using TicketManagerApp.Data;
 
@@ -9,12 +12,14 @@ namespace TicketManagerApp.Services
         private readonly ApplicationDbContext _db;
         private readonly ILogger<TicketService> _logger;
         private readonly ITicketStatusService _statusService;
+        private readonly IServerDriveService _serverDriveService;
 
-        public TicketService(ApplicationDbContext db, ILogger<TicketService> logger, ITicketStatusService statusService)
+        public TicketService(ApplicationDbContext db, ILogger<TicketService> logger, ITicketStatusService statusService, IServerDriveService serverDriveService)
         {
             _db = db;
             _logger = logger;
             _statusService = statusService;
+            _serverDriveService = serverDriveService;
         }
 
         public async Task<Ticket> CreateTicket(Ticket ticket)
@@ -34,7 +39,8 @@ namespace TicketManagerApp.Services
                 LabLocationId = ticket.LabLocationId,
                 ProductId = ticket.ProductId,
                 StatusId = 1,
-                TicketTests = ticket.TicketTests
+                TicketTests = ticket.TicketTests,
+                CustomFile = ticket.CustomFile
             };
 
             try
@@ -42,16 +48,6 @@ namespace TicketManagerApp.Services
                 _db.Tickets.Add(_ticket);
                 await _db.SaveChangesAsync();
                 _logger.LogInformation("Ticket creted successfuly with ID: {TickedId}", _ticket.TicketId);
-                // generate new ticket code number and update ticket in db
-                bool isTicketUpdated = await UpdateTicketCodeNumber(_ticket.TicketId);
-                if (isTicketUpdated == true)
-                {
-                    _logger.LogInformation("Ticket updated with new ticket code number. Ticket ID: {TickedId}", _ticket.TicketId);
-                }
-                else
-                {
-                    _logger.LogInformation("Ticket NOT updated with new ticket code number. Ticket ID: {TickedId}", _ticket.TicketId);
-                }
             }
             catch (Exception ex)
             {
@@ -61,56 +57,6 @@ namespace TicketManagerApp.Services
             return ticket;
         }
 
-        private async Task<bool> UpdateTicketCodeNumber(int ticketId)
-        {
-            try
-            {
-                var ticketToUpdate = await _db.Tickets.FirstOrDefaultAsync(id => id.TicketId == ticketId);
-                var reportType = await _db.ReportTypes.FirstOrDefaultAsync(id => id.ReportTypeId == ticketToUpdate.ReportTypeId);
-                // Generate ticket code number
-                string ticketCodeNumber = GenerateTicketCodeNumber(ticketId, reportType.ReportShortType);
-                // Add ticket code number to ticket
-                ticketToUpdate.IdentificationCode = ticketCodeNumber;
-                await UpdateTicketData(ticketToUpdate);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Code ticket number to format MERXXXXX, where MER - report type , XXXXX - primary key number
-        /// </summary>
-        /// <param name="ticketId"></param>
-        /// <param name="reportType"></param>
-        /// <returns>ticket code number as string</returns>
-        private string GenerateTicketCodeNumber(int ticketId, string reportType)
-        {
-            string ticketCodeNumber = "";
-            // code number in format ex MERXXXXX where MER - report type , XXXXX - id number
-            if (ticketId <= 9)
-            {
-                return reportType + "0000" + ticketId.ToString();
-            }
-            if (ticketId <= 99)
-            {
-                return reportType + "000" + ticketId.ToString();
-            }
-            if (ticketId <= 999)
-            {
-                return reportType + "00" + ticketId.ToString();
-            }
-            if (ticketId <= 9999)
-            {
-                return reportType + "0" + ticketId.ToString();
-            }
-            else
-            {
-                return reportType + ticketId.ToString();
-            }
-        }
 
         public async Task DeleteTicketById(int ticketId)
         {
@@ -452,5 +398,114 @@ namespace TicketManagerApp.Services
                 _logger.LogInformation("No ticket found");
             }
         }
+
+        public async Task<bool> StartThisTicket(int ticketId)
+        {
+            try
+            {
+                Ticket ticket = await GetTicketDetails(ticketId);
+
+                // Change status to in progress
+                await UpdateTicketStatus(ticketId, "In Progress");
+
+                // Add new ticket Code number base on last report code number
+                string newTicketCodeNumber = GenerateNewTicketCodeNumber(ticket.ReportType.ReportShortType);
+
+                if (newTicketCodeNumber != null)
+                {
+                    await UpdateIdentificationCodeNumber(ticketId, newTicketCodeNumber);
+                    await _serverDriveService.CreateReportTypeFolderStructure(newTicketCodeNumber);
+
+                    return true;
+                }
+                else
+                {
+                    _logger.LogInformation("Failed to generate a new ticket code number.");
+
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"An error occurred while starting the ticket with ID {ticketId}.");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Updates ticket identification code
+        /// </summary>
+        /// <param name="ticketId">Ticket primary key</param>
+        /// <param name="identificationCodeNumber">Identyfication ticket report code number</param>
+        /// <returns>Bolean if operation success or not</returns>
+        public async Task<bool> UpdateIdentificationCodeNumber(int ticketId, string identificationCodeNumber)
+        {
+            try
+            {
+                var ticket = await _db.Tickets.FindAsync(ticketId);
+                if (ticket == null)
+                {
+                    return false;
+                }
+
+                ticket.IdentificationCode = identificationCodeNumber;
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"An error occurred while updating the identification code for ticket ID {ticketId}.");
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="reportType"></param>
+        /// <returns></returns>
+        private string GenerateNewTicketCodeNumber(string reportType)
+        {
+            // Get and store last ticket code number
+            string lastTicketCodeNumber = _serverDriveService.GetLastTicketNumber(reportType);
+
+            // Get next ticket code number
+            // code number in format ex MERXXXXX where MER - report type , XXXXX - id number
+            string newTicketCodeNumber = GenerateNextTicketCodeNumber(lastTicketCodeNumber);
+
+            return newTicketCodeNumber;
+        }
+
+        /// <summary>
+        /// Generate next ticket code number base on last ticket code number
+        /// </summary>
+        /// <param name="lastTicketCodeNumber"></param>
+        /// <returns>Returns string with next ticket code number/returns>
+        /// <exception cref="ArgumentException"></exception>
+        private string GenerateNextTicketCodeNumber(string lastTicketCodeNumber)
+        {
+            // Extract the prefix and numeric part of the code
+            Match match = Regex.Match(lastTicketCodeNumber, @"([A-Z]+)(\d+)");
+            if (!match.Success)
+            {
+                throw new ArgumentException("Invalid ticket code format");
+            }
+
+            string prefix = match.Groups[1].Value;
+            string numericPart = match.Groups[2].Value;
+
+            // Convert the numeric part to an integer and increment it
+            int newNumber = int.Parse(numericPart) + 1;
+
+            // Format the new number with leading zeros to match the original length
+            string newNumericPart = newNumber.ToString("D" + numericPart.Length);
+
+            // Combine the prefix with the new numeric part
+            string newTicketCodeNumber = prefix + newNumericPart;
+            return newTicketCodeNumber;
+        }
+
     }
 }

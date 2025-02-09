@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TicketManager.Models.Models;
 using TicketManagerApp.Data;
 
 namespace TicketManagerApp.Services
 {
     public class ReportStructureService : IReportStructureService
     {
-
         private readonly ApplicationDbContext _db;
 
         public ReportStructureService(ApplicationDbContext db)

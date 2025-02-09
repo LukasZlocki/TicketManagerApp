@@ -1,10 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicketManager.Models.Models
 {
     public class TestParameter
     {
-        [Key]
         public int TestParameterId { get; set; }
         public string? ParameterDescription { get; set; }
         public string? ParameterUnit { get; set; }

@@ -9,6 +9,5 @@ namespace TicketManager.Models.Models
         [StringLength(10)]
         public string? ProductTypeDesc { get; set; }
         public int ProductFamilyId { get; set; }
-
     }
 }

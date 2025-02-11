@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
-using System.Net.Sockets;
 using TicketManager.Models.Models;
-using System.Reflection.Emit;
 
 namespace TicketManagerApp.Data
 {
@@ -24,6 +21,7 @@ namespace TicketManagerApp.Data
         public DbSet<TicketTest> TicketTests { get; set; }
         public DbSet<TestParameter> TestParameters { get; set; }
         public DbSet<TicketTestParameter> TicketTestParameters { get; set; }
+        public DbSet<CustomFile> CustomFiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -92,4 +90,3 @@ namespace TicketManagerApp.Data
 
     }
 }
-

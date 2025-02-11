@@ -13,6 +13,7 @@ namespace TicketManagerApp.Services
             _db = db;
         }
 
+
         public async Task<List<ReportType>> GetAllReportTypes()
         {
             var reportTypes = await _db.ReportTypes.ToListAsync();
@@ -24,5 +25,21 @@ namespace TicketManagerApp.Services
             var reportType = await _db.ReportTypes.SingleOrDefaultAsync(i => i.ReportTypeId == id);
             return reportType.ReportShortType;
         }
+
+        public async Task<List<ReportType>> GetReportTypesByProdcutFamilyId(int id)
+        {
+            var reportTypes = await _db.ReportTypes
+                .Where(i => i.ProductFamilyId == id)
+                .ToListAsync();
+            return reportTypes;
+        }
+
+        public async Task<int> GetReportTypeIdByReportTypeShortDescription(string reportTypeShortDescription)
+        {
+            var reportType = await _db.ReportTypes.SingleOrDefaultAsync(i => i.ReportShortType == reportTypeShortDescription);
+            return reportType.ReportTypeId;
+        }
+
+
     }
 }

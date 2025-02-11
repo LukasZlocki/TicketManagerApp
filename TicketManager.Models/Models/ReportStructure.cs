@@ -7,7 +7,7 @@ namespace TicketManager.Models.Models
         [Key]
         public int ReportStructureId { get; set; }
         [StringLength(100)]
-        public string? FolderDescription { get; set; }
+        public string FolderDescription { get; set; }
 
         public int ReportTypeId { get; set; }
     }

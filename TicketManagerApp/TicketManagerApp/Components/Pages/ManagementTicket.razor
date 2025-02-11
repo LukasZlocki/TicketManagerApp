@@ -86,6 +86,7 @@
                         <td>@ticket.ImplementedAt.ToString("yyyy-MM-dd, HH:mm")</td>
                         <td>@ticket.ResponsibleEmail</td>
                         <td>@ticket.TicketStatus.StatusDescription</td>
+
                         <td>
                             <div class="form-group">
                                 <button class="btn-secondary btn-sm" @onclick="() => DelegateTicket(ticket)">Delegate</button>
@@ -214,12 +215,12 @@
     private void InfoTicket(int ticketId)
     {
         // Navigate to page with detailed ticket information
-        Navigation.NavigateTo("/detailsticket/" + ticketId, true);
+        Navigation.NavigateTo("/ticketmanagerapp/detailsticket/" + ticketId, true);
     }
 
     private void EditTicket(int ticketId)
     {
-        Navigation.NavigateTo("/editticket/" + ticketId, true);
+        Navigation.NavigateTo("/ticketmanagerapp/editticket/" + ticketId, true);
 
     }
 
@@ -228,7 +229,7 @@
         try
         {
             await TicketService.DeleteTicketById(ticketId);
-            Navigation.NavigateTo("/managementticket", true);
+            Navigation.NavigateTo("/ticketmanagerapp/managementticket", true);
         }
         catch (Exception e)
         {

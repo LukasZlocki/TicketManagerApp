@@ -11,6 +11,7 @@
 
 @inject ILabLocationService LabLocationService
 @inject IFactoryLocationService FactoryLocationService
+@inject IProductService _productService
 @inject IProductFamilyService ProductFamilyService
 @inject IDepartmentService DepartmentSerivce
 @inject IProductTypeService ProductTypeService
@@ -38,7 +39,7 @@
         <select id="inputLabolatoryLocation" class="form-control" asp-items @onchange="OnLabLocationChanged">
             <option selected>Choose labolatory location...</option>
             <option>...</option>
-            @foreach (var item in LabolatoryLocationsList)
+            @foreach (var item in LabolatoryLocationsDedicatedList)
             {
                 <option value="@item.LabLocationId">@item.Country</option>
             }
@@ -51,7 +52,7 @@
             >
             <option selected>Choose product family...</option>
             <option>...</option>
-            @foreach (var item in ProductFamiliesList)
+            @foreach (var item in ProductFamiliesDedicatedList)
             {
                 <option value="@item.ProductFamilyId">@item.FamilyDescription</option>
             }
@@ -72,7 +73,7 @@
 
     <div class="form-group">
         <label for="inputProductDisplacement">Product displacement</label>
-        <select id="inputProductDisplacement" class="form-control" asp-items @bind="UserTicketVM.Product.ProductDisplacementId">
+        <select id="inputProductDisplacement" class="form-control" asp-items @onchange="OnProductDisplacementChanged">
             <option selected>Choose product type...</option>
             <option>...</option>
             @foreach (var item in ProductDisplacementsDedicatedList)
@@ -84,16 +85,48 @@
 
     <div class="form-group">
         <label for="inputReportType">Report Type</label>
-        <select id="inputReportType" class="form-control" asp-items @bind="UserTicketVM.ReportTypeId">
+        <select id="inputReportType" class="form-control" asp-items @onchange="OnReportTypeChanged">
             <option selected>Choose report type...</option>
             <option>...</option>
-            @foreach (var item in ReportTypesList)
+            @foreach (var item in ReportTypesDedicatedList)
             {
                 <option value="@item.ReportTypeId">@item.ReportShortType</option>
             }
         </select>
     </div>
 </form>
+
+<!--
+ Custom file form
+-->
+<br>
+<br>
+<h2>Custom file:</h2>
+<br>
+@if (isAddCustomFileButtonVisible == true)
+{
+    <button class="btn-secondary btn-sm" @onclick="() => AddCustomFile()"> + </button>
+    <br>
+}
+else
+{
+    // no showing button with adding test
+    <button class="btn-secondary btn-sm" @onclick="() => RollUpCustomFileTable()"> - </button>
+    <br>
+}
+
+@if (isAddCustomFileTableVisible)
+{
+    <table class="table boarder table-hover">
+        <tbody>
+            <tr>
+                <td style="background-color: orange;">
+                    <InputFile OnChange="HandleFileSelected" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}
 
 <!--
  Test request form
@@ -109,7 +142,14 @@
 }
 else
 {
-    // no showing button with adding test
+    // showing button with adding test
+    <button class="btn-secondary btn-sm" @onclick="() => RollUpNewTestTable()"> - </button>
+    <br>
+}
+
+@if (isAddCustomFileTableVisible)
+{
+
 }
 
 @if (isAddTestTableVisible == false)
@@ -182,6 +222,7 @@ else
     <div class="form-group">
         <button class="btn btn-primary" @onclick="AddTestAndItsParametersToThisTicket">Add test and parameters</button>
     </div>
+
 }
 
 <!--
@@ -231,14 +272,25 @@ else
             }
         </tbody>
     </table>
-    <div class="form-group">
+</div>
+<br>
+<div class="form-group">
+    @if (CheckIfAllPickingListsPicked())
+    {
         <button class="btn btn-primary" @onclick="CreateTicketRequest">Create ticket</button>
-    </div>
+    }
+    else
+    {
+        <button class="btn btn-dark" @onclick="NotReadyToCreateTicketRequest">Create ticket</button>
+        <p>@message</p>
+    }
 </div>
 
 
 
 @code {
+
+    // This model service ticket activities on this page.
     private Ticket UserTicketVM = new Ticket
         {
             TicketTests = new List<TicketTest>(),
@@ -248,6 +300,7 @@ else
             TicketStatus = new()
         };
 
+    // This model service ticket tests activities on this page.
     private TicketTest UserTicketTestVM = new TicketTest
         {
             TicketTestParameters = new List<TicketTestParameter>(),
@@ -258,16 +311,32 @@ else
     int UserDepartmentId;
     int UserFactoryId;
 
-    List<LabLocation> LabolatoryLocationsList = new List<LabLocation>();
-    List<ProductFamily> ProductFamiliesList = new List<ProductFamily>();
+    List<LabLocation> LabolatoryLocationsDedicatedList = new List<LabLocation>();
+    List<ProductFamily> ProductFamiliesDedicatedList = new List<ProductFamily>();
     List<ProductType> ProductTypesDedicatedList = new List<ProductType>();
     List<ProductDisplacement> ProductDisplacementsDedicatedList = new List<ProductDisplacement>();
     List<Test> TestsDedicatedList = new List<Test>();
     List<TestParameter> TestParametersDedicatedList = new List<TestParameter>();
-    List<ReportType> ReportTypesList = new List<ReportType>();
+    List<ReportType> ReportTypesDedicatedList = new List<ReportType>();
 
     private bool isAddTestTableVisible = false;
     private bool isAddNewTestButtonVisible = true;
+
+    private bool isAddCustomFileTableVisible = false;
+    private bool isAddCustomFileButtonVisible = true;
+
+    // bools to establish is user picked parameter from drop down list
+    private bool isLabLocationPicked = false;
+    private bool isProductFamilyPicked = false;
+    private bool isproductTypePicked = false;
+    private bool isProductDisplacementPicked = false;
+    private bool isReportTypePicked = false;
+
+    // For massaging purpose
+    private string message;
+
+    // For selecting file purpose
+    private IBrowserFile selectedFile;
 
     protected override async Task OnInitializedAsync()
     {
@@ -282,24 +351,26 @@ else
             UserEmail = await _userService.GetUserEmailByUserId(_userGuid);
         }
 
-        LabolatoryLocationsList = await LabLocationService.GetAllLabLocations();
-        ProductFamiliesList = await ProductFamilyService.GetAllProductFamilies();
-        ReportTypesList = await _reportTypeService.GetAllReportTypes();
+        LabolatoryLocationsDedicatedList = await LabLocationService.GetAllLabLocations();
+        ProductFamiliesDedicatedList = await ProductFamilyService.GetAllProductFamilies();
     }
 
     private async Task LoadProductTypeDedicatedListByProductFamilyId(int productFamilyId)
     {
+        // load ProductTypes base on product family primary key
         ProductTypesDedicatedList = await ProductTypeService.GetAllProductTypesByFamilyId(productFamilyId);
     }
 
     private async Task LoadDedicatedProductDisplacements(int productTypeId)
     {
-        ProductDisplacementsDedicatedList = await ProductDisplacementService.GetProductDisplacementsByProductFamilyId(productTypeId);
+
+        ProductDisplacementsDedicatedList = await ProductDisplacementService.GetProductDisplacementsByProductTypeId(productTypeId);
     }
 
-    private async Task LoadDedicatedTests(int testId)
+    private async Task LoadDedicatedTestsByProductFamilyIdAndLabLocationId(int productFamilyId, int LabLocationId)
     {
-        TestsDedicatedList = await TestService.GetTestsByLabLocation(testId);
+        // Get Test by familly and lab location
+        TestsDedicatedList = await TestService.GetTestsByProductFamilyIdAndLabLocationId(productFamilyId, LabLocationId);
     }
 
     private async Task LoadDedicatedTestParametersByTestId(int testId)
@@ -310,21 +381,36 @@ else
 
     private async Task OnProductTypeChanged(ChangeEventArgs e)
     {
+        isproductTypePicked = true;
+
+        ResetAllPickingListsBelowCountingFromThisList("ProductTypeList");
+
         if (int.TryParse(e.Value.ToString(), out int productTypeId))
         {
             UserTicketVM.Product.ProductTypeId = productTypeId;
             await LoadDedicatedProductDisplacements(UserTicketVM.Product.ProductTypeId);
+            await LoadDedicatedTestsByProductFamilyIdAndLabLocationId(UserTicketVM.Product.ProductFamilyId, UserTicketVM.LabLocationId);
         }
     }
 
     private async Task OnProductFamilyChanged(ChangeEventArgs e)
     {
+        isProductFamilyPicked = true;
+
+        ResetAllPickingListsBelowCountingFromThisList("ProductFamilyList");
+
         if (int.TryParse(e.Value.ToString(), out int productFamilyId))
         {
             UserTicketVM.ProductId = productFamilyId;
             UserTicketVM.Product.ProductFamilyId = productFamilyId;
+            // Reseting product family picking list
+
             await LoadProductTypeDedicatedListByProductFamilyId(UserTicketVM.Product.ProductFamilyId);
+
+            // load report type list
+            ReportTypesDedicatedList = await _reportTypeService.GetReportTypesByProdcutFamilyId(productFamilyId);
         }
+
     }
 
     private async Task OnTestPickedChanged(ChangeEventArgs e)
@@ -341,10 +427,104 @@ else
 
     private async Task OnLabLocationChanged(ChangeEventArgs e)
     {
+        isLabLocationPicked = true;
+
+        // Do not reset picking list here - data have been already loaded.
+        //ResetAllPickingListsBelowCountingFromThisList("LabLocationList");
+
         if (int.TryParse(e.Value.ToString(), out int labLocationId))
         {
             UserTicketVM.LabLocationId = labLocationId;
-            await LoadDedicatedTests(labLocationId);
+        }
+    }
+
+    private async Task OnProductDisplacementChanged(ChangeEventArgs e)
+    {
+        isProductDisplacementPicked = true;
+
+        ResetAllPickingListsBelowCountingFromThisList("ProductDisplacementlist");
+
+        if (int.TryParse(e.Value.ToString(), out int productDisplacementId))
+        {
+            UserTicketVM.Product.ProductDisplacementId = productDisplacementId;
+        }
+    }
+
+    private async Task OnReportTypeChanged(ChangeEventArgs e)
+    {
+        isReportTypePicked = true;
+
+        if (int.TryParse(e.Value.ToString(), out int reportTypeId))
+        {
+            UserTicketVM.ReportTypeId = reportTypeId;
+        }
+    }
+
+    /// <summary>
+    /// Reset picking list along with status if picked
+    /// </summary>
+    /// <param name="pickingListName"></param>
+    private void ResetAllPickingListsBelowCountingFromThisList(string pickingListName)
+    {
+        if (pickingListName == "LabLocationList")
+        {
+            ResetListAndPickedStatus(false, true, true, true, true);
+        }
+
+        if (pickingListName == "ProductFamilyList")
+        {
+            ResetListAndPickedStatus(false, false, true, true, true);
+        }
+
+        if (pickingListName == "ProductTypeList")
+        {
+            ResetListAndPickedStatus(false, false, false, true, false);
+        }
+
+        if (pickingListName == "ProductDisplacementList")
+        {
+            ResetListAndPickedStatus(false, false, false, false, false);
+        }
+    }
+
+    private void ResetListAndPickedStatus(bool resetLabLocationlist, bool resetProductFamilyList, bool resetProductTypeList, bool resetProductDisplacementlist, bool resetReportTypeList)
+    {
+        if (resetLabLocationlist)
+        {
+            // Clear picking lists
+            ProductTypesDedicatedList.Clear();
+            // Deactivate picked status
+            isproductTypePicked = false;
+        }
+        if (resetProductFamilyList)
+        {
+            // Clear picking lists
+            ProductFamiliesDedicatedList.Clear();
+            // Deactivate picked status
+            isProductFamilyPicked = false;
+
+        }
+        if (resetProductTypeList)
+        {
+            // Clear picking lists
+            ProductTypesDedicatedList.Clear();
+            // Deactivate picked status
+            isproductTypePicked = false;
+        }
+        if (resetProductDisplacementlist)
+        {
+            // Clear picking lists
+            ProductDisplacementsDedicatedList.Clear();
+            // Deactivate picked status
+            isProductDisplacementPicked = false;
+
+        }
+        if (resetReportTypeList)
+        {
+            // Clear picking lists
+            ReportTypesDedicatedList.Clear();
+            // Deactivate picked status
+            isReportTypePicked = false;
         }
     }
 
@@ -374,7 +554,7 @@ else
         foreach (var testParameter in testParametersDedicatedList)
         {
             TicketTestParameter _testParameter = new();
-            _testParameter.ParameterValue = 0;
+            _testParameter.ParameterValue = "";
             _testParameter.TestParameterId = testParameter.TestParameterId;
             _testParameter.TestParameter = testParameter;
 
@@ -418,12 +598,24 @@ else
         UserTicketVM.DepartmentId = UserDepartmentId;
         UserTicketVM.RequestorDepartment.FactoryLocationId = UserFactoryId;
 
+        // Get ProductID base on ProductFamilyId, ProductTypeId, DisplacmentId
+        try
+        {
+            int _productId = await _productService.GetProductId(UserTicketVM.Product.ProductFamilyId, UserTicketVM.Product.ProductTypeId, UserTicketVM.Product.ProductDisplacementId);
+            UserTicketVM.ProductId = _productId;
+        }
+        catch (Exception ex)
+        {
+            // Log the exception and handle it appropriately
+            Console.WriteLine($"An error occurred while creating the ticket: {ex.Message}");
+        }
+
         try
         {
             var ticket = await TicketService.CreateTicket(UserTicketVM);
             if (ticket != null)
             {
-                Navigation.NavigateTo("/", true);
+                Navigation.NavigateTo("/ticketmanagerapp/", true);
             }
             else
             {
@@ -443,5 +635,75 @@ else
         isAddTestTableVisible = true; // show table with test parameters
         isAddNewTestButtonVisible = false; // not showing add new test button
     }
+
+    private void AddCustomFile()
+    {
+        isAddCustomFileTableVisible = true;
+        isAddCustomFileButtonVisible = false;
+    }
+
+
+    private bool CheckIfAllPickingListsPicked()
+    {
+        if (isLabLocationPicked && isProductFamilyPicked && isproductTypePicked && isProductDisplacementPicked && isReportTypePicked)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private async void NotReadyToCreateTicketRequest()
+    {
+        // Display the message
+        message = "Not able to create ticket. Fill all picking list.";
+
+        // Wait for 5 seconds
+        await Task.Delay(3000);
+
+        // Clear the message
+        message = string.Empty;
+
+        // Notify the UI to update
+        StateHasChanged();
+    }
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        selectedFile = e.File;
+
+        if (selectedFile != null)
+        {
+            var buffer = new byte[selectedFile.Size];
+            await selectedFile.OpenReadStream(maxAllowedSize: 1024 * 1024 * 15).ReadAsync(buffer);
+
+            var customFile = new CustomFile
+            {
+                FileName = selectedFile.Name,
+                FileContent = buffer,
+                ContentType = selectedFile.ContentType,
+                //TicketId = 0 // Replace with the actual TicketId
+            };
+
+            // add file to ticket
+            UserTicketVM.CustomFile = customFile;
+        }
+
+    }
+
+    private void RollUpCustomFileTable()
+    {
+        isAddCustomFileTableVisible = false;
+        isAddCustomFileButtonVisible = true;
+    }
+
+    private void RollUpNewTestTable()
+    {
+        isAddTestTableVisible = false;
+        isAddNewTestButtonVisible = true;
+    }
+
 
 }

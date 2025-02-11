@@ -21,10 +21,10 @@
         <tbody>
         <td>@DetailedTicket.IdentificationCode</td>
         <td>@DetailedTicket.RequestorEmail</td>
-        <td>@DetailedTicket.ImplementedAt</td>
+        <td>@DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductType.ProductTypeDesc @DetailedTicket.Product.ProductDisplacement.Displacement</td>
         <td>@DetailedTicket.TicketStatus.StatusDescription</td>
         <td>@DetailedTicket.ResponsibleEmail</td>
-        <td>@DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductDisplacement.Displacement</td>
+        <td>@DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductType.ProductTypeDesc @DetailedTicket.Product.ProductDisplacement.Displacement</td>
         </tbody>
     </table>
 </div>
@@ -96,5 +96,3 @@
     }
 
 }
-
-

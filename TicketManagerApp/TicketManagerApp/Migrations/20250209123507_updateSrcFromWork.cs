@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TicketManagerApp.Migrations
 {
     /// <inheritdoc />
-    public partial class addReportType : Migration
+    public partial class updateSrcFromWork : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,8 +30,8 @@ namespace TicketManagerApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FactoryLocationId = table.Column<int>(type: "int", nullable: false),
                     DepartmentId = table.Column<int>(type: "int", nullable: false),
+                    FactoryLocationId = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -50,6 +50,22 @@ namespace TicketManagerApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomFiles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileContent = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TicketId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomFiles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,8 +102,8 @@ namespace TicketManagerApp.Migrations
                 {
                     ProductDisplacementId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Displacement = table.Column<int>(type: "int", nullable: false),
-                    ProductFamilyId = table.Column<int>(type: "int", nullable: false)
+                    Displacement = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,7 +143,7 @@ namespace TicketManagerApp.Migrations
                 {
                     ReportStructureId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FolderDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    FolderDescription = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ReportTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -142,7 +158,8 @@ namespace TicketManagerApp.Migrations
                     ReportTypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ReportShortType = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
-                    ReportDescription = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true)
+                    ReportDescription = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    ProductFamilyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,7 +189,8 @@ namespace TicketManagerApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TestDescription = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     TestUnits = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    LabLocationId = table.Column<int>(type: "int", nullable: false)
+                    LabLocationId = table.Column<int>(type: "int", nullable: false),
+                    ProductFamilyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -304,7 +322,7 @@ namespace TicketManagerApp.Migrations
                 {
                     DepartmentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DepartmentDescription = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    DepartmentDescription = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     FactoryLocationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -357,20 +375,29 @@ namespace TicketManagerApp.Migrations
                 {
                     TicketId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RequestorEmail = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    IdentificationCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    RequestorEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImplementedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StartedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FinishedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ResponsibleEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResponsibleEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReportTypeId = table.Column<int>(type: "int", nullable: false),
                     DepartmentId = table.Column<int>(type: "int", nullable: false),
                     LabLocationId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    StatusId = table.Column<int>(type: "int", nullable: false)
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    CustomFileId = table.Column<int>(type: "int", nullable: true),
+                    CustomFileId1 = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.TicketId);
+                    table.ForeignKey(
+                        name: "FK_Tickets_CustomFiles_CustomFileId1",
+                        column: x => x.CustomFileId1,
+                        principalTable: "CustomFiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tickets_Departments_DepartmentId",
                         column: x => x.DepartmentId,
@@ -435,7 +462,7 @@ namespace TicketManagerApp.Migrations
                 {
                     TicketTestParameterId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ParameterValue = table.Column<double>(type: "float", nullable: false),
+                    ParameterValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TestParameterId = table.Column<int>(type: "int", nullable: false),
                     TicketTestId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -514,6 +541,11 @@ namespace TicketManagerApp.Migrations
                 name: "IX_Products_ProductTypeId",
                 table: "Products",
                 column: "ProductTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_CustomFileId1",
+                table: "Tickets",
+                column: "CustomFileId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_DepartmentId",
@@ -602,6 +634,9 @@ namespace TicketManagerApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tickets");
+
+            migrationBuilder.DropTable(
+                name: "CustomFiles");
 
             migrationBuilder.DropTable(
                 name: "Departments");

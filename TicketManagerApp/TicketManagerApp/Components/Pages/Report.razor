@@ -29,13 +29,13 @@
             {
                 @foreach (var folder in FolderList)
                 {
-                    <tr>
-                        <td>@folder</td>
-                        <td>
+                        <tr>
+                    <td>@folder</td>
+                    <td>
                             <table class="table boarder table-hover">
                                 <tbody>
                                     <tr>
-                                        <td style="background-color: orange;">
+                                        <td style="background-color: orange;"> 
                                             <InputFile OnChange="@(e => UploadFiles(e, folder))" />
                                         </td>
                                     </tr>
@@ -44,17 +44,19 @@
                                         if (folderName == folder)
                                         {
                                             <tr>
-                                                <td>@fileName </td>
-                                                <td>
-                                                    <button @onclick="() => OpenFile(folderName, fileName)">View</button>
-                                                    <button @onclick="() => RemoveFile(folderName, fileName)">Remove</button>
-                                                </td>
-                                            </tr>
+                                        <td>@fileName </td>
+                                        <td>
+                                            <!-- Temporarty removed doc view button
+                                            <button @onclick="() => OpenFile(folderName, fileName)">View</button>
+                                            -->
+                                            <button @onclick="() => RemoveFile(folderName, fileName)">Remove</button>
+                                        </td>
+                                        </tr>
                                         }
                                     }
                                 </tbody>
-                            </table>
-                        </td>
+                                </table>
+                    </td>
 
                     </tr>
                 }
@@ -70,8 +72,8 @@
 
     private Ticket UserTicket = new();
     // ToDo : In future add Ticket Code Number to ticket model
-    string DocumentCodeNumber;
-    string ReportTypeShortDescription;
+    string DocumentCodeNumber = "";
+    string ReportTypeShortDescription = "";
 
     private List<string> FolderList = new List<string>();
     private List<(string folderPath, string fileName)> FoldersAndFiles = new List<(string folderPath, string fileName)>();
@@ -81,35 +83,31 @@
         UserTicket = await _ticketService.GetTicketBasicData(Id);
         ReportTypeShortDescription = await _reportTypeService.GetReportTypeById(UserTicket.ReportTypeId);
         FolderList = await _reportStructureService.GetReportFoldersStructureByReportTypeId(UserTicket.ReportTypeId);
-        DocumentCodeNumber = SetDocumentCodeNumber(UserTicket, ReportTypeShortDescription);
-        FoldersAndFiles = await _serverDriveService.GetListOfFilesInFolder(FolderList, DocumentCodeNumber);
-    }
-
-    // ToDo : In future add Ticket Code Number to ticket model
-    private string SetDocumentCodeNumber(Ticket ticket, string reportTypeShortDescription)
-    {
-        string _documentCodeNumber;
-        _documentCodeNumber = reportTypeShortDescription + ticket.TicketId;
-        return _documentCodeNumber;
+        DocumentCodeNumber = UserTicket.IdentificationCode;
+        FoldersAndFiles = await _serverDriveService.GetListOfFilesInFolder(FolderList, ReportTypeShortDescription, DocumentCodeNumber);
     }
 
     private async Task UploadFiles(InputFileChangeEventArgs e, string targetFolder)
     {
         foreach (var file in e.GetMultipleFiles())
         {
-            string _documentCodeNumber = SetDocumentCodeNumber(UserTicket, ReportTypeShortDescription);
+            string _documentCodeNumber = UserTicket.IdentificationCode;
             var fileName = file.Name;
             var fileStream = file.OpenReadStream();
-            await _serverDriveService.SaveFileToFolder(fileStream, fileName, targetFolder, _documentCodeNumber);
+            string reportType = UserTicket.ReportType.ReportShortType;
+
+            await _serverDriveService.SaveFileToFolder(fileStream, fileName, reportType, targetFolder, _documentCodeNumber);
         }
 
-        Navigation.NavigateTo($"/report/{Id}", forceLoad: true);
+        Navigation.NavigateTo($"/ticketmanagerapp/report/{Id}", forceLoad: true);
     }
 
     private void OpenFile(string folderName, string fileName)
     {
         string serverPath = _serverDriveService.GetServerPathToDatabaseFolder();
-        string filePath = serverPath + DocumentCodeNumber + @"\" + folderName + @"\" + fileName;
+        string reportType = UserTicket.ReportType.ReportShortType;
+
+        string filePath = serverPath + ReportTypeShortDescription + @"\" + DocumentCodeNumber + @"\" + folderName + @"\" + fileName;
         Process.Start(new ProcessStartInfo
             {
                 FileName = filePath,
@@ -119,9 +117,11 @@
 
     private async Task RemoveFile(string folderName, string fileName)
     {
-        await _serverDriveService.DeleteFileFromFolder(fileName, folderName, DocumentCodeNumber);
+        string reportType = UserTicket.ReportType.ReportShortType;
+
+        await _serverDriveService.DeleteFileFromFolder(fileName, reportType, folderName, DocumentCodeNumber);
         // Refresh page
-        Navigation.NavigateTo($"/report/{Id}", forceLoad: true);
+        Navigation.NavigateTo($"/ticketmanagerapp/report/{Id}", forceLoad: true);
     }
 
 }

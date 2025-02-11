@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace TicketManager.Models.Models
 {
@@ -7,14 +7,13 @@ namespace TicketManager.Models.Models
     {
         [Key]
         public int TicketId { get; set; }
-        [StringLength(10)]
-        public string IdentificationCode { get; set; }
         [StringLength(100)]
+        public string IdentificationCode { get; set; }
         public string? RequestorEmail { get; set; }
         public DateTime ImplementedAt { get; set; }
         public DateTime StartedAt { get; set; }
         public DateTime FinishedAt { get; set; }
-        public string ResponsibleEmail { get; set; }
+        public string? ResponsibleEmail { get; set; }
 
         public List<TicketTest>? TicketTests { get; set; }
 
@@ -37,5 +36,20 @@ namespace TicketManager.Models.Models
         public int StatusId { get; set; }
         [ForeignKey("StatusId")]
         public TicketStatus? TicketStatus { get; set; }
+
+        public int? CustomFileId { get; set; } // Nullable field
+        [ForeignKey("CustomFileId")]
+        public CustomFile CustomFile { get; set; }
+
+        // Constructor
+        public Ticket()
+        {
+            //ReportType = new();
+            //RequestorDepartment = new();
+            //LabLocation = new();
+            //Product = new();
+            //TicketStatus = new();
+        }
+
     }
 }

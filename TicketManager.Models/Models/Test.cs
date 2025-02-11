@@ -12,5 +12,6 @@ namespace TicketManager.Models.Models
         public string? TestUnits { get; set; }
 
         public int LabLocationId { get; set; }
+        public int ProductFamilyId { get; set; }
     }
 }

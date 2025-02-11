@@ -43,8 +43,8 @@
                         <td>@ticket.IdentificationCode</td>
                         <td>@ticket.RequestorEmail</td>
                         <td>@ticket.LabLocation.Country</td>
-                        <td>@ticket.Product.ProductType.ProductTypeDesc</td>
                         <td>@ticket.Product.ProductFamily.FamilyDescription @ticket.Product.ProductType.ProductTypeDesc @ticket.Product.ProductDisplacement.Displacement</td>
+                        <td>@ticket.ImplementedAt.ToString("yyyy-MM-dd, HH:mm")</td>
                         <td>@ticket.ResponsibleEmail</td>
                         <td>@ticket.TicketStatus.StatusDescription</td>
 
@@ -82,12 +82,12 @@
     private void InfoTicket(int ticketId)
     {
         // Navigate to page with detailed ticket information
-        Navigation.NavigateTo("/detailsticket/" + ticketId, true);
+        Navigation.NavigateTo("/ticketmanagerapp/detailsticket/" + ticketId, true);
     }
 
     private void EditTicket(int ticketId)
     {
-        Navigation.NavigateTo("/editticket/" + ticketId, true);
+        Navigation.NavigateTo("/ticketmanagerapp/editticket/" + ticketId, true);
     }
 
     private async Task DeleteTicket(int ticketId)

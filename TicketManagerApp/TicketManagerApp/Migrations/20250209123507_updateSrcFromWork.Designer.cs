@@ -12,8 +12,8 @@ using TicketManagerApp.Data;
 namespace TicketManagerApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241018141408_addReportType")]
-    partial class addReportType
+    [Migration("20250209123507_updateSrcFromWork")]
+    partial class updateSrcFromWork
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,6 +158,31 @@ namespace TicketManagerApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("TicketManager.Models.Models.CustomFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("FileContent")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomFiles");
+                });
+
             modelBuilder.Entity("TicketManager.Models.Models.Department", b =>
                 {
                     b.Property<int>("DepartmentId")
@@ -167,7 +192,6 @@ namespace TicketManagerApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentId"));
 
                     b.Property<string>("DepartmentDescription")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -259,10 +283,10 @@ namespace TicketManagerApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductDisplacementId"));
 
-                    b.Property<int>("Displacement")
-                        .HasColumnType("int");
+                    b.Property<string>("Displacement")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductFamilyId")
+                    b.Property<int>("ProductTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("ProductDisplacementId");
@@ -316,6 +340,7 @@ namespace TicketManagerApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReportStructureId"));
 
                     b.Property<string>("FolderDescription")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -334,6 +359,9 @@ namespace TicketManagerApp.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReportTypeId"));
+
+                    b.Property<int>("ProductFamilyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ReportDescription")
                         .HasMaxLength(30)
@@ -357,6 +385,9 @@ namespace TicketManagerApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestId"));
 
                     b.Property<int>("LabLocationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductFamilyId")
                         .HasColumnType("int");
 
                     b.Property<string>("TestDescription")
@@ -402,11 +433,22 @@ namespace TicketManagerApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketId"));
 
+                    b.Property<int?>("CustomFileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomFileId1")
+                        .HasColumnType("int");
+
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("FinishedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("IdentificationCode")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("ImplementedAt")
                         .HasColumnType("datetime2");
@@ -421,11 +463,9 @@ namespace TicketManagerApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("RequestorEmail")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ResponsibleEmail")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartedAt")
@@ -435,6 +475,8 @@ namespace TicketManagerApp.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("TicketId");
+
+                    b.HasIndex("CustomFileId1");
 
                     b.HasIndex("DepartmentId");
 
@@ -497,8 +539,8 @@ namespace TicketManagerApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketTestParameterId"));
 
-                    b.Property<double>("ParameterValue")
-                        .HasColumnType("float");
+                    b.Property<string>("ParameterValue")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TestParameterId")
                         .HasColumnType("int");
@@ -677,6 +719,12 @@ namespace TicketManagerApp.Migrations
 
             modelBuilder.Entity("TicketManager.Models.Models.Ticket", b =>
                 {
+                    b.HasOne("TicketManager.Models.Models.CustomFile", "CustomFile")
+                        .WithMany()
+                        .HasForeignKey("CustomFileId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TicketManager.Models.Models.Department", "RequestorDepartment")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
@@ -706,6 +754,8 @@ namespace TicketManagerApp.Migrations
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("CustomFile");
 
                     b.Navigation("LabLocation");
 

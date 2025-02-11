@@ -21,10 +21,20 @@ namespace TicketManagerApp.Services
         /// <returns>List of ProductType objects</returns>
         public async Task<List<ProductType>> GetAllProductTypesByFamilyId(int familyId)
         {
-            var productTypes = await _db.ProductTypes
-                .Where(id => id.ProductFamilyId == familyId)
+            try
+            {
+                var productTypes = await _db.ProductTypes
+                    .Where(id => id.ProductFamilyId == familyId)
                     .ToListAsync();
-            return productTypes;
+                return productTypes;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can replace this with your logging mechanism)
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                // Return an empty list
+                return new List<ProductType>();
+            }
         }
     }
 }

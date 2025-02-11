@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 
 <PageTitle>Home</PageTitle>
 
@@ -6,9 +6,15 @@
     .background-image {
         display: block;
         margin: 0 auto;
-        width: auto; /* Set the image to half its original size */
-        opacity: 0.5; /* Make the image 50% transparent */
+        width: auto;
+        opacity: 0.5;
     }
 </style>
 <p>Ticket manager</p>
-<img src="/images/wd_products_motors.png" alt="Background Image" class="background-image" />
+<img src="/ticketmanagerapp/images/wd_products_motors.png" alt="Background Image" class="background-image" />
+
+<ErrorBoundary>
+    <ErrorContent>
+        @context.HelpLink
+    </ErrorContent>
+</ErrorBoundary>

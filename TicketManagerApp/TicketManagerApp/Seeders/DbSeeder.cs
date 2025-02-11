@@ -282,328 +282,343 @@ namespace TicketManager.Infrastructure.Seeders
                           new ProductDisplacement { Displacement = "375", ProductTypeId = 4 }, // id43
                           new ProductDisplacement { Displacement = "400", ProductTypeId = 4 }, // id44
 
-                        // OMEW Product Displacements
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 6 }, // id45
-                        new ProductDisplacement { Displacement = "125", ProductTypeId = 6 }, // id46
-                        new ProductDisplacement { Displacement = "160", ProductTypeId = 6 }, // id47
-                        new ProductDisplacement { Displacement = "200", ProductTypeId = 6 }, // id48
-                        new ProductDisplacement { Displacement = "250", ProductTypeId = 6 }, // id49
-                        new ProductDisplacement { Displacement = "315", ProductTypeId = 6 }, // id50
-                        new ProductDisplacement { Displacement = "345", ProductTypeId = 6 }, // id51
-                        new ProductDisplacement { Displacement = "400", ProductTypeId = 6 }, // id52
+                          // OMRX Product Displacements 5
+                          new ProductDisplacement { Displacement = "50", ProductTypeId = 5 }, // id45
+                          new ProductDisplacement { Displacement = "80", ProductTypeId = 5 }, // id46
+                          new ProductDisplacement { Displacement = "100", ProductTypeId = 5 }, // id47
+                          new ProductDisplacement { Displacement = "125", ProductTypeId = 5 }, // id48
+                          new ProductDisplacement { Displacement = "160", ProductTypeId = 5 }, // id49
+                          new ProductDisplacement { Displacement = "200", ProductTypeId = 5 }, // id50
+                          new ProductDisplacement { Displacement = "250", ProductTypeId = 5 }, // id51
+                          new ProductDisplacement { Displacement = "315", ProductTypeId = 5 }, // id52
+                          new ProductDisplacement { Displacement = "375", ProductTypeId = 5 }, // id53
+                          new ProductDisplacement { Displacement = "400", ProductTypeId = 5 }, // id54
 
-                        // OMRS Product Displacements
-                        new ProductDisplacement { Displacement = "50", ProductTypeId = 7 }, // id53
-                        new ProductDisplacement { Displacement = "65", ProductTypeId = 7 }, // id54
-                        new ProductDisplacement { Displacement = "80", ProductTypeId = 7 }, // id55
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 7 }, // id56
-                        new ProductDisplacement { Displacement = "125", ProductTypeId = 7 }, // id57
-                        new ProductDisplacement { Displacement = "160", ProductTypeId = 7 }, // id58
-                        new ProductDisplacement { Displacement = "200", ProductTypeId = 7 }, // id59
-                        new ProductDisplacement { Displacement = "250", ProductTypeId = 7 }, // id60
-                        new ProductDisplacement { Displacement = "315", ProductTypeId = 7 }, // id61
+                        // OMEW Product Displacements 6
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 6 }, // id55
+                        new ProductDisplacement { Displacement = "125", ProductTypeId = 6 }, // id56
+                        new ProductDisplacement { Displacement = "160", ProductTypeId = 6 }, // id57
+                        new ProductDisplacement { Displacement = "200", ProductTypeId = 6 }, // id58
+                        new ProductDisplacement { Displacement = "250", ProductTypeId = 6 }, // id59
+                        new ProductDisplacement { Displacement = "315", ProductTypeId = 6 }, // id60
+                        new ProductDisplacement { Displacement = "345", ProductTypeId = 6 }, // id61
+                        new ProductDisplacement { Displacement = "400", ProductTypeId = 6 }, // id62
 
-                        // OMH Product Displacements
-                        new ProductDisplacement { Displacement = "200", ProductTypeId = 8 }, // id62
-                        new ProductDisplacement { Displacement = "250", ProductTypeId = 8 }, // id63
-                        new ProductDisplacement { Displacement = "325", ProductTypeId = 8 }, // id64
-                        new ProductDisplacement { Displacement = "400", ProductTypeId = 8 }, // id65
-                        new ProductDisplacement { Displacement = "500", ProductTypeId = 8 }, // id66
+                        // OMRS Product Displacements 7
+                        new ProductDisplacement { Displacement = "50", ProductTypeId = 7 }, // id63
+                        new ProductDisplacement { Displacement = "65", ProductTypeId = 7 }, // id64
+                        new ProductDisplacement { Displacement = "80", ProductTypeId = 7 }, // id65
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 7 }, // id66
+                        new ProductDisplacement { Displacement = "125", ProductTypeId = 7 }, // id67
+                        new ProductDisplacement { Displacement = "160", ProductTypeId = 7 }, // id68
+                        new ProductDisplacement { Displacement = "200", ProductTypeId = 7 }, // id69
+                        new ProductDisplacement { Displacement = "250", ProductTypeId = 7 }, // id70
+                        new ProductDisplacement { Displacement = "315", ProductTypeId = 7 }, // id71
 
-                        // OMR NA Product Displacements
-                        new ProductDisplacement { Displacement = "50", ProductTypeId = 9 }, // id67
-                        new ProductDisplacement { Displacement = "80", ProductTypeId = 9 }, // id68
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 9 }, // id69
-                        new ProductDisplacement { Displacement = "125", ProductTypeId = 9 }, // id70
-                        new ProductDisplacement { Displacement = "160", ProductTypeId = 9 }, // id71
-                        new ProductDisplacement { Displacement = "200", ProductTypeId = 9 }, // id72
-                        new ProductDisplacement { Displacement = "250", ProductTypeId = 9 }, // id73
-                        new ProductDisplacement { Displacement = "315", ProductTypeId = 9 }, // id74
-                        new ProductDisplacement { Displacement = "375", ProductTypeId = 9 }, // id75
-                        new ProductDisplacement { Displacement = "400", ProductTypeId = 9 }, // id76
+                        // OMH Product Displacements 8
+                        new ProductDisplacement { Displacement = "200", ProductTypeId = 8 }, // id72
+                        new ProductDisplacement { Displacement = "250", ProductTypeId = 8 }, // id73
+                        new ProductDisplacement { Displacement = "325", ProductTypeId = 8 }, // id74
+                        new ProductDisplacement { Displacement = "400", ProductTypeId = 8 }, // id75
+                        new ProductDisplacement { Displacement = "500", ProductTypeId = 8 }, // id76
 
-                        // OMR F Product Displacements
-                        new ProductDisplacement { Displacement = "50", ProductTypeId = 10 }, // id77
-                        new ProductDisplacement { Displacement = "80", ProductTypeId = 10 }, // id78
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 10 }, // id79
-                        new ProductDisplacement { Displacement = "125", ProductTypeId = 10 }, // id80
-                        new ProductDisplacement { Displacement = "160", ProductTypeId = 10 }, // id81
-                        new ProductDisplacement { Displacement = "200", ProductTypeId = 10 }, // id82
-                        new ProductDisplacement { Displacement = "250", ProductTypeId = 10 }, // id83
-                        new ProductDisplacement { Displacement = "315", ProductTypeId = 10 }, // id84
-                        new ProductDisplacement { Displacement = "375", ProductTypeId = 10 }, // id85
-                        new ProductDisplacement { Displacement = "400", ProductTypeId = 10 }, // id86
+                        // OMR NA Product Displacements 9
+                        new ProductDisplacement { Displacement = "50", ProductTypeId = 9 }, // id77
+                        new ProductDisplacement { Displacement = "80", ProductTypeId = 9 }, // id78
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 9 }, // id79
+                        new ProductDisplacement { Displacement = "125", ProductTypeId = 9 }, // id80
+                        new ProductDisplacement { Displacement = "160", ProductTypeId = 9 }, // id81
+                        new ProductDisplacement { Displacement = "200", ProductTypeId = 9 }, // id82
+                        new ProductDisplacement { Displacement = "250", ProductTypeId = 9 }, // id83
+                        new ProductDisplacement { Displacement = "315", ProductTypeId = 9 }, // id84
+                        new ProductDisplacement { Displacement = "375", ProductTypeId = 9 }, // id85
+                        new ProductDisplacement { Displacement = "400", ProductTypeId = 9 }, // id86
 
-                        // OMP F Product Displacements
-                        new ProductDisplacement { Displacement = "50", ProductTypeId = 11 }, // id87
-                        new ProductDisplacement { Displacement = "80", ProductTypeId = 11 }, // id88
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 11 }, // id89
-                        new ProductDisplacement { Displacement = "125", ProductTypeId = 11 }, // id90
-                        new ProductDisplacement { Displacement = "160", ProductTypeId = 11 }, // id91
-                        new ProductDisplacement { Displacement = "200", ProductTypeId = 11 }, // id92
-                        new ProductDisplacement { Displacement = "250", ProductTypeId = 11 }, // id93
-                        new ProductDisplacement { Displacement = "315", ProductTypeId = 11 }, // id94
-                        new ProductDisplacement { Displacement = "375", ProductTypeId = 11 }, // id95
-                        new ProductDisplacement { Displacement = "400", ProductTypeId = 11 }, // id96
+                        // OMR F Product Displacements 10
+                        new ProductDisplacement { Displacement = "50", ProductTypeId = 10 }, // id87
+                        new ProductDisplacement { Displacement = "80", ProductTypeId = 10 }, // id88
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 10 }, // id89
+                        new ProductDisplacement { Displacement = "125", ProductTypeId = 10 }, // id90
+                        new ProductDisplacement { Displacement = "160", ProductTypeId = 10 }, // id91
+                        new ProductDisplacement { Displacement = "200", ProductTypeId = 10 }, // id92
+                        new ProductDisplacement { Displacement = "250", ProductTypeId = 10 }, // id93
+                        new ProductDisplacement { Displacement = "315", ProductTypeId = 10 }, // id94
+                        new ProductDisplacement { Displacement = "375", ProductTypeId = 10 }, // id95
+                        new ProductDisplacement { Displacement = "400", ProductTypeId = 10 }, // id96
 
-                        // OMM Product Displacements
-                        new ProductDisplacement { Displacement = "8", ProductTypeId = 12 }, // id97
-                        new ProductDisplacement { Displacement = "12.5", ProductTypeId = 12 }, // id98
-                        new ProductDisplacement { Displacement = "20", ProductTypeId = 12 }, // id99
-                        new ProductDisplacement { Displacement = "32", ProductTypeId = 12 }, // id100
-                        new ProductDisplacement { Displacement = "50", ProductTypeId = 12 }, // id101
+                        // OMP F Product Displacements 11
+                        new ProductDisplacement { Displacement = "50", ProductTypeId = 11 }, // id97
+                        new ProductDisplacement { Displacement = "80", ProductTypeId = 11 }, // id98
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 11 }, // id99
+                        new ProductDisplacement { Displacement = "125", ProductTypeId = 11 }, // id100
+                        new ProductDisplacement { Displacement = "160", ProductTypeId = 11 }, // id101
+                        new ProductDisplacement { Displacement = "200", ProductTypeId = 11 }, // id102
+                        new ProductDisplacement { Displacement = "250", ProductTypeId = 11 }, // id103
+                        new ProductDisplacement { Displacement = "315", ProductTypeId = 11 }, // id104
+                        new ProductDisplacement { Displacement = "375", ProductTypeId = 11 }, // id105
+                        new ProductDisplacement { Displacement = "400", ProductTypeId = 11 }, // id106
 
-                        // OML Product Displacements
-                        new ProductDisplacement { Displacement = "8", ProductTypeId = 13 }, // id102
-                        new ProductDisplacement { Displacement = "12.5", ProductTypeId = 13 }, // id103
-                        new ProductDisplacement { Displacement = "20", ProductTypeId = 13 }, // id104
-                        new ProductDisplacement { Displacement = "32", ProductTypeId = 13 }, // id105
+                        // OMM Product Displacements 12
+                        new ProductDisplacement { Displacement = "8", ProductTypeId = 12 }, // id107
+                        new ProductDisplacement { Displacement = "12.5", ProductTypeId = 12 }, // id108
+                        new ProductDisplacement { Displacement = "20", ProductTypeId = 12 }, // id109
+                        new ProductDisplacement { Displacement = "32", ProductTypeId = 12 }, // id110
+                        new ProductDisplacement { Displacement = "50", ProductTypeId = 12 }, // id111
 
-                        // VIS
-                        new ProductDisplacement { Displacement = "19.8", ProductTypeId = 14 }, // id106
-                        new ProductDisplacement { Displacement = "24.4", ProductTypeId = 14 }, // id107
-                        new ProductDisplacement { Displacement = "30.7", ProductTypeId = 14 }, // id108
-                        new ProductDisplacement { Displacement = "34.9", ProductTypeId = 14 }, // id109
-                        new ProductDisplacement { Displacement = "38.5", ProductTypeId = 14 }, // id110
-                        new ProductDisplacement { Displacement = "42.7", ProductTypeId = 14 }, // id111
-                        new ProductDisplacement { Displacement = "48", ProductTypeId = 14 }, // id112
-                        new ProductDisplacement { Displacement = "57.4", ProductTypeId = 14 }, // id113
+                        // OML Product Displacements 13
+                        new ProductDisplacement { Displacement = "8", ProductTypeId = 13 }, // id112
+                        new ProductDisplacement { Displacement = "12.5", ProductTypeId = 13 }, // id113
+                        new ProductDisplacement { Displacement = "20", ProductTypeId = 13 }, // id114
+                        new ProductDisplacement { Displacement = "32", ProductTypeId = 13 }, // id115
 
-                        // HP Product Displacements
-                        new ProductDisplacement { Displacement = "21", ProductTypeId = 15 }, // id114
-                        new ProductDisplacement { Displacement = "24.4", ProductTypeId = 15 }, // id115
-                        new ProductDisplacement { Displacement = "26.5", ProductTypeId = 15 }, // id116
-                        new ProductDisplacement { Displacement = "29.3", ProductTypeId = 15 }, // id117
-                        new ProductDisplacement { Displacement = "41.3", ProductTypeId = 15 }, // id118
+                        // VIS 14
+                        new ProductDisplacement { Displacement = "19.8", ProductTypeId = 14 }, // id116
+                        new ProductDisplacement { Displacement = "24.4", ProductTypeId = 14 }, // id117
+                        new ProductDisplacement { Displacement = "30.7", ProductTypeId = 14 }, // id118
+                        new ProductDisplacement { Displacement = "34.9", ProductTypeId = 14 }, // id119
+                        new ProductDisplacement { Displacement = "38.5", ProductTypeId = 14 }, // id120
+                        new ProductDisplacement { Displacement = "42.7", ProductTypeId = 14 }, // id121
+                        new ProductDisplacement { Displacement = "48", ProductTypeId = 14 }, // id122
+                        new ProductDisplacement { Displacement = "57.4", ProductTypeId = 14 }, // id123
 
-                        // RS Product Displacements
-                        new ProductDisplacement { Displacement = "3.2", ProductTypeId = 16 }, // id119
-                        new ProductDisplacement { Displacement = "4.6", ProductTypeId = 16 }, // id120 
-                        new ProductDisplacement { Displacement = "5.4", ProductTypeId = 16 }, // id121 
-                        new ProductDisplacement { Displacement = "6.3", ProductTypeId = 16 }, // id122
-                        new ProductDisplacement { Displacement = "6.8", ProductTypeId = 16 }, // id123
-                        new ProductDisplacement { Displacement = "7.7", ProductTypeId = 16 }, // id124
-                        new ProductDisplacement { Displacement = "10", ProductTypeId = 16 }, // id125
-                        new ProductDisplacement { Displacement = "12.5", ProductTypeId = 16 }, // id126
-                        new ProductDisplacement { Displacement = "15.5", ProductTypeId = 16 }, // id127
-                        new ProductDisplacement { Displacement = "17.9", ProductTypeId = 16 }, // id128
-                        new ProductDisplacement { Displacement = "24.9", ProductTypeId = 16 }, // id129
+                        // HP Product Displacements 15
+                        new ProductDisplacement { Displacement = "21", ProductTypeId = 15 }, // id124
+                        new ProductDisplacement { Displacement = "24.4", ProductTypeId = 15 }, // id125
+                        new ProductDisplacement { Displacement = "26.5", ProductTypeId = 15 }, // id126
+                        new ProductDisplacement { Displacement = "29.3", ProductTypeId = 15 }, // id127
+                        new ProductDisplacement { Displacement = "41.3", ProductTypeId = 15 }, // id128
 
-                        // D9 Product Displacements
-                        new ProductDisplacement { Displacement = "15.6", ProductTypeId = 17 }, // id130
-                        new ProductDisplacement { Displacement = "17.9", ProductTypeId = 17 }, // id131
-                        new ProductDisplacement { Displacement = "22.4", ProductTypeId = 17 }, // id132
-                        new ProductDisplacement { Displacement = "27.8", ProductTypeId = 17 }, // id133
-                        new ProductDisplacement { Displacement = "32.1", ProductTypeId = 17 }, // id134
-                        new ProductDisplacement { Displacement = "38.1", ProductTypeId = 17 }, // id135
-                        new ProductDisplacement { Displacement = "44.8", ProductTypeId = 17 }, // id136
-                        new ProductDisplacement { Displacement = "55.6", ProductTypeId = 17 }, // id137
-                        new ProductDisplacement { Displacement = "62.7", ProductTypeId = 17 }, // id138
+                        // RS Product Displacements 16
+                        new ProductDisplacement { Displacement = "3.2", ProductTypeId = 16 }, // id129
+                        new ProductDisplacement { Displacement = "4.6", ProductTypeId = 16 }, // id130 
+                        new ProductDisplacement { Displacement = "5.4", ProductTypeId = 16 }, // id131 
+                        new ProductDisplacement { Displacement = "6.3", ProductTypeId = 16 }, // id132
+                        new ProductDisplacement { Displacement = "6.8", ProductTypeId = 16 }, // id133
+                        new ProductDisplacement { Displacement = "7.7", ProductTypeId = 16 }, // id134
+                        new ProductDisplacement { Displacement = "10", ProductTypeId = 16 }, // id135
+                        new ProductDisplacement { Displacement = "12.5", ProductTypeId = 16 }, // id136
+                        new ProductDisplacement { Displacement = "15.5", ProductTypeId = 16 }, // id137
+                        new ProductDisplacement { Displacement = "17.9", ProductTypeId = 16 }, // id138
+                        new ProductDisplacement { Displacement = "24.9", ProductTypeId = 16 }, // id139
 
-                        // RE Product Displacements
-                        new ProductDisplacement { Displacement = "7.4", ProductTypeId = 18 }, // id139
-                        new ProductDisplacement { Displacement = "9.9", ProductTypeId = 18 }, // id140
-                        new ProductDisplacement { Displacement = "12.4", ProductTypeId = 18 }, // id141
-                        new ProductDisplacement { Displacement = "14.2", ProductTypeId = 18 }, // id142
-                        new ProductDisplacement { Displacement = "15.9", ProductTypeId = 18 }, // id143
-                        new ProductDisplacement { Displacement = "18.3", ProductTypeId = 18 }, // id144
-                        new ProductDisplacement { Displacement = "21.2", ProductTypeId = 18 }, // id145
-                        new ProductDisplacement { Displacement = "22.8", ProductTypeId = 18 }, // id146
-                        new ProductDisplacement { Displacement = "28.3", ProductTypeId = 18 }, // id147
-                        new ProductDisplacement { Displacement = "32.7", ProductTypeId = 18 }, // id148
-                        new ProductDisplacement { Displacement = "38.5", ProductTypeId = 18 }, // id149
-                        new ProductDisplacement { Displacement = "45.6", ProductTypeId = 18 }, // id150
+                        // D9 Product Displacements 17
+                        new ProductDisplacement { Displacement = "15.6", ProductTypeId = 17 }, // id140
+                        new ProductDisplacement { Displacement = "17.9", ProductTypeId = 17 }, // id141
+                        new ProductDisplacement { Displacement = "22.4", ProductTypeId = 17 }, // id142
+                        new ProductDisplacement { Displacement = "27.8", ProductTypeId = 17 }, // id143
+                        new ProductDisplacement { Displacement = "32.1", ProductTypeId = 17 }, // id144
+                        new ProductDisplacement { Displacement = "38.1", ProductTypeId = 17 }, // id145
+                        new ProductDisplacement { Displacement = "44.8", ProductTypeId = 17 }, // id146
+                        new ProductDisplacement { Displacement = "55.6", ProductTypeId = 17 }, // id147
+                        new ProductDisplacement { Displacement = "62.7", ProductTypeId = 17 }, // id148
 
-                        // RC Product Displacements
-                        new ProductDisplacement { Displacement = "7.4", ProductTypeId = 19 }, // id151
-                        new ProductDisplacement { Displacement = "9.9", ProductTypeId = 19 }, // id152
-                        new ProductDisplacement { Displacement = "12.4", ProductTypeId = 19 }, // id153
-                        new ProductDisplacement { Displacement = "14.2", ProductTypeId = 19 }, // id154
-                        new ProductDisplacement { Displacement = "15.9", ProductTypeId = 19 }, // id155
-                        new ProductDisplacement { Displacement = "18.3", ProductTypeId = 19 }, // id156
-                        new ProductDisplacement { Displacement = "21.2", ProductTypeId = 19 }, // id157
-                        new ProductDisplacement { Displacement = "22.8", ProductTypeId = 19 }, // id158
-                        new ProductDisplacement { Displacement = "28.3", ProductTypeId = 19 }, // id159
-                        new ProductDisplacement { Displacement = "32.7", ProductTypeId = 19 }, // id160
-                        new ProductDisplacement { Displacement = "38.5", ProductTypeId = 19 }, // id161
-                        new ProductDisplacement { Displacement = "45.6", ProductTypeId = 19 }, // id162
+                        // RE Product Displacements 18
+                        new ProductDisplacement { Displacement = "7.4", ProductTypeId = 18 }, // id149
+                        new ProductDisplacement { Displacement = "9.9", ProductTypeId = 18 }, // id150
+                        new ProductDisplacement { Displacement = "12.4", ProductTypeId = 18 }, // id151
+                        new ProductDisplacement { Displacement = "14.2", ProductTypeId = 18 }, // id152
+                        new ProductDisplacement { Displacement = "15.9", ProductTypeId = 18 }, // id153
+                        new ProductDisplacement { Displacement = "18.3", ProductTypeId = 18 }, // id154
+                        new ProductDisplacement { Displacement = "21.2", ProductTypeId = 18 }, // id155
+                        new ProductDisplacement { Displacement = "22.8", ProductTypeId = 18 }, // id156
+                        new ProductDisplacement { Displacement = "28.3", ProductTypeId = 18 }, // id157
+                        new ProductDisplacement { Displacement = "32.7", ProductTypeId = 18 }, // id158
+                        new ProductDisplacement { Displacement = "38.5", ProductTypeId = 18 }, // id159
+                        new ProductDisplacement { Displacement = "45.6", ProductTypeId = 18 }, // id160
 
-                        // DH Product Displacements
-                        new ProductDisplacement { Displacement = "36", ProductTypeId = 20 }, // id163
-                        new ProductDisplacement { Displacement = "50", ProductTypeId = 20 }, // id164
-                        new ProductDisplacement { Displacement = "80", ProductTypeId = 20 }, // id165
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 20 }, // id166
-                        new ProductDisplacement { Displacement = "125", ProductTypeId = 20 }, // id167
-                        new ProductDisplacement { Displacement = "160", ProductTypeId = 20 }, // id168
-                        new ProductDisplacement { Displacement = "200", ProductTypeId = 20 }, // id169
-                        new ProductDisplacement { Displacement = "250", ProductTypeId = 20 }, // id170
-                        new ProductDisplacement { Displacement = "315", ProductTypeId = 20 }, // id171
-                        new ProductDisplacement { Displacement = "400", ProductTypeId = 20 }, // id172
+                        // RC Product Displacements 19
+                        new ProductDisplacement { Displacement = "7.4", ProductTypeId = 19 }, // id161
+                        new ProductDisplacement { Displacement = "9.9", ProductTypeId = 19 }, // id162
+                        new ProductDisplacement { Displacement = "12.4", ProductTypeId = 19 }, // id163
+                        new ProductDisplacement { Displacement = "14.2", ProductTypeId = 19 }, // id164
+                        new ProductDisplacement { Displacement = "15.9", ProductTypeId = 19 }, // id165
+                        new ProductDisplacement { Displacement = "18.3", ProductTypeId = 19 }, // id166
+                        new ProductDisplacement { Displacement = "21.2", ProductTypeId = 19 }, // id167
+                        new ProductDisplacement { Displacement = "22.8", ProductTypeId = 19 }, // id168
+                        new ProductDisplacement { Displacement = "28.3", ProductTypeId = 19 }, // id169
+                        new ProductDisplacement { Displacement = "32.7", ProductTypeId = 19 }, // id170
+                        new ProductDisplacement { Displacement = "38.5", ProductTypeId = 19 }, // id171
+                        new ProductDisplacement { Displacement = "45.6", ProductTypeId = 19 }, // id172
 
-                        // DT Product Displacements
-                        new ProductDisplacement { Displacement = "18.3", ProductTypeId = 21 }, // id173
-                        new ProductDisplacement { Displacement = "22.8", ProductTypeId = 21 }, // id174
-                        new ProductDisplacement { Displacement = "28.3", ProductTypeId = 21 }, // id175
-                        new ProductDisplacement { Displacement = "32.7", ProductTypeId = 21 }, // id176
-                        new ProductDisplacement { Displacement = "45.6", ProductTypeId = 21 }, // id177
-                        new ProductDisplacement { Displacement = "56.7", ProductTypeId = 21 }, // id178
-                        new ProductDisplacement { Displacement = "63.9", ProductTypeId = 21 }, // id179
-                        new ProductDisplacement { Displacement = "91.2", ProductTypeId = 21 }, // id180
-                        new ProductDisplacement { Displacement = "127.7", ProductTypeId = 21 }, // id181
+                        // DH Product Displacements 20
+                        new ProductDisplacement { Displacement = "36", ProductTypeId = 20 }, // id173
+                        new ProductDisplacement { Displacement = "50", ProductTypeId = 20 }, // id174
+                        new ProductDisplacement { Displacement = "80", ProductTypeId = 20 }, // id175
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 20 }, // id176
+                        new ProductDisplacement { Displacement = "125", ProductTypeId = 20 }, // id177
+                        new ProductDisplacement { Displacement = "160", ProductTypeId = 20 }, // id178
+                        new ProductDisplacement { Displacement = "200", ProductTypeId = 20 }, // id179
+                        new ProductDisplacement { Displacement = "250", ProductTypeId = 20 }, // id180
+                        new ProductDisplacement { Displacement = "315", ProductTypeId = 20 }, // id181
+                        new ProductDisplacement { Displacement = "400", ProductTypeId = 20 }, // id182
 
-                        // DS Product Displacements
-                        new ProductDisplacement { Displacement = "50", ProductTypeId = 22 }, // id182
-                        new ProductDisplacement { Displacement = "80", ProductTypeId = 22 }, // id183
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 22 }, // id184
-                        new ProductDisplacement { Displacement = "125", ProductTypeId = 22 }, // id185
-                        new ProductDisplacement { Displacement = "160", ProductTypeId = 22 }, // id186
-                        new ProductDisplacement { Displacement = "200", ProductTypeId = 22 }, // id187
-                        new ProductDisplacement { Displacement = "250", ProductTypeId = 22 }, // id188
-                        new ProductDisplacement { Displacement = "315", ProductTypeId = 22 }, // id189
-                        new ProductDisplacement { Displacement = "375", ProductTypeId = 22 }, // id190
+                        // DT Product Displacements 21
+                        new ProductDisplacement { Displacement = "18.3", ProductTypeId = 21 }, // id183
+                        new ProductDisplacement { Displacement = "22.8", ProductTypeId = 21 }, // id184
+                        new ProductDisplacement { Displacement = "28.3", ProductTypeId = 21 }, // id185
+                        new ProductDisplacement { Displacement = "32.7", ProductTypeId = 21 }, // id186
+                        new ProductDisplacement { Displacement = "45.6", ProductTypeId = 21 }, // id187
+                        new ProductDisplacement { Displacement = "56.7", ProductTypeId = 21 }, // id188
+                        new ProductDisplacement { Displacement = "63.9", ProductTypeId = 21 }, // id189
+                        new ProductDisplacement { Displacement = "91.2", ProductTypeId = 21 }, // id190
+                        new ProductDisplacement { Displacement = "127.7", ProductTypeId = 21 }, // id191
 
-                        // DR Product Displacements
-                        new ProductDisplacement { Displacement = "12.4", ProductTypeId = 23 }, // id191
-                        new ProductDisplacement { Displacement = "15.9", ProductTypeId = 23 }, // id192
-                        new ProductDisplacement { Displacement = "18.3", ProductTypeId = 23 }, // id193
-                        new ProductDisplacement { Displacement = "21.2", ProductTypeId = 23 }, // id194
-                        new ProductDisplacement { Displacement = "22.8", ProductTypeId = 23 }, // id195
-                        new ProductDisplacement { Displacement = "28.3", ProductTypeId = 23 }, // id196
-                        new ProductDisplacement { Displacement = "32.7", ProductTypeId = 23 }, // id197
-                        new ProductDisplacement { Displacement = "45.6", ProductTypeId = 23 }, // id198
+                        // DS Product Displacements 22
+                        new ProductDisplacement { Displacement = "50", ProductTypeId = 22 }, // id192
+                        new ProductDisplacement { Displacement = "80", ProductTypeId = 22 }, // id193
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 22 }, // id194
+                        new ProductDisplacement { Displacement = "125", ProductTypeId = 22 }, // id195
+                        new ProductDisplacement { Displacement = "160", ProductTypeId = 22 }, // id196
+                        new ProductDisplacement { Displacement = "200", ProductTypeId = 22 }, // id197
+                        new ProductDisplacement { Displacement = "250", ProductTypeId = 22 }, // id198
+                        new ProductDisplacement { Displacement = "315", ProductTypeId = 22 }, // id199
+                        new ProductDisplacement { Displacement = "375", ProductTypeId = 22 }, // id200
+                        
+                        // DR Product Displacements 23
+                        new ProductDisplacement { Displacement = "12.4", ProductTypeId = 23 }, // id201
+                        new ProductDisplacement { Displacement = "15.9", ProductTypeId = 23 }, // id202
+                        new ProductDisplacement { Displacement = "18.3", ProductTypeId = 23 }, // id203
+                        new ProductDisplacement { Displacement = "21.2", ProductTypeId = 23 }, // id204
+                        new ProductDisplacement { Displacement = "22.8", ProductTypeId = 23 }, // id205
+                        new ProductDisplacement { Displacement = "28.3", ProductTypeId = 23 }, // id206
+                        new ProductDisplacement { Displacement = "32.7", ProductTypeId = 23 }, // id207
+                        new ProductDisplacement { Displacement = "45.6", ProductTypeId = 23 }, // id208
 
-                        // CE Product Displacements
-                        new ProductDisplacement { Displacement = "7.4", ProductTypeId = 24 }, // id199
-                        new ProductDisplacement { Displacement = "9.9", ProductTypeId = 24 }, // id200
-                        new ProductDisplacement { Displacement = "12.4", ProductTypeId = 24 }, // id201
-                        new ProductDisplacement { Displacement = "14.2", ProductTypeId = 24 }, // id202
-                        new ProductDisplacement { Displacement = "15.9", ProductTypeId = 24 }, // id203
-                        new ProductDisplacement { Displacement = "18.3", ProductTypeId = 24 }, // id204
-                        new ProductDisplacement { Displacement = "21.2", ProductTypeId = 24 }, // id205
-                        new ProductDisplacement { Displacement = "22.8", ProductTypeId = 24 }, // id206
-                        new ProductDisplacement { Displacement = "28.3", ProductTypeId = 24 }, // id207
-                        new ProductDisplacement { Displacement = "32.7", ProductTypeId = 24 }, // id208
-                        new ProductDisplacement { Displacement = "45.6", ProductTypeId = 24 }, // id209
+                        // CE Product Displacements 24
+                        new ProductDisplacement { Displacement = "7.4", ProductTypeId = 24 }, // id209
+                        new ProductDisplacement { Displacement = "9.9", ProductTypeId = 24 }, // id210
+                        new ProductDisplacement { Displacement = "12.4", ProductTypeId = 24 }, // id210
+                        new ProductDisplacement { Displacement = "14.2", ProductTypeId = 24 }, // id211
+                        new ProductDisplacement { Displacement = "15.9", ProductTypeId = 24 }, // id212
+                        new ProductDisplacement { Displacement = "18.3", ProductTypeId = 24 }, // id213
+                        new ProductDisplacement { Displacement = "21.2", ProductTypeId = 24 }, // id214
+                        new ProductDisplacement { Displacement = "22.8", ProductTypeId = 24 }, // id215
+                        new ProductDisplacement { Displacement = "28.3", ProductTypeId = 24 }, // id216
+                        new ProductDisplacement { Displacement = "32.7", ProductTypeId = 24 }, // id217
+                        new ProductDisplacement { Displacement = "45.6", ProductTypeId = 24 }, // id218
 
-                        // HB Product Displacements
-                        new ProductDisplacement { Displacement = "3.2", ProductTypeId = 25 }, // id210
-                        new ProductDisplacement { Displacement = "4.6", ProductTypeId = 25 }, // id211
-                        new ProductDisplacement { Displacement = "5.4", ProductTypeId = 25 }, // id212
-                        new ProductDisplacement { Displacement = "6.8", ProductTypeId = 25 }, // id213
-                        new ProductDisplacement { Displacement = "7.7", ProductTypeId = 25 }, // id214
-                        new ProductDisplacement { Displacement = "10", ProductTypeId = 25 }, // id215
-                        new ProductDisplacement { Displacement = "12.5", ProductTypeId = 25 }, // id216
-                        new ProductDisplacement { Displacement = "15.5", ProductTypeId = 25 }, // id217
-                        new ProductDisplacement { Displacement = "17.9", ProductTypeId = 25 }, // id218
-                        new ProductDisplacement { Displacement = "24.9", ProductTypeId = 25 }, // id219
+                        // HB Product Displacements 25
+                        new ProductDisplacement { Displacement = "3.2", ProductTypeId = 25 }, // id219
+                        new ProductDisplacement { Displacement = "4.6", ProductTypeId = 25 }, // id220
+                        new ProductDisplacement { Displacement = "5.4", ProductTypeId = 25 }, // id221
+                        new ProductDisplacement { Displacement = "6.8", ProductTypeId = 25 }, // id223
+                        new ProductDisplacement { Displacement = "7.7", ProductTypeId = 25 }, // id224
+                        new ProductDisplacement { Displacement = "10", ProductTypeId = 25 }, // id225
+                        new ProductDisplacement { Displacement = "12.5", ProductTypeId = 25 }, // id226
+                        new ProductDisplacement { Displacement = "15.5", ProductTypeId = 25 }, // id227
+                        new ProductDisplacement { Displacement = "17.9", ProductTypeId = 25 }, // id228
+                        new ProductDisplacement { Displacement = "24.9", ProductTypeId = 25 }, // id229
 
-                        // HK Product Displacements
-                        new ProductDisplacement { Displacement = "3.2", ProductTypeId = 26 }, // id220
-                        new ProductDisplacement { Displacement = "4.6", ProductTypeId = 26 }, // id221
-                        new ProductDisplacement { Displacement = "5.4", ProductTypeId = 26 }, // id222
-                        new ProductDisplacement { Displacement = "6.8", ProductTypeId = 26 }, // id223
-                        new ProductDisplacement { Displacement = "7.7", ProductTypeId = 26 }, // id224
-                        new ProductDisplacement { Displacement = "10", ProductTypeId = 26 }, // id225
-                        new ProductDisplacement { Displacement = "12.5", ProductTypeId = 26 }, // id226
-                        new ProductDisplacement { Displacement = "15.5", ProductTypeId = 26 }, // id227
-                        new ProductDisplacement { Displacement = "17.9", ProductTypeId = 26 }, // id228
-                        new ProductDisplacement { Displacement = "24.9", ProductTypeId = 26 }, // id229
+                        // HK Product Displacements 26
+                        new ProductDisplacement { Displacement = "3.2", ProductTypeId = 26 }, // id230
+                        new ProductDisplacement { Displacement = "4.6", ProductTypeId = 26 }, // id231
+                        new ProductDisplacement { Displacement = "5.4", ProductTypeId = 26 }, // id232
+                        new ProductDisplacement { Displacement = "6.8", ProductTypeId = 26 }, // id233
+                        new ProductDisplacement { Displacement = "7.7", ProductTypeId = 26 }, // id234
+                        new ProductDisplacement { Displacement = "10", ProductTypeId = 26 }, // id235
+                        new ProductDisplacement { Displacement = "12.5", ProductTypeId = 26 }, // id236
+                        new ProductDisplacement { Displacement = "15.5", ProductTypeId = 26 }, // id237
+                        new ProductDisplacement { Displacement = "17.9", ProductTypeId = 26 }, // id238
+                        new ProductDisplacement { Displacement = "24.9", ProductTypeId = 26 }, // id239
 
-                        // WS Product Displacements
-                        new ProductDisplacement { Displacement = "4.8", ProductTypeId = 27 }, // id230
-                        new ProductDisplacement { Displacement = "6.1", ProductTypeId = 27 }, // id231
-                        new ProductDisplacement { Displacement = "6.8", ProductTypeId = 27 }, // id232
-                        new ProductDisplacement { Displacement = "7.9", ProductTypeId = 27 }, // id233
-                        new ProductDisplacement { Displacement = "9.8", ProductTypeId = 27 }, // id234
-                        new ProductDisplacement { Displacement = "12.3", ProductTypeId = 27 }, // id235
-                        new ProductDisplacement { Displacement = "14", ProductTypeId = 27 }, // id236
-                        new ProductDisplacement { Displacement = "15.1", ProductTypeId = 27 }, // id237
-                        new ProductDisplacement { Displacement = "19.6", ProductTypeId = 27 }, // id238
-                        new ProductDisplacement { Displacement = "24.2", ProductTypeId = 27 }, // id239
-                        new ProductDisplacement { Displacement = "30.2", ProductTypeId = 27 }, // id240
+                        // WS Product Displacements 27
+                        new ProductDisplacement { Displacement = "4.8", ProductTypeId = 27 }, // id240
+                        new ProductDisplacement { Displacement = "6.1", ProductTypeId = 27 }, // id241
+                        new ProductDisplacement { Displacement = "6.8", ProductTypeId = 27 }, // id242
+                        new ProductDisplacement { Displacement = "7.9", ProductTypeId = 27 }, // id243
+                        new ProductDisplacement { Displacement = "9.8", ProductTypeId = 27 }, // id244
+                        new ProductDisplacement { Displacement = "12.3", ProductTypeId = 27 }, // id245
+                        new ProductDisplacement { Displacement = "14", ProductTypeId = 27 }, // id246
+                        new ProductDisplacement { Displacement = "15.1", ProductTypeId = 27 }, // id247
+                        new ProductDisplacement { Displacement = "19.6", ProductTypeId = 27 }, // id248
+                        new ProductDisplacement { Displacement = "24.2", ProductTypeId = 27 }, // id249
+                        new ProductDisplacement { Displacement = "30.2", ProductTypeId = 27 }, // id250
 
-                        // OSPM Product Displacements
-                        new ProductDisplacement { Displacement = "32", ProductTypeId = 28 }, // id241
-                        new ProductDisplacement { Displacement = "40", ProductTypeId = 28 }, // id242
-                        new ProductDisplacement { Displacement = "50", ProductTypeId = 28 }, // id243
-                        new ProductDisplacement { Displacement = "63", ProductTypeId = 28 }, // id244
-                        new ProductDisplacement { Displacement = "70", ProductTypeId = 28 }, // id245
-                        new ProductDisplacement { Displacement = "80", ProductTypeId = 28 }, // id246
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 28 }, // id247
+                        // OSPM Product Displacements 28
+                        new ProductDisplacement { Displacement = "32", ProductTypeId = 28 }, // id251
+                        new ProductDisplacement { Displacement = "40", ProductTypeId = 28 }, // id252
+                        new ProductDisplacement { Displacement = "50", ProductTypeId = 28 }, // id253
+                        new ProductDisplacement { Displacement = "63", ProductTypeId = 28 }, // id254
+                        new ProductDisplacement { Displacement = "70", ProductTypeId = 28 }, // id255
+                        new ProductDisplacement { Displacement = "80", ProductTypeId = 28 }, // id256
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 28 }, // id257
 
-                        // OSPP Product Displacements
-                        new ProductDisplacement { Displacement = "32", ProductTypeId = 29 }, // id248
-                        new ProductDisplacement { Displacement = "40", ProductTypeId = 29 }, // id249
+                        // OSPP Product Displacements 29
+                        new ProductDisplacement { Displacement = "32", ProductTypeId = 29 }, // id258
+                        new ProductDisplacement { Displacement = "40", ProductTypeId = 29 }, // id259
                         new ProductDisplacement { Displacement = "50", ProductTypeId = 29 }, // id250
-                        new ProductDisplacement { Displacement = "63", ProductTypeId = 29 }, // id251
-                        new ProductDisplacement { Displacement = "70", ProductTypeId = 29 }, // id252
-                        new ProductDisplacement { Displacement = "80", ProductTypeId = 29 }, // id253
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 29 }, // id254
+                        new ProductDisplacement { Displacement = "63", ProductTypeId = 29 }, // id261
+                        new ProductDisplacement { Displacement = "70", ProductTypeId = 29 }, // id262
+                        new ProductDisplacement { Displacement = "80", ProductTypeId = 29 }, // id263
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 29 }, // id264
 
-                        // OSPMS Product Displacements
-                        new ProductDisplacement { Displacement = "32", ProductTypeId = 30 }, // id255
-                        new ProductDisplacement { Displacement = "40", ProductTypeId = 30 }, // id256
-                        new ProductDisplacement { Displacement = "50", ProductTypeId = 30 }, // id257
-                        new ProductDisplacement { Displacement = "63", ProductTypeId = 30 }, // id258
-                        new ProductDisplacement { Displacement = "70", ProductTypeId = 30 }, // id259
-                        new ProductDisplacement { Displacement = "80", ProductTypeId = 30 }, // id260
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 30 }, // id261
+                        // OSPMS Product Displacements 30
+                        new ProductDisplacement { Displacement = "32", ProductTypeId = 30 }, // id265
+                        new ProductDisplacement { Displacement = "40", ProductTypeId = 30 }, // id266
+                        new ProductDisplacement { Displacement = "50", ProductTypeId = 30 }, // id267
+                        new ProductDisplacement { Displacement = "63", ProductTypeId = 30 }, // id268
+                        new ProductDisplacement { Displacement = "70", ProductTypeId = 30 }, // id269
+                        new ProductDisplacement { Displacement = "80", ProductTypeId = 30 }, // id270
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 30 }, // id271
 
-                        // S10 Product Displacements
-                        new ProductDisplacement { Displacement = "3.6", ProductTypeId = 31 }, // id262
-                        new ProductDisplacement { Displacement = "4.5", ProductTypeId = 31 }, // id263
-                        new ProductDisplacement { Displacement = "5.9", ProductTypeId = 31 }, // id264
-                        new ProductDisplacement { Displacement = "7.3", ProductTypeId = 31 }, // id265
-                        new ProductDisplacement { Displacement = "8.9", ProductTypeId = 31 }, // id266
-                        new ProductDisplacement { Displacement = "9.7", ProductTypeId = 31 }, // id267
-                        new ProductDisplacement { Displacement = "11.3", ProductTypeId = 31 }, // id268
-                        new ProductDisplacement { Displacement = "14.1", ProductTypeId = 31 }, // id269
-                        new ProductDisplacement { Displacement = "17.9", ProductTypeId = 31 }, // id270
-                        new ProductDisplacement { Displacement = "22.6", ProductTypeId = 31 }, // id271
-                        new ProductDisplacement { Displacement = "28.2", ProductTypeId = 31 }, // id272
-                        new ProductDisplacement { Displacement = "35.9", ProductTypeId = 31 }, // id273
-                        new ProductDisplacement { Displacement = "45.1", ProductTypeId = 31 }, // id274
+                        // S10 Product Displacements 31
+                        new ProductDisplacement { Displacement = "3.6", ProductTypeId = 31 }, // id272
+                        new ProductDisplacement { Displacement = "4.5", ProductTypeId = 31 }, // id273
+                        new ProductDisplacement { Displacement = "5.9", ProductTypeId = 31 }, // id274
+                        new ProductDisplacement { Displacement = "7.3", ProductTypeId = 31 }, // id275
+                        new ProductDisplacement { Displacement = "8.9", ProductTypeId = 31 }, // id276
+                        new ProductDisplacement { Displacement = "9.7", ProductTypeId = 31 }, // id277
+                        new ProductDisplacement { Displacement = "11.3", ProductTypeId = 31 }, // id278
+                        new ProductDisplacement { Displacement = "14.1", ProductTypeId = 31 }, // id279
+                        new ProductDisplacement { Displacement = "17.9", ProductTypeId = 31 }, // id280
+                        new ProductDisplacement { Displacement = "22.6", ProductTypeId = 31 }, // id281
+                        new ProductDisplacement { Displacement = "28.2", ProductTypeId = 31 }, // id282
+                        new ProductDisplacement { Displacement = "35.9", ProductTypeId = 31 }, // id283
+                        new ProductDisplacement { Displacement = "45.1", ProductTypeId = 31 }, // id284
 
-                        // LAGU Product Displacements
-                        new ProductDisplacement { Displacement = "50", ProductTypeId = 33 }, // id275
-                        new ProductDisplacement { Displacement = "60", ProductTypeId = 33 }, // id276
-                        new ProductDisplacement { Displacement = "70", ProductTypeId = 33 }, // id277
-                        new ProductDisplacement { Displacement = "80", ProductTypeId = 33 }, // id278
-                        new ProductDisplacement { Displacement = "90", ProductTypeId = 33 }, // id279
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 33 }, // id280
-                        new ProductDisplacement { Displacement = "125", ProductTypeId = 33 }, // id281
-                        new ProductDisplacement { Displacement = "160", ProductTypeId = 33 }, // id282
+                        // S20 32
+                        // no displacements given
 
-                        // LAGZ Product Displacements
-                        new ProductDisplacement { Displacement = "125", ProductTypeId = 34 }, // id283
-                        new ProductDisplacement { Displacement = "140", ProductTypeId = 34 }, // id284
-                        new ProductDisplacement { Displacement = "160", ProductTypeId = 34 }, // id285
-                        new ProductDisplacement { Displacement = "190", ProductTypeId = 34 }, // id286
-                        new ProductDisplacement { Displacement = "200", ProductTypeId = 34 }, // id287
-                        new ProductDisplacement { Displacement = "220", ProductTypeId = 34 }, // id288
-                        new ProductDisplacement { Displacement = "240", ProductTypeId = 34 }, // id289
-                        new ProductDisplacement { Displacement = "300", ProductTypeId = 34 }, // id290
-                        new ProductDisplacement { Displacement = "420", ProductTypeId = 34 }, // id291
-                        new ProductDisplacement { Displacement = "500", ProductTypeId = 34 }, // id292
-                        new ProductDisplacement { Displacement = "620", ProductTypeId = 34 }, // id293
+                        // LAGU Product Displacements 33
+                        new ProductDisplacement { Displacement = "50", ProductTypeId = 33 }, // id285
+                        new ProductDisplacement { Displacement = "60", ProductTypeId = 33 }, // id286
+                        new ProductDisplacement { Displacement = "70", ProductTypeId = 33 }, // id287
+                        new ProductDisplacement { Displacement = "80", ProductTypeId = 33 }, // id288
+                        new ProductDisplacement { Displacement = "90", ProductTypeId = 33 }, // id289
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 33 }, // id290
+                        new ProductDisplacement { Displacement = "125", ProductTypeId = 33 }, // id291
+                        new ProductDisplacement { Displacement = "160", ProductTypeId = 33 }, // id292
 
-                        // LAGC Product Displacements
-                        new ProductDisplacement { Displacement = "40", ProductTypeId = 35 }, // id294
-                        new ProductDisplacement { Displacement = "50", ProductTypeId = 35 }, // id295
-                        new ProductDisplacement { Displacement = "63", ProductTypeId = 35 }, // id296
-                        new ProductDisplacement { Displacement = "70", ProductTypeId = 35 }, // id297
-                        new ProductDisplacement { Displacement = "80", ProductTypeId = 35 }, // id298
-                        new ProductDisplacement { Displacement = "100", ProductTypeId = 35 }, // id299
-                        new ProductDisplacement { Displacement = "125", ProductTypeId = 35 }, // id300
-                        new ProductDisplacement { Displacement = "140", ProductTypeId = 35 }, // id301
-                        new ProductDisplacement { Displacement = "160", ProductTypeId = 35 }, // id302
-                        new ProductDisplacement { Displacement = "200", ProductTypeId = 35 }, // id303
-                        new ProductDisplacement { Displacement = "250", ProductTypeId = 35 }, // id304
-                        new ProductDisplacement { Displacement = "320", ProductTypeId = 35 }, // id305
-                        new ProductDisplacement { Displacement = "400", ProductTypeId = 35 }, // id306
-                        new ProductDisplacement { Displacement = "500", ProductTypeId = 35 }, // id307
-                        new ProductDisplacement { Displacement = "630", ProductTypeId = 35 }, // id308
-                        new ProductDisplacement { Displacement = "800", ProductTypeId = 35 }  // id309
+                        // LAGZ Product Displacements 34
+                        new ProductDisplacement { Displacement = "125", ProductTypeId = 34 }, // id293
+                        new ProductDisplacement { Displacement = "140", ProductTypeId = 34 }, // id294
+                        new ProductDisplacement { Displacement = "160", ProductTypeId = 34 }, // id295
+                        new ProductDisplacement { Displacement = "190", ProductTypeId = 34 }, // id296
+                        new ProductDisplacement { Displacement = "200", ProductTypeId = 34 }, // id297
+                        new ProductDisplacement { Displacement = "220", ProductTypeId = 34 }, // id298
+                        new ProductDisplacement { Displacement = "240", ProductTypeId = 34 }, // id299
+                        new ProductDisplacement { Displacement = "300", ProductTypeId = 34 }, // id300
+                        new ProductDisplacement { Displacement = "420", ProductTypeId = 34 }, // id301
+                        new ProductDisplacement { Displacement = "500", ProductTypeId = 34 }, // id302
+                        new ProductDisplacement { Displacement = "620", ProductTypeId = 34 }, // id303
+
+                        // LAGC Product Displacements 35
+                        new ProductDisplacement { Displacement = "40", ProductTypeId = 35 }, // id304
+                        new ProductDisplacement { Displacement = "50", ProductTypeId = 35 }, // id305
+                        new ProductDisplacement { Displacement = "63", ProductTypeId = 35 }, // id306
+                        new ProductDisplacement { Displacement = "70", ProductTypeId = 35 }, // id307
+                        new ProductDisplacement { Displacement = "80", ProductTypeId = 35 }, // id308
+                        new ProductDisplacement { Displacement = "100", ProductTypeId = 35 }, // id309
+                        new ProductDisplacement { Displacement = "125", ProductTypeId = 35 }, // id310
+                        new ProductDisplacement { Displacement = "140", ProductTypeId = 35 }, // id311
+                        new ProductDisplacement { Displacement = "160", ProductTypeId = 35 }, // id312
+                        new ProductDisplacement { Displacement = "200", ProductTypeId = 35 }, // id313
+                        new ProductDisplacement { Displacement = "250", ProductTypeId = 35 }, // id314
+                        new ProductDisplacement { Displacement = "320", ProductTypeId = 35 }, // id315
+                        new ProductDisplacement { Displacement = "400", ProductTypeId = 35 }, // id316
+                        new ProductDisplacement { Displacement = "500", ProductTypeId = 35 }, // id317
+                        new ProductDisplacement { Displacement = "630", ProductTypeId = 35 }, // id318
+                        new ProductDisplacement { Displacement = "800", ProductTypeId = 35 }  // id319
                     };
 
                     await _dbContext.ProductDisplacements.AddRangeAsync(productDisplacements);
@@ -659,343 +674,353 @@ namespace TicketManager.Infrastructure.Seeders
                         new Product { ProductFamilyId = 1, ProductTypeId = 3, ProductDisplacementId = 31 },
         
                         // OMPX Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 32 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 33 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 34 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 35 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 36 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 37 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 38 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 39 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 40 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 41 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 42 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 43 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 44 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 32 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 33 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 34 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 35 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 36 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 37 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 38 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 39 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 40 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 41 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 42 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 43 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 4, ProductDisplacementId = 44 },
 
-                        // OMEW Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 45 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 46 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 47 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 48 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 49 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 50 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 51 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 52 },
+                        // OMRX Products
+                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 45 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 46 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 47 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 48 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 49 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 50 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 51 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 52 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 53 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 5, ProductDisplacementId = 54 },
+
+                        // OMEW Prodcuts
+                        new Product { ProductFamilyId = 1, ProductTypeId = 6, ProductDisplacementId = 55 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 6, ProductDisplacementId = 56 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 6, ProductDisplacementId = 57 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 6, ProductDisplacementId = 58 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 6, ProductDisplacementId = 59 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 6, ProductDisplacementId = 60 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 6, ProductDisplacementId = 61 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 6, ProductDisplacementId = 62 },
 
                         // OMRS Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 53 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 54 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 55 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 56 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 57 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 58 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 59 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 60 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 61 },
-
+                        new Product { ProductFamilyId = 1, ProductTypeId = 7, ProductDisplacementId = 63 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 7, ProductDisplacementId = 64 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 7, ProductDisplacementId = 65 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 7, ProductDisplacementId = 66 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 7, ProductDisplacementId = 67 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 7, ProductDisplacementId = 68 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 7, ProductDisplacementId = 69 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 7, ProductDisplacementId = 70 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 7, ProductDisplacementId = 71 },
 
                         // OMH Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 62 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 63 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 64 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 65 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 66 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 72 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 73 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 74 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 75 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 8, ProductDisplacementId = 76 },
 
                         // OMR NA Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 67 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 68 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 69 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 70 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 71 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 72 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 73 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 74 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 75 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 76 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 77 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 78 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 79 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 80 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 81 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 82 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 83 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 84 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 85 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 9, ProductDisplacementId = 86 },
 
                         // OMR F Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 77 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 78 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 79 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 80 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 81 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 82 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 83 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 84 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 85 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 86 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 87 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 88 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 89 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 90 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 91 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 92 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 93 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 94 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 95 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 10, ProductDisplacementId = 96 },
 
                         // OMP F Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 87 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 88 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 89 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 90 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 91 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 92 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 93 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 94 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 95 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 96 },
-
+                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 97 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 98 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 99 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 100 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 101 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 102 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 103 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 104 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 105 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 11, ProductDisplacementId = 106 },
 
                         // OMM Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 97 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 98 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 99 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 100 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 101 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 107 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 108 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 109 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 110 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 12, ProductDisplacementId = 111 },
 
-                        // start here 
                         // OML Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 15, ProductDisplacementId = 102 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 15, ProductDisplacementId = 103 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 15, ProductDisplacementId = 104 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 15, ProductDisplacementId = 105 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 112 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 113 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 114 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 13, ProductDisplacementId = 115 },
 
                         // VIS Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 106 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 107 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 108 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 109 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 110 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 111 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 112 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 113 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 116 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 117 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 118 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 119 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 120 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 121 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 122 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 14, ProductDisplacementId = 123 },
 
                         // HP Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 114 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 115 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 116 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 117 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 118 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 15, ProductDisplacementId = 124 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 15, ProductDisplacementId = 125 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 15, ProductDisplacementId = 126 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 15, ProductDisplacementId = 127 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 15, ProductDisplacementId = 128 },
 
                         // RS Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 119 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 120 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 121 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 122 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 123 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 124 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 125 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 126 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 127 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 128 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 129 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 129 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 130 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 131 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 132 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 133 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 134 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 135 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 136 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 137 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 138 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 16, ProductDisplacementId = 139 },
 
                         // D9 Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 130 }, // id130
-                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 131 }, // id131
-                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 132 }, // id132
-                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 133 }, // id133
-                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 134 }, // id134
-                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 135 }, // id135
-                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 136 }, // id136
-                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 137 }, // id137
-                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 138 }, // id138
+                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 140 }, // id130
+                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 141 }, // id131
+                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 142 }, // id132
+                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 143 }, // id133
+                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 144 }, // id134
+                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 145 }, // id135
+                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 146 }, // id136
+                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 147 }, // id137
+                        new Product { ProductFamilyId = 1, ProductTypeId = 17, ProductDisplacementId = 148 }, // id138
 
                         // RE Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 139 }, // id139
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 140 }, // id140
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 141 }, // id141
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 142 }, // id142
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 143 }, // id143
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 144 }, // id144
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 145 }, // id145
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 146 }, // id146
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 147 }, // id147
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 148 }, // id148
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 149 }, // id149
-                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 150 }, // id150
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 149 }, // id139
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 150 }, // id140
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 151 }, // id141
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 152 }, // id142
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 153 }, // id143
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 154 }, // id144
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 155 }, // id145
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 156 }, // id146
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 157 }, // id147
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 158 }, // id148
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 159 }, // id149
+                        new Product { ProductFamilyId = 1, ProductTypeId = 18, ProductDisplacementId = 160 }, // id150
 
                         // RC Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 151 }, // id151
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 152 }, // id152
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 153 }, // id153
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 154 }, // id154
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 155 }, // id155
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 156 }, // id156
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 157 }, // id157
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 158 }, // id158
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 159 }, // id159
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 160 }, // id160
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 161 }, // id161
-                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 162 }, // id162
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 161 }, // id151
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 162 }, // id152
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 163 }, // id153
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 164 }, // id154
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 165 }, // id155
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 166 }, // id156
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 167 }, // id157
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 168 }, // id158
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 169 }, // id159
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 170 }, // id160
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 171 }, // id161
+                        new Product { ProductFamilyId = 1, ProductTypeId = 19, ProductDisplacementId = 172 }, // id162
 
                         // DH Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 163 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 164 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 165 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 166 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 167 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 168 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 169 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 170 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 171 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 172 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 173 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 174 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 175 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 176 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 177 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 178 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 179 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 180 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 181 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 20, ProductDisplacementId = 182 },
 
                         // DT Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 173 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 174 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 175 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 176 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 177 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 178 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 179 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 180 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 181 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 183 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 184 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 185 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 186 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 187 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 188 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 189 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 190 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 21, ProductDisplacementId = 191 },
 
                         // DS Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 182 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 183 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 184 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 185 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 186 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 187 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 188 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 189 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 190 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 192 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 193 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 194 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 195 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 196 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 197 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 198 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 199 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 22, ProductDisplacementId = 200 },
 
                         // DR Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 191 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 192 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 193 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 194 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 195 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 196 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 197 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 198 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 201 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 202 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 203 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 204 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 205 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 206 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 207 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 23, ProductDisplacementId = 208 },
 
                         // CE Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 199 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 200 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 201 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 202 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 203 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 204 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 205 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 206 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 207 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 208 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 209 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 209 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 210 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 211 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 212 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 213 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 214 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 215 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 216 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 217 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 24, ProductDisplacementId = 218 },
 
                         // HB Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 210 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 211 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 212 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 213 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 214 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 215 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 216 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 217 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 218 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 219 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 219 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 221 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 222 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 223 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 224 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 225 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 226 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 227 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 228 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 25, ProductDisplacementId = 229 },
 
                         // HK Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 28, ProductDisplacementId = 220 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 28, ProductDisplacementId = 221 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 28, ProductDisplacementId = 222 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 28, ProductDisplacementId = 223 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 28, ProductDisplacementId = 224 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 28, ProductDisplacementId = 225 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 28, ProductDisplacementId = 226 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 28, ProductDisplacementId = 227 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 28, ProductDisplacementId = 228 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 28, ProductDisplacementId = 229 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 230 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 231 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 232 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 233 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 234 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 235 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 236 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 237 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 238 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 26, ProductDisplacementId = 239 },
 
                         // WS Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 29, ProductDisplacementId = 230 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 29, ProductDisplacementId = 231 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 29, ProductDisplacementId = 232 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 29, ProductDisplacementId = 233 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 29, ProductDisplacementId = 234 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 29, ProductDisplacementId = 235 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 29, ProductDisplacementId = 236 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 29, ProductDisplacementId = 237 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 29, ProductDisplacementId = 238 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 29, ProductDisplacementId = 239 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 29, ProductDisplacementId = 240 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 240 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 241 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 242 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 243 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 244 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 245 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 246 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 247 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 248 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 249 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 27, ProductDisplacementId = 250 },
 
                         // OSPM Products
-                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 241 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 242 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 243 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 244 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 245 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 246 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 247 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 28, ProductDisplacementId = 251 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 28, ProductDisplacementId = 252 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 28, ProductDisplacementId = 253 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 28, ProductDisplacementId = 254 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 28, ProductDisplacementId = 255 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 28, ProductDisplacementId = 256 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 28, ProductDisplacementId = 257 },
 
                         // OSPP Products
-                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 248 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 249 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 250 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 251 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 252 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 253 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 254 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 29, ProductDisplacementId = 258 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 29, ProductDisplacementId = 259 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 29, ProductDisplacementId = 260 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 29, ProductDisplacementId = 261 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 29, ProductDisplacementId = 262 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 29, ProductDisplacementId = 263 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 29, ProductDisplacementId = 264 },
+
+                        // OSPMS Products
+                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 265 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 266 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 267 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 268 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 269 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 270 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 30, ProductDisplacementId = 271 },
 
                         // S10 Products
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 255 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 256 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 257 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 258 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 259 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 260 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 261 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 262 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 263 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 264 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 265 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 266 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 267 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 268 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 269 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 270 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 271 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 272 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 273 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 274 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 272 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 273 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 274 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 275 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 276 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 277 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 278 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 279 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 280 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 281 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 282 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 283 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 31, ProductDisplacementId = 284 },
 
                         // LAGU Products
-                        new Product { ProductFamilyId = 2, ProductTypeId = 35, ProductDisplacementId = 275 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 35, ProductDisplacementId = 276 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 35, ProductDisplacementId = 277 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 35, ProductDisplacementId = 278 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 35, ProductDisplacementId = 279 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 35, ProductDisplacementId = 280 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 35, ProductDisplacementId = 281 },
-                        new Product { ProductFamilyId = 2, ProductTypeId = 35, ProductDisplacementId = 282 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 285 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 286 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 287 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 288 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 289 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 290 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 291 },
+                        new Product { ProductFamilyId = 2, ProductTypeId = 33, ProductDisplacementId = 292 },
 
                         // LAGZ Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 283 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 284 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 285 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 286 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 287 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 288 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 289 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 290 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 291 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 292 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 293 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 34, ProductDisplacementId = 293 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 34, ProductDisplacementId = 294 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 34, ProductDisplacementId = 295 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 34, ProductDisplacementId = 296 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 34, ProductDisplacementId = 297 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 34, ProductDisplacementId = 298 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 34, ProductDisplacementId = 299 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 34, ProductDisplacementId = 300 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 34, ProductDisplacementId = 301 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 34, ProductDisplacementId = 302 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 34, ProductDisplacementId = 303 },
 
                         // LAGC Products
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 294 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 295 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 296 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 297 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 298 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 299 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 300 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 301 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 302 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 303 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 304 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 305 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 306 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 307 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 308 },
-                        new Product { ProductFamilyId = 1, ProductTypeId = 37, ProductDisplacementId = 309 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 304 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 305 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 306 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 307 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 308 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 309 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 310 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 311 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 312 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 313 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 314 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 315 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 316 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 317 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 318 },
+                        new Product { ProductFamilyId = 1, ProductTypeId = 35, ProductDisplacementId = 319 },
                     };
 
                     await _dbContext.Products.AddRangeAsync(products);

@@ -38,6 +38,7 @@ namespace TicketManager.Models.Models
         public TicketStatus? TicketStatus { get; set; }
 
         public int? CustomFileId { get; set; } // Nullable field
+        [ForeignKey("CustomFileId")]
         public CustomFile CustomFile { get; set; }
 
         // Constructor

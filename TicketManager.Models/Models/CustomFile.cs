@@ -2,7 +2,7 @@
 {
     public class CustomFile
     {
-        public int Id { get; set; }
+        public int CustomFileId { get; set; }
         public string? FileName { get; set; }
         public byte[]? FileContent { get; set; }
         public string? ContentType { get; set; }

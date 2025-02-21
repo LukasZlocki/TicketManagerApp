@@ -183,6 +183,7 @@ namespace TicketManagerApp.Services
                     .Include(t => t.Product.ProductDisplacement)
                     .Include(t => t.Product.ProductType)
                 .Include(t => t.TicketStatus)
+                .Include(t => t.CustomFile)
                 .FirstOrDefaultAsync(id => id.TicketId == ticketId);
             return ticket ?? new Ticket();
         }

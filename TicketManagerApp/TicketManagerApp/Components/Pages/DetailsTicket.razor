@@ -1,9 +1,13 @@
 ﻿@page "/detailsticket/{id:int}"
 
+@rendermode InteractiveServer
+
+
 @using TicketManager.Models.Models
 @using TicketManagerApp.Services
 
 @inject ITicketService _ticketService;
+@inject IJSRuntime JS
 
 <h3>Ticket Details</h3>
 <br>
@@ -19,12 +23,12 @@
             <th>Product</th>
         </tr>
         <tbody>
-        <td>@DetailedTicket.IdentificationCode</td>
-        <td>@DetailedTicket.RequestorEmail</td>
-        <td>@DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductType.ProductTypeDesc @DetailedTicket.Product.ProductDisplacement.Displacement</td>
-        <td>@DetailedTicket.TicketStatus.StatusDescription</td>
-        <td>@DetailedTicket.ResponsibleEmail</td>
-        <td>@DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductType.ProductTypeDesc @DetailedTicket.Product.ProductDisplacement.Displacement</td>
+            <td>@DetailedTicket.IdentificationCode</td>
+            <td>@DetailedTicket.RequestorEmail</td>
+            <td>@DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductType.ProductTypeDesc @DetailedTicket.Product.ProductDisplacement.Displacement</td>
+            <td>@DetailedTicket.TicketStatus.StatusDescription</td>
+            <td>@DetailedTicket.ResponsibleEmail</td>
+            <td>@DetailedTicket.Product.ProductFamily.FamilyDescription @DetailedTicket.Product.ProductType.ProductTypeDesc @DetailedTicket.Product.ProductDisplacement.Displacement</td>
         </tbody>
     </table>
 </div>
@@ -102,7 +106,8 @@
     private void DownloadFile()
     {
         var file = DetailedTicket.CustomFile;
-        SaveFileToDisk(file, "C:/testingwrestling");
+        //SaveFileToDisk(file, "C:/testingwrestling");
+        DownloadFile2();
     }
 
     public void SaveFileToDisk(CustomFile customFile, string directoryPath)
@@ -122,6 +127,15 @@
 
         // Write the file to disk
         File.WriteAllBytes(filePath, customFile.FileContent);
+    }
+
+    private async Task DownloadFile2()
+    {
+        var file = DetailedTicket.CustomFile;
+        if (file != null)
+        {
+            await JS.InvokeVoidAsync("downloadFileFromBytes", file.FileName, Convert.ToBase64String(file.FileContent));
+        }
     }
 
 }

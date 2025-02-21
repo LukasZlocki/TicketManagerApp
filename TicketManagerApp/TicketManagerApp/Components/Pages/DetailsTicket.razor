@@ -30,6 +30,10 @@
 </div>
 
 <br>
+<h5>Custom test information</h5>
+<button class="btn-secondary btn-sm" @onclick="DownloadFile">Download</button>
+
+<br>
 <h5>Test information</h5>
 <div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
     <table class="table table-striped boarder table-hover">
@@ -93,6 +97,31 @@
     protected override async Task OnInitializedAsync()
     {
         DetailedTicket = await _ticketService.GetTicketDetails(Id) ?? new Ticket();
+    }
+
+    private void DownloadFile()
+    {
+        var file = DetailedTicket.CustomFile;
+        SaveFileToDisk(file, "C:/testingwrestling");
+    }
+
+    public void SaveFileToDisk(CustomFile customFile, string directoryPath)
+    {
+        if (customFile.FileContent == null || string.IsNullOrEmpty(customFile.FileName))
+        {
+            throw new ArgumentException("File content or file name is missing.");
+        }
+
+        string filePath = Path.Combine(directoryPath, customFile.FileName);
+
+        // Ensure the directory exists
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+
+        // Write the file to disk
+        File.WriteAllBytes(filePath, customFile.FileContent);
     }
 
 }

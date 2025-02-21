@@ -35,7 +35,15 @@
 
 <br>
 <h5>Custom test information</h5>
-<button class="btn-secondary btn-sm" @onclick="DownloadFile">Download</button>
+@if (DetailedTicket.CustomFile != null)
+{
+    <button class="btn-secondary btn-sm" @onclick="DownloadFile">Download</button>
+}
+else
+{
+    <p><em>No custom test description.</em></p>
+}
+<br>
 
 <br>
 <h5>Test information</h5>
